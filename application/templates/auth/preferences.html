@@ -1,0 +1,36 @@
+{# application/templates/auth/preferences.html #}
+
+{% from 'macros.html' import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %}Preferences{% endblock %}
+
+{% block content %}
+
+    <h2>Update Profile</h2>
+
+    <img class="profile-image" src="{{ image_file }}">
+
+    <p class="">Theme: <a class="toggle-theme">dark</a></p>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+
+      {{ form.csrf_token }}
+
+      {{ displayField(form.username, 'Username') }}
+      {{ displayField(form.email, 'Enter email') }}
+      {{ displayField(form.location, 'Location') }}
+      <input class="input__field" type="text" value="" placeholder="Website URL">
+      <input class="input__field" type="text" value="" placeholder="Profile summary">
+
+      <p>Upload a profile picture.</p>
+      <div class="upload">
+        <button class="upload__button">browse</button>
+        {{ form.profile_picture(class_='upload__input') }}
+      </div>
+      <input class="btn btn--solid" type="submit" value="SUBMIT">
+
+    </form>
+
+{% endblock %}

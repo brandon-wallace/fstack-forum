@@ -1,0 +1,27 @@
+{# application/templates/admin/profile.html #}
+
+{% extends "layout.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+
+  <div class="profile">
+
+    <img class="profile-image" src="{{ image_file }}">
+
+    <h2>{{ current_user.username }}</h2>
+
+    <ul class="profile-menu">
+      <li><a class="profile__link" href="#"><i class="far fa-file-alt"></i> summary</a></li>
+      <li><a class="profile__link" href="#"><i class="fas fa-angle-double-right"></i> activity</a></li>
+      <li><a class="profile__link" href="#"><i class="far fa-comment"></i> notifications</a></li>
+      <li><a class="profile__link" href="#"><i class="far fa-envelope"></i> messages</a></li>
+      <li><a class="profile__link" href="#"><i class="fas fa-user-friends"></i> invites</a></li>
+      <li><a class="profile__link" href="#"><i class="fas fa-certificate"></i> badges</a></li>
+      <li><a class="profile__link" href="{{ url_for('auth.preferences') }}"><i class="fas fa-cog"></i> preferences</a></li>
+    </ul>
+
+  </div>
+
+{% endblock %}

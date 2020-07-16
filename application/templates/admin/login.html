@@ -1,0 +1,25 @@
+{# application/templates/admin/login.html #}
+
+{% from 'macros.html' import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% block content %}
+
+    <h2>Admin Login</h2>
+
+    <form action="" method="POST">
+
+      {{ form.hidden_tag() }}
+
+      {{ displayField(form.email, 'Enter email') }}
+      {{ displayField(form.password, 'Enter password') }}
+      <input class="btn btn--solid" type="submit" value="SUBMIT">
+
+      {{ form.csrf_token }}
+
+    </form>
+
+{% endblock %}

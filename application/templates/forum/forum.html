@@ -1,0 +1,60 @@
+{# application/templates/forum/forum.html #}
+
+{% extends "layout.html" %}
+
+{% block title %}Forum{% endblock %}
+
+{% block content %}
+
+    <ul class="forum-menu">
+      <!--
+      <li class="forum-menu__item"><a class="forum__link" href="#">All Categories</a></li>
+      <li class="forum-menu__item"><a class="forum__link" href="#">Latest</a></li>
+      <li class="forum-menu__item"><a class="forum__link" href="#">Top</a></li>
+      <li class="forum-menu__item"><a class="forum__link" href="#">Users</a></li>
+	  -->
+      <li class="forum-menu__item"><a class="forum__link reverse" href="{{ url_for('forum.create_post') }}">NEW POST</a></li>
+    </ul>
+
+    <div class="posts">
+
+      <section class="row">
+
+        {% for post in posts.items %}
+
+          <div class="tile tile--wide">
+            <div class="tile__content">
+              <div class="tile__header">
+                <h2 class="tile__title"><a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d") }}</p>
+              </div>
+
+		      <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
+              <div class="tile__text">
+                <p>{{ post.content }}</p>
+              </div>
+
+              <div class="tile__footer">
+                <div class="tile__author">
+                  <p class="tile__title">{{ post.author.username }}</p>
+                </div>
+
+                <div class="tile__buttons">
+                  <!--
+                  <button class="tile__btn tile--grey">Like</button>
+                  <button class="tile__btn tile--reverse">Reply</button>
+                  -->
+                </div>
+              </div>
+
+              </div>
+            </div>
+          </div>
+
+        {% endfor %}
+
+      </section><!-- END section -->
+
+    </div>
+
+{% endblock %}

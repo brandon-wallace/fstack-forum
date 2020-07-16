@@ -1,0 +1,39 @@
+{# application/templates/forum/create_post.html #}
+
+{% from 'macros.html' import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block content %}
+
+    <h1>{{ page_title }} Post</h1>
+
+    <form action="" method="POST">
+
+      {{ form.hidden_tag() }}
+
+      {{ displayField(form.title, 'Enter post title') }}
+        <select id="category" name="category">
+          <option value="general">General</option>
+          <option value="feedback">Feedback</option>
+          <option value="html-css">HTML/CSS</option>
+          <option value="javascript">JavaScript</option>
+          <option value="python">Python</option>
+          <option value="nodejs">Nodejs</option>
+          <option value="support">Support</option>
+          <option value="help">Help</option>
+        </select>
+      {{ displayField(form.content, 'Type content here') }}
+
+      <input class="btn btn--solid" type="submit" value="CREATE">
+      <a class="btn btn--cancel" href="{{ url_for('forum.forum_route') }}">CANCEL</a>
+
+      {{ form.csrf_token }}
+
+    </form>
+
+
+
+{% endblock %}

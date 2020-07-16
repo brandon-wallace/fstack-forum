@@ -1,0 +1,25 @@
+{# application/templates/auth/login.html #}
+
+{% from 'macros.html' import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <h2 class="form__header">Login</h2>
+
+    <form action="" method="POST">
+
+      {{ form.csrf_token }}
+
+      {{ displayField(form.email, 'Enter email') }}
+      {{ displayField(form.password, 'Enter password') }}
+      <input class="btn btn--solid" type="submit" value="SUBMIT">
+
+    </form>
+
+    <p class="form__link"><a class="reset__link" href="{{ url_for('auth.request_reset_password') }}">forgot password?</a></p>
+
+{% endblock %}

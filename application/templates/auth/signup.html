@@ -1,0 +1,28 @@
+{# application/templates/auth/signup.html #}
+
+{% from 'macros.html' import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+
+    <h2 class="form__header">Sign Up</h2>
+
+    <form action="" method="POST">
+
+      {{ displayField(form.username, 'Username*') }}
+      {{ displayField(form.email, 'Enter email*') }}
+      {{ displayField(form.password, 'Enter password*') }}
+      {{ displayField(form.confirm_password, 'Re-enter password*') }}
+      {{ displayField(form.location, 'Location')}}
+      {{ form.submit(class='btn btn--solid') }}
+
+      {{ form.csrf_token }}
+
+    </form>
+
+    <p class="form__link">Already have an account? <a class="login__link" href="{{ url_for('auth.login') }}">login</a></p>
+
+{% endblock %}

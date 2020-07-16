@@ -1,0 +1,21 @@
+{# application/templates/forum/feedback.html #}
+
+{% extends "layout.html" %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+
+    <section class="row latest">
+
+      {% for post in posts %}
+        <div class="tile tile--wide">
+          <h2 class="tile__header">category: <a href="#">{{ post.category }}</a></h2>
+          <h4 class="tile__title">Title: {{ post.title }}</h4>
+          <p class="tile__date">posted: {{ post.date_posted.strftime("%Y-%m-%d") }}</p>
+        </div>
+      {% endfor %}
+
+    </section>
+
+{% endblock %}

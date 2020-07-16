@@ -1,0 +1,140 @@
+{# application/templates/forum/post.html #}
+
+{% from 'macros.html' import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %}Post{% endblock %}
+
+{% block content %}
+
+  <section class="row latest">
+
+    {% if current_user.is_authenticated %}
+      
+      <!-- posts -->
+      <div class="tile tile--wide">
+        <div class="tile__content">
+          <div class="tile__header">
+            <h2 class="tile__title"><a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <p class="tile__date">posted: {{ post.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+          </div>
+		    <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
+            <div class="tile__text">
+              <p>{{ post.content }}</p>
+            </div>
+
+            <div class="tile__footer">
+              <div class="tile__author">
+                <p class="tile__title">{{ post.author.username }}</p>
+              </div>
+
+              <div class="tile__buttons">
+                <button class="tile__btn tile--reverse">Reply</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- END posts -->
+
+      <!-- comments -->
+      {% if comments %}
+        {% for comment in comments %}
+          <div class="comment comment--wide">
+            <div class="comment__content">
+            <div class="comment__header">
+              <div class="comment__title"><h1>{{ comment.title }}</h1></div>
+              <p class="tile__date">{{ comment.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+            </div>
+
+            <div class="comment__text">
+              <p>{{ comment.content }}</p>
+            </div>
+
+            <div class="comment__footer">
+              <div class="comment__author">
+                <p class="comment__title">{{ comment.author.username }}</p>
+              </div>
+              <div class="comment__buttons">
+                <button class="comment__btn comment--reverse">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <form class="comment-form" action="" method="POST">
+
+        {{ form.csrf_token }}
+
+        {{ displayField(form.content, 'Type content here') }}
+        <input class="btn btn--solid" type="submit" value="SUBMIT">
+        <a class="btn btn--link" href="{{ url_for('forum.forum_route') }}">CANCEL</a>
+
+      </form><!-- END comments -->
+
+    {% else %}
+
+      <p class="current-user">{{ current_user.username }}</p>
+
+      <div class="tile tile--wide">
+        <div class="tile__content">
+
+          <div class="tile__header">
+            <h2 class="tile__title"><a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+          </div>
+
+		  <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
+          <div class="tile__text">
+            <p>{{ post.content }}</p>
+          </div>
+
+          <div class="tile__footer">
+            <div class="tile__author">
+              <p class="tile__title">{{ post.author.username }}</p>
+            </div>
+
+            <div class="tile__buttons">
+              <button class="tile__btn tile--reverse">Reply</button>
+            </div>
+          </div>
+
+          </div>
+        </div>
+      </div><!-- END posts -->
+
+      <!-- comments -->
+      {% if comments %}
+        {% for comment in comments %}
+          <div class="comment comment--wide">
+            <div class="comment__content">
+              <div class="comment__header">
+                <div class="comment__title"><h1>{{ comment.title }}</h1></div>
+                <p class="tile__date">{{ comment.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+              </div>
+
+              <div class="comment__text">
+                <p>{{ comment.content }}</p>
+              </div>
+
+              <div class="comment__footer">
+                <div class="comment__author">
+                  <p class="comment__title">{{ comment.author.username }}</p>
+                </div>
+                <div class="comment__buttons">
+                  <button class="comment__btn comment--reverse">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}<!-- END comments -->
+
+    {% endif %}
+
+  </section>
+
+{% endblock %}

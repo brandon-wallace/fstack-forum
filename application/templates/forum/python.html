@@ -1,0 +1,23 @@
+{# application/templates/forum/python.html #}
+
+{% extends "layout.html" %}
+
+{% block title %}Python{% endblock %}
+
+{% block content %}
+
+  <h2>Python</h2>
+
+  <section class="row latest">
+
+    {% for post in posts %}
+      <div class="tile tile--wide">
+        <h2 class="tile__header">category: <a href="#">{{ post.category }}</a></h2>
+        <h4 class="tile__title">Title: {{ post.title_ }}</h4>
+        <p class="tile__date">posted: {{ post.date_posted.strftime("%Y-%m-%d") }}</p>
+      </div>
+    {% endfor %}
+
+  </section>
+
+{% endblock %}

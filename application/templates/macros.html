@@ -1,0 +1,19 @@
+{# application/templates/macros.html #}
+
+
+{% macro displayField(fieldName, placeholderValue) %}
+
+    {{ fieldName(class_='input__field', placeholder=placeholderValue, **kwargs) }}
+
+    {% for error in fieldName.errors %}
+        <span>{{ error }}</span>
+    {% endfor %}
+
+{% endmacro %}
+
+
+{% macro displayCommentField(fieldName, placeholderValue) %}
+
+    {{ fieldName(class_='input_field', placeholder=placeholderValue, **kwargs) }}
+
+{% endmacro %}

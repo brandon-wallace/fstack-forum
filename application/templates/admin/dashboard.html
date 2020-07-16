@@ -1,0 +1,64 @@
+{# application/templates/admin/dashboard.html #}
+
+{% from 'macros.html' import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+    <h2>Dashboard</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <div></div>
+          </th>
+          <th>
+            Username
+          </th>
+          <th>
+            Email
+          </th>
+          <th>
+            Created On
+          </th>
+          <th>
+            Post Count
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if users %}
+          {% for user in users %}
+            <tr>
+              <td>
+                <input id="selectone" name="selectone" type="checkbox">
+              </td>
+              <td>
+                  {{ user.username }}
+              </td>
+              <td>
+                  {{ user.email }}
+              </td>
+              <td>
+                  {{ user.account_created_on }}
+              </td>
+              <td>
+                  {{ user.post_count }}
+              </td>
+              <td>
+                <button type="submit">Edit</button>
+              </td>
+              <td>
+                <button type="submit">Delete</button>
+              </td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="forum for fullstack developers">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}{% endblock %} - FStack Forum</title>
+
+  </head>
+
+  <body class="">
+  
+    <noscript>
+      <p style="color:#FC0000;text-align:center">Please enable Javascript</p>
+    </noscript>
+
+    <article>
+
+      <header>
+  
+        <nav>
+          <ul class="menu">
+  
+            <li><a class="menu__link" href="{{ url_for('forum.index') }}">home</a></li>
+            <li><a class="menu__link" href="{{ url_for('forum.about') }}">about</a></li>
+            {% if current_user.is_authenticated %}
+              <li><a class="menu__link" href="{{ url_for('forum.forum_route') }}">forum</a></li>
+              <li><a class="menu__link" href="{{ url_for('auth.profile') }}">profile</a></li>
+              <li class="menu--left"><a class="menu__link" href="{{ url_for('auth.logout') }}">logout</a></li>
+              <li><img class="profile-image image-small" src="{{ image_file }}"></li>
+            {% else %}
+              <li class="menu--left"><a class="menu__link" href="{{ url_for('auth.sign_up') }}">sign up</a></li>
+              <li><a class="menu__link btn--outline" href="{{ url_for('auth.login') }}">login</a></li>
+            {% endif %}
+  
+          </ul>
+        </nav>
+  
+        <h1 class="page__header">FStack Forum</h1>
+  
+      </header>
+  
+      <main>
+  
+        {% with messages = get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <p class="message message--{{ category }}">
+                {{ message }}
+              </p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+  
+        {% block content %}
+  
+        {% endblock %}
+  
+      </main>
+  
+      <footer>
+  
+        <nav class="footer__nav">
+          <div class="footer__content">
+  
+            {% if posts %}
+              {% for page_num in posts.iter_pages() %}
+                {% if page_num %}
+                  <a class="footer__link" href="{{ url_for('forum.index', page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                  <p class="footer__link">...</p>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+  
+          </div>
+        </nav>
+  
+      </footer>
+
+    </article>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  </body>
+
+</html>

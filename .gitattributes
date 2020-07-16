@@ -1,0 +1,2 @@
+application/templates/*.html linguist-vendored
+application/static/css/*.css linguist-vendored

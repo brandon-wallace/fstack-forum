@@ -1,0 +1,33 @@
+{# application/templates/admin/preferences.html #}
+
+{% from 'macros.html' import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %}Preferences{% endblock %}
+
+{% block content %}
+
+    <h2>Update Profile</h2>
+
+    <img class="profile-image" src="{{ image_file }}">
+
+    <form action="" method="POST" enctype="multipart/form-data">
+
+      {{ form.hidden_tag() }}
+
+      {{ displayField(form.username, 'Username') }}
+      {{ displayField(form.email, 'Enter email') }}
+      <input class="input__field" type="text" value="" placeholder="Location">
+      <input class="input__field" type="text" value="" placeholder="Website URL http://">
+      <input class="input__field" type="text" value="" placeholder="Email">
+      <input class="input__field" type="text" value="" placeholder="Profile summary">
+      <p>Upload profile picture.</p>
+      {{ form.profile_picture }}
+      <input class="btn btn--solid" type="submit" value="SUBMIT">
+
+      {{ form.csrf_token }}
+
+    </form>
+
+{% endblock %}

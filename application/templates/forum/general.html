@@ -1,0 +1,24 @@
+{# application/templates/forum/general.html #}
+
+{% extends "layout.html" %}
+
+{% block title %}General{% endblock %}
+
+{% block content %}
+
+  <h1>{{ posts.category }}</h1>
+
+  <section class="row">
+
+    {% for post in posts %}
+      <div class="tile tile--wide">
+        <h2 class="tile__title">Title: <a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+        <h4 class="tile__header">category: <a href="#">{{ post.category }}</a></h4>
+        <p class="tile__date">posted: {{ post.date_posted.strftime("%Y-%m-%d") }}</p>
+        <p class="tile__title">author: {{ post.author.username }}</p>
+      </div>
+    {% endfor %}
+
+  </section>
+
+{% endblock %}
