@@ -302,6 +302,7 @@ form {
 .login__link {
     color: #0d3d95;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .reset__link {
