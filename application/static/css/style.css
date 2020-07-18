@@ -211,6 +211,23 @@ form {
     max-width: 350px;
 }
 
+.form__agreement {
+    margin-top: 0;
+    font-size: .8rem;
+}
+
+.agreement {
+    margin: 0 auto;
+    padding: .25rem;
+    max-width: 800px;
+    text-align: justify;
+    box-sizing: border-box;
+}
+
+.agreement__header {
+    text-align: center;
+}
+
 .input__field {
     width: 100%;
     font-size: 1rem;

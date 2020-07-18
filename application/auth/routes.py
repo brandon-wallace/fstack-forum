@@ -243,6 +243,20 @@ def reset_token(token):
     return render_template('auth/reset_password_token.html', form=form)
 
 
+@auth.route('/privacy_policy')
+def privacy_policy():
+    '''Terms Of Service'''
+
+    return render_template('auth/privacy_policy.html')
+
+
+@auth.route('/terms_of_service')
+def terms_of_service():
+    '''Terms Of Service'''
+
+    return render_template('auth/terms_of_service.html')
+
+
 @auth.route('/bulk')
 def bulk_email():
     '''Send email in bulk'''
