@@ -10,23 +10,22 @@
 
     <h2 class="form__header">Sign Up</h2>
 
-    <form action="" method="POST">
+    <form action="{{ url_for('auth.sign_up') }}" method="POST">
 
-      {{ displayField(form.username, 'Username*') }}
+      {{ form.csrf_token }}
+
+      {{ displayField(form.username, 'Username*', autofocus=true) }}
       {{ displayField(form.email, 'Enter email*') }}
       {{ displayField(form.password, 'Enter password*') }}
       {{ displayField(form.confirm_password, 'Re-enter password*') }}
       {{ displayField(form.location, 'Location')}}
+      {{ form.submit(class='btn btn--solid') }}
       <p class="form__agreement">By clicking Sign Up, I agree to FstackForum's 
-      <a class="login__link" href="{{ url_for('auth.terms_of_service') }}">terms of service</a>,
+      <a class="login__link" href="{{ url_for('auth.terms_of_service') }}">terms of service</a> and 
       <a class="login__link" href="{{ url_for('auth.privacy_policy') }}">privacy policy</a>
       </p>
-      {{ form.submit(class='btn btn--solid') }}
-
-      {{ form.csrf_token }}
+      <p class="form__link">Already have an account? <a class="login__link" href="{{ url_for('auth.login') }}">login</a></p>
 
     </form>
-
-    <p class="form__link">Already have an account? <a class="login__link" href="{{ url_for('auth.login') }}">login</a></p>
 
 {% endblock %}

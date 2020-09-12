@@ -3,14 +3,15 @@
 # import os
 # from PIL import Image
 # from datetime import datetime
-from flask import Blueprint
+from flask import (Blueprint, render_template, url_for,
+                   flash, redirect, request, abort)
 from sqlalchemy.exc import IntegrityError
-from flask import render_template, url_for, flash, redirect, request, abort
 from application import db, bcrypt
 from application.forms import (SignUpForm, LoginForm, UpdateAccountForm,
                                CreatePostForm, CommentForm)
 from application.models import User, Post, Comment
 from flask_login import login_user, logout_user, login_required, current_user
+
 forum = Blueprint('forum', __name__)
 
 

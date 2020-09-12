@@ -1,6 +1,5 @@
 # application/auth/routes.py
 
-import logging
 import os
 import secrets
 from PIL import Image
@@ -30,16 +29,12 @@ def create_confirmation_token(email):
 def confirm_token(token, expiration=3600):
     '''Confirm email address with token'''
 
-    print('!!!!!!!!!!!!!!!!!!!!!!!')
     serializer = TJWSS(create_app.config['SECRET_KEY']),
-    print('A: create serializer.')
     try:
         email = serializer.loads(token,
                                  salt=(create_app.config['SECRET_KEY']),
                                  max_age=expiration)
-        print('B: Load SALT.')
     except Exception:
-        print('C: Error occurred')
         return False
     return email
 
@@ -49,26 +44,22 @@ def confirm_email(token):
     '''Confirm user's email'''
 
     email = confirm_token(token)
-    print('1 Run confirm_token')
     if not email:
         flash('The confirmation link is expired or invalid.', 'danger')
-        print('2 Timed out link expired')
     user = User.query.filter_by(email=email).first_or_404()
     if user.email_confirmed:
         flash('Account has been confirmed. Please login.', 'success')
-        print('3 Account already confirmed')
-    print('4 Attempt to verify email')
+        return redirect(url_for('auth.login'))
     user.email_confirmed = True
     user.email_confirmed_on = datetime.now()
-    db.session.add(user)
+    # db.session.add(user)
     db.session.commit()
     flash('Your account is confirmed!', 'success')
-    print('5 Email verified!')
     return redirect(url_for('auth.login'))
 
 
 def generate_url(endpoint, token):
-    '''Generate URL'''
+    '''Generate confirmation URL'''
 
     return url_for(endpoint, token=token, _external=True)
 
@@ -77,12 +68,24 @@ def generate_url(endpoint, token):
 def sign_up():
     '''Sign up new users'''
 
-    logging.debug('Sign up new user!')
     if current_user.is_authenticated:
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('forum.index'))
 
     form = SignUpForm()
     if form.validate_on_submit():
+        msg = Message('Verify Your Email Address',
+                      sender='no-reply@fstackforum.com',
+                      recipients=[request.form['email']])
+        link = generate_url('auth.confirm_email',
+                            create_confirmation_token(request.form['email']))
+        msg.body = f'''Your email confirmation link is: {link}
+        If you did not make this request then simply
+        ignore this email and no changes will be made.
+        '''
+        mail.send(msg)
+        flash('Please check your email for account validation link.',
+              'success')
+        return redirect(url_for('auth.login'))
         try:
             hashed_password = bcrypt.generate_password_hash(form.password.data
                                                             ).decode('utf-8')
@@ -93,18 +96,11 @@ def sign_up():
                         location=form.location.data)
             db.session.add(user)
             db.session.commit()
-            token = create_confirmation_token(user.email)
-            msg = Message('Verify Email Address',
-                          sender='root@fstackforum.com',
-                          recipients=[user.email])
-            msg.body = generate_url('auth.confirm_email', token)
-            mail.send(msg)
-            flash('Please check your email for account validation link.',
-                  'success')
-            return redirect(url_for('auth.login'))
-        except Exception:
-            # db.session.rollback()
-            return 'Something has gone wrong.'
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            flash('Something has gone wrong.', 'danger')
+            return redirect(url_for('auth.signup'))
     return render_template('auth/signup.html', form=form)
 
 
@@ -126,13 +122,18 @@ def login():
             # host = request.headers.get('Host')
             # referer = request.headers.get('Referer')
             login_user(user)
+            next_page = request.args.get('next')
+            if next_page:
+                return redirect(next_page)
             return redirect(url_for('forum.forum_route'))
         else:
-            flash('Login unsuccessful', 'fail')
+            flash('Login unsuccessful. Please check your email/password.',
+                  'fail')
     return render_template('auth/login.html', form=form)
 
 
 @auth.route('/profile')
+@login_required
 def profile():
     '''Profile route'''
 
@@ -184,6 +185,7 @@ def preferences():
 
 
 @auth.route('/logout')
+@login_required
 def logout():
     '''Log user out'''
 

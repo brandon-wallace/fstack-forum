@@ -10,16 +10,22 @@
 
     <h2 class="form__header">Login</h2>
 
-    <form action="" method="POST">
+    <form action="/login" method="POST">
 
       {{ form.csrf_token }}
 
-      {{ displayField(form.email, 'Enter email') }}
-      {{ displayField(form.password, 'Enter password') }}
-      <input class="btn btn--solid" type="submit" value="SUBMIT">
+      {{ displayField(form.email, 'Enter email', autofocus=true) }}
+      {{ displayField(form.password, 'Enter password', class='input__field password__field') }}
+      <div class="form__password_toggle">
+        <button type="button" class="eye__button">
+          <i id="eye__opened_icon" class="hide far fa-eye"></i>
+          <i id="eye__closed_icon" class="far fa-eye-slash flip--horizontal"></i>
+        </button>
+      </div>
+      <button class="btn btn--solid" type="submit">SUBMIT</button>
+
+      <p class="form__link"><a class="reset__link" href="{{ url_for('auth.request_reset_password') }}">Forgot password?</a></p>
 
     </form>
-
-    <p class="form__link"><a class="reset__link" href="{{ url_for('auth.request_reset_password') }}">forgot password?</a></p>
 
 {% endblock %}

@@ -12,8 +12,6 @@
 
     <form action="" method="POST">
 
-      {{ form.hidden_tag() }}
-
       {{ displayField(form.title, 'Enter post title') }}
         <select id="category" name="category">
           <option value="general">General</option>
@@ -33,7 +31,5 @@
       {{ form.csrf_token }}
 
     </form>
-
-
 
 {% endblock %}

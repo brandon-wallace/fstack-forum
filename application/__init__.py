@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-# from flask_debugtoolbar import DebugToolbarExtension
+from flask_debugtoolbar import DebugToolbarExtension
 
 logging.basicConfig(filename='error.log', filemode='w',
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -17,10 +17,11 @@ bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 mail = Mail()
+toolbar = DebugToolbarExtension()
 
 
 def create_app():
-    '''Flask application factory'''
+    '''Get application set up'''
 
     app = Flask(__name__)
 
@@ -28,28 +29,28 @@ def create_app():
     app.config['DEBUG'] = True
     app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL')
     app.config['SQLALCHEMY_ECHO'] = True
-    # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
-    # app.config['TESTING'] = False
+    # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL')
+    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DEV_DATABASE_URL')
+    app.config['DEBUG_TB_ENABLED'] = False
+    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+    app.config['DEBUG_TB_TEMPLATE_EDITOR_ENABLED'] = True
     app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
-    # app.config['MAIL_USERNAME'] = environ.get('SENDGRID_API_KEY')
-    # app.config['MAIL_PASSWORD'] = environ.get('SENDGRID_PASSWORD')
-    # app.config['MAIL_DEFAULT_SENDER'] = environ.get('MAIL_DEFAULT_SENDER')
-    # app.config['MAIL_USE_SSL'] = None
-    # app.config['MAIL_DEBUG'] = None
-    # app.config['MAIL_MAX_EMAILS'] = None
-    # app.config['MAIL_SUPPRESS_SEND'] = None
-    # app.config['MAIL_ASCII_ATTACHMENTS'] = None
-
-    # toolbar = DebugToolbarExtension(app)
+    app.config['MAIL_DEFAULT_SENDER'] = environ.get('MAIL_DEFAULT_SENDER')
+    app.config['MAIL_USE_SSL'] = False
+    app.config['MAIL_DEBUG'] = True
+    app.config['TESTING'] = False
+    app.config['MAIL_MAX_EMAILS'] = 99
+    app.config['MAIL_SUPPRESS_SEND'] = True
+    app.config['MAIL_ASCII_ATTACHMENTS'] = True
 
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+    toolbar.init_app(app)
 
     from application.auth.routes import auth
     app.register_blueprint(auth)

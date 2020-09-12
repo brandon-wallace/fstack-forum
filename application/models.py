@@ -36,7 +36,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
-    def retrive_passwd_reset_token(self, expires_sec=2400):
+    def retrive_passwd_reset_token(self, expires_sec=1800):
         '''Get the reset token'''
 
         serializer = TJWSS(os.getenv('SECRET_KEY'), expires_sec)
