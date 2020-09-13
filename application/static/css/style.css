@@ -211,6 +211,10 @@ form {
     max-width: 350px;
 }
 
+.form__header {
+    font-size: 2rem;
+}
+
 .form__agreement {
     margin-top: 0;
     font-size: .8rem;
@@ -218,6 +222,11 @@ form {
 
 .form__link {
     font-weight: bold;
+}
+
+.form__error {
+    color: #EE0000;
+    margin-top: -.7rem;
 }
 
 .agreement {
@@ -370,6 +379,12 @@ form {
     background-color: #818080;
 }
 
+@media only screen and (min-width: 365px) {
+    .page__header {
+        font-size: 2.8rem;
+    }
+}
+
 @media only screen and (min-width: 500px) {
     .menu {
         width: 100%;
@@ -405,11 +420,17 @@ form {
         font-size: 3.25rem;
     }
     .form__header {
-        font-size: 2rem;
+        font-size: 2.5rem;
         margin: .85rem 0;
     }
     form {
         margin: 0 auto;
+    }
+}
+
+@media only screen and (min-width: 650px) {
+    .page__header {
+        font-size: 4rem;
     }
 }
 

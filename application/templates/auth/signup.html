@@ -10,7 +10,7 @@
 
     <h2 class="form__header">Sign Up</h2>
 
-    <form action="{{ url_for('auth.sign_up') }}" method="POST">
+    <form action="/signup" method="POST">
 
       {{ form.csrf_token }}
 
@@ -18,7 +18,6 @@
       {{ displayField(form.email, 'Enter email*') }}
       {{ displayField(form.password, 'Enter password*') }}
       {{ displayField(form.confirm_password, 'Re-enter password*') }}
-      {{ displayField(form.location, 'Location')}}
       {{ form.submit(class='btn btn--solid') }}
       <p class="form__agreement">By clicking Sign Up, I agree to FstackForum's 
       <a class="login__link" href="{{ url_for('auth.terms_of_service') }}">terms of service</a> and 
