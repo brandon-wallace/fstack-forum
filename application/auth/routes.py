@@ -8,7 +8,7 @@ from datetime import datetime
 from flask import render_template, url_for, flash, redirect, request
 # from sqlalchemy.exc import IntegrityError
 from itsdangerous import TimedJSONWebSignatureSerializer as TJWSS
-from application import db, bcrypt, mail, create_app
+from application import db, bcrypt, mail
 from application.forms import (SignUpForm, LoginForm,
                                UpdateAccountForm,
                                RequestPasswdResetForm,
@@ -22,17 +22,17 @@ auth = Blueprint('auth', __name__)
 def create_confirmation_token(email):
     '''Create a confirmation token'''
 
-    serializer = TJWSS(create_app.config['SECRET_KEY'])
+    serializer = TJWSS(os.getenv('SECRET_KEY'))
     return serializer.dumps(email, salt=os.getenv('SECURITY_PASSWORD_SALT'))
 
 
 def confirm_token(token, expiration=3600):
     '''Confirm email address with token'''
 
-    serializer = TJWSS(create_app.config['SECRET_KEY']),
+    serializer = TJWSS(os.getenv('SECRET_KEY')),
     try:
         email = serializer.loads(token,
-                                 salt=(create_app.config['SECRET_KEY']),
+                                 salt=(os.getenv('SECRET_KEY')),
                                  max_age=expiration)
     except Exception:
         return False
