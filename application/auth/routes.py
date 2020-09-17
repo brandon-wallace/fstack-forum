@@ -1,7 +1,7 @@
 # application/auth/routes.py
 
-import os
 import secrets
+from os import environ, path
 from PIL import Image
 from flask import Blueprint
 from datetime import datetime
@@ -22,17 +22,16 @@ auth = Blueprint('auth', __name__)
 def create_confirmation_token(email):
     '''Create a confirmation token'''
 
-    serializer = TJWSS(os.getenv('SECRET_KEY'))
-    return serializer.dumps(email, salt=os.getenv('SECURITY_PASSWORD_SALT'))
+    serializer = TJWSS(environ.get('SECRET_KEY'))
+    return serializer.dumps(email, salt=environ.get('SECURITY_PASSWORD_SALT'))
 
 
 def confirm_token(token, expiration=3600):
     '''Confirm email address with token'''
 
-    serializer = TJWSS(os.getenv('SECRET_KEY')),
+    serializer = TJWSS(environ.get('SECRET_KEY')),
     try:
-        email = serializer.loads(token,
-                                 salt=(os.getenv('SECRET_KEY')),
+        email = serializer.loads(token, salt=(environ.get('SECRET_KEY')),
                                  max_age=expiration)
     except Exception:
         return False
@@ -144,10 +143,9 @@ def save_profile_picture(image_file):
     '''Save user's profile picture'''
 
     random_hex = secrets.token_hex(8)
-    _, file_ext = os.path.splitext(image_file.filename)
+    _, file_ext = path.splitext(image_file.filename)
     picture_filename = random_hex + file_ext
-    picture_path = os.path.join(auth.root_path, 'static/images',
-                                picture_filename)
+    picture_path = path.join(auth.root_path, 'static/images', picture_filename)
     output_size = (125, 125)
     pic = Image.open(image_file)
     pic.thumbnail(output_size)
