@@ -239,6 +239,7 @@ form {
     margin-top: -.7rem;
 }
 
+.about,
 .agreement {
     margin: 0 auto;
     padding: .25rem;
@@ -246,6 +247,10 @@ form {
     text-align: justify;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+.about {
+    max-width: 500px;
 }
 
 .agreement__header {

@@ -10,7 +10,7 @@
 
     <h2 class="form__header">Sign Up</h2>
 
-    <form action="/signup" method="POST">
+    <form action="{{ url_for('auth.sign_up') }}" method="POST">
 
       {{ form.csrf_token }}
 
