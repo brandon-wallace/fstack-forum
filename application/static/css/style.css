@@ -1,9 +1,11 @@
 /* application/static/css/style.css */
 
 :root {
-    --dark: #2B2B2B;
+    --lighter: #F4F4F4;
     --light: #EAEAE3;
+    --medium-light: #D9D9D9;
     --medium: #777777;
+    --dark: #2B2B2B;
 
     --fg: var(--dark);
     --bg: var(--light);
@@ -51,6 +53,16 @@ a {
 article {
     min-height: 100%;
     position: relative;
+}
+
+.article-bg {
+    position: absolute;
+    top: 0;
+    height: 50%;
+    width: 100%;
+    z-index: -1;
+    background-color: #D9D9D9;
+    background-color: var(--medium-light, #D9D9D9);
 }
 
 main {
@@ -102,7 +114,7 @@ nav {
     margin-bottom: .5rem;
     padding: .25rem .75rem;
     text-transform: uppercase;
-    background-color: #777777;
+    background-color: #EAEAE3;
     background-color: var(--fg, #EAEAE3);
     border: 2px solid #777777;
     border: 2px solid var(--medium, #777777);
@@ -139,7 +151,8 @@ nav {
     text-decoration: none;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-  	background-color: #E0E0E0;
+  	background-color: #F4F4F4;
+  	background-color: var(--lighter, #F4F4F4);
 }
 
 .menu__link {
@@ -437,7 +450,6 @@ form {
         text-align: center;
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-        background-color: #E0E0E0;
     }
     .menu--left {
         margin-left: auto;
