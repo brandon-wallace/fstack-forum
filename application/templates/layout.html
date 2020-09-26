@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="forum for fullstack developers">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>{% block title %}{% endblock %} - FStack Forum</title>
@@ -70,6 +70,14 @@
       <footer>
   
         <nav class="footer__nav">
+          {#
+          <h1><i class="far fa-comment"></i></h1>
+          <h1><i class="fas fa-database"></i></h1>
+          <h1><i class="fas fa-desktop"></i></h1>
+          <h1><i class="far fa-comment-alt"></i></h1>
+          <h1><i class="far fa-comment-alt"></i></h1>
+          <h1><i class="far fa-comment-alt"></i></h1>
+          #}
           <div class="footer__content">
   
             {% if posts %}

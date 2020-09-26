@@ -42,7 +42,7 @@ def create_app():
     app.config['MAIL_USE_SSL'] = False
     app.config['MAIL_DEBUG'] = True
     app.config['TESTING'] = False
-    app.config['MAIL_MAX_EMAILS'] = 99
+    # app.config['MAIL_MAX_EMAILS'] = 99
     app.config['MAIL_SUPPRESS_SEND'] = True
     app.config['MAIL_ASCII_ATTACHMENTS'] = True
 

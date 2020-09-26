@@ -60,7 +60,6 @@ article {
     top: 0;
     height: 50%;
     width: 100%;
-    z-index: -1;
     background-color: #D9D9D9;
     background-color: var(--medium-light, #D9D9D9);
 }
