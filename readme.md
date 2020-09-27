@@ -26,11 +26,9 @@
 │   │   │   └── style.css
 │   │   ├── images/
 │   │   │   ├── default.png
-│   │   │   ├── favicon.png
-│   │   │   ├── screenshot1.png
-│   │   │   ├── screenshot2.png
-│   │   │   └── screenshot3_dark.png
+│   │   │   └── favicon.png
 │   │   ├── js/
+│   │   │   ├── login.js
 │   │   │   └── script.js
 │   │   └── webfonts/
 │   │       ├── fa-brands-400.eot
@@ -58,10 +56,12 @@
 │   │   │   ├── login.html
 │   │   │   ├── logout.html
 │   │   │   ├── preferences.html
+│   │   │   ├── privacy_policy.html
 │   │   │   ├── profile.html
 │   │   │   ├── request_reset_password.html
 │   │   │   ├── reset_password_token.html
-│   │   │   └── signup.html
+│   │   │   ├── signup.html
+│   │   │   └── terms_of_service.html
 │   │   ├── forum/
 │   │   │   ├── about.html
 │   │   │   ├── create_post.html
@@ -86,15 +86,12 @@
 │   ├── models.py
 │   ├── Pipfile
 │   └── Pipfile.lock
-├── cli.py
 ├── LICENSE
 ├── Pipfile
 ├── Pipfile.lock
-├── Procfile
 ├── readme.md
-├── requirements.txt
 ├── run.py
-└── runtime.txt
+└── wsgi.py
 ```
 
 # Quick Start
@@ -112,7 +109,9 @@ $ vim .env
 FLASK_ENV=development
 FLASK_APP=run.py
 DATABASE_URL='postgres://<username>:<password>@<hostname>:<port>/<database_name>'
+DEV_DATABASE_URL='sqlite://<database_file>'
 SECRET_KEY=<your_secret_key>
+SECURITY_PASSWORD_SALT=<your_password_salt>
 MAIL_SERVER=<your_email_server>
 MAIL_USERNAME=<your_username>
 MAIL_PASSWORD=<your_password>
