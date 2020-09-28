@@ -64,6 +64,16 @@ def confirm_email(token):
     return redirect(url_for('auth.login_route', _external=True))
 
 
+@auth.route('/unconfirmed')
+def unconfirmed():
+    '''
+    Give user another chance to confirm their email
+    '''
+
+    flash('Please confirm your account.', 'warning')
+    return render_template('auth/unconfirmed.html')
+
+
 def generate_url(endpoint, token):
     '''Generate confirmation URL'''
 
