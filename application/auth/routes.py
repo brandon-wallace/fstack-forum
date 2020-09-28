@@ -7,31 +7,35 @@ from flask import Blueprint
 from datetime import datetime
 from flask import render_template, url_for, flash, redirect, request
 # from sqlalchemy.exc import IntegrityError
-from itsdangerous import TimedJSONWebSignatureSerializer as TJWSS
+from flask_login import login_user, logout_user, login_required, current_user
+from flask_mail import Message
+from itsdangerous import (TimedJSONWebSignatureSerializer,
+                          BadTimeSignature, SignatureExpired)
 from application import db, bcrypt, mail
 from application.forms import (SignUpForm, LoginForm,
                                UpdateAccountForm,
                                RequestPasswdResetForm,
                                ResetPasswdForm)
 from application.models import User
-from flask_login import login_user, logout_user, login_required, current_user
-from flask_mail import Message
+from application.decorators import check_email_confirmation
+
 auth = Blueprint('auth', __name__)
 
 
 def create_confirmation_token(email):
     '''Create a confirmation token'''
 
-    serializer = TJWSS(environ.get('SECRET_KEY'))
+    serializer = TimedJSONWebSignatureSerializer(environ.get('SECRET_KEY'))
     return serializer.dumps(email, salt=environ.get('SECURITY_PASSWORD_SALT'))
 
 
 def confirm_token(token, expiration=3600):
     '''Confirm email address with token'''
 
-    serializer = TJWSS(environ.get('SECRET_KEY')),
+    serializer = TimedJSONWebSignatureSerializer(environ.get('SECRET_KEY'))
     try:
-        email = serializer.loads(token, salt=(environ.get('SECRET_KEY')),
+        email = serializer.loads(token,
+                                 salt=environ.get('SECURITY_PASSWORD_SALT'),
                                  max_age=expiration)
     except Exception:
         return False
@@ -42,19 +46,22 @@ def confirm_token(token, expiration=3600):
 def confirm_email(token):
     '''Confirm user's email'''
 
-    email = confirm_token(token)
-    if not email:
-        flash('The confirmation link is expired or invalid.', 'danger')
+    try:
+        email = confirm_token(token)
+    except BadTimeSignature:
+        return 'Email confirmation failed.'
+    except SignatureExpired:
+        return 'Token expired.'
     user = User.query.filter_by(email=email).first_or_404()
     if user.email_confirmed:
         flash('Account has been confirmed. Please login.', 'success')
-        return redirect(url_for('auth.login'))
-    user.email_confirmed = True
-    user.email_confirmed_on = datetime.now()
-    # db.session.add(user)
-    db.session.commit()
-    flash('Your account is confirmed!', 'success')
-    return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login_route', _external=True))
+    if email:
+        current_user.email_confirmed = True
+        current_user.email_confirmed_date = datetime.utcnow()
+        db.session.commit()
+        flash('Account creation successful. Please login.', 'success')
+    return redirect(url_for('auth.login_route', _external=True))
 
 
 def generate_url(endpoint, token):
@@ -82,7 +89,7 @@ def sign_up():
         ignore this email and no changes will be made.
         '''
         mail.send(msg)
-        flash('Please check your email for account validation link.',
+        flash('Please check your email for account confirmation link.',
               'success')
         return redirect(url_for('auth.login'))
         try:
@@ -104,6 +111,7 @@ def sign_up():
 
 
 @auth.route('/login', methods=['GET', 'POST'])
+@check_email_confirmation
 def login():
     '''Login registered users'''
 
@@ -172,7 +180,6 @@ def preferences():
         flash('Account updated successfully.', 'success')
         return redirect(url_for('auth.profile'))
     elif request.method == 'GET':
-        # Populate username and email upon page load.
         form.username.data = current_user.username
         form.email.data = current_user.email
         form.location.data = current_user.location
