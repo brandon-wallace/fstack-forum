@@ -199,6 +199,7 @@ nav {
 .message {
     width: 100%;
     border: solid;
+    margin: 0 auto;
     max-width: 520px;
     font-weight: bold;
     line-height: 40px;
@@ -252,6 +253,7 @@ form {
 }
 
 .about,
+.unconfirmed,
 .agreement {
     margin: 0 auto;
     padding: .25rem;
@@ -259,10 +261,6 @@ form {
     text-align: justify;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-}
-
-.about {
-    max-width: 500px;
 }
 
 .agreement__header {
@@ -353,9 +351,10 @@ form {
     height: 40px;
     display: block;
     cursor: pointer;
-    max-width: 345px;
-    font-size: 1.1rem;
     min-width: 135px;
+    max-width: 345px;
+    line-height: 40px;
+    font-size: 1.1rem;
     font-weight: bold;
     margin: 0 auto 1rem;
     font-family: inherit;
@@ -833,3 +832,14 @@ textarea {
     display: none;
 }
 
+.m-width-800 {
+    max-width: 800px;
+}
+
+.m-width-600 {
+    max-width: 600px;
+}
+
+.pos--center {
+    text-align: center;
+}
