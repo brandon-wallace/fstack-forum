@@ -840,3 +840,7 @@ textarea {
 .pos--center {
     text-align: center;
 }
+
+.active {
+    text-decoration: underline;
+}
