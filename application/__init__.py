@@ -25,7 +25,6 @@ def create_app():
 
     app = Flask(__name__)
 
-    logging.debug('Running create_app function.')
     app.config['DEBUG'] = True
     app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -34,15 +33,15 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DEV_DATABASE_URL')
     app.config['DEBUG_TB_ENABLED'] = False
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-    app.config['DEBUG_TB_TEMPLATE_EDITOR_ENABLED'] = True
+    app.config['DEBUG_TB_TEMPLATE_EDITOR_ENABLED'] = False
     app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
-    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_PORT'] = environ.get('MAIL_PORT')
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_DEFAULT_SENDER'] = environ.get('MAIL_DEFAULT_SENDER')
     app.config['MAIL_USE_SSL'] = False
     app.config['MAIL_DEBUG'] = True
     app.config['TESTING'] = False
-    # app.config['MAIL_MAX_EMAILS'] = 99
+    # app.config['MAIL_MAX_EMAILS'] = 1
     app.config['MAIL_SUPPRESS_SEND'] = True
     app.config['MAIL_ASCII_ATTACHMENTS'] = True
 
