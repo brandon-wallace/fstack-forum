@@ -165,7 +165,7 @@ nav {
 }
 
 .input__field {
-    padding: .5rem;
+    padding: .5rem 1rem;
     border: 3px solid #777777;
     border: 3px solid var(--medium, #777777);
 }
@@ -271,8 +271,8 @@ form {
     width: 100%;
     font-size: 1rem;
     font-weight: bold;
-    min-height: 43px;
-    margin-bottom: 1rem;
+    min-height: 50px;
+    margin-bottom: .75rem;
     font-family: inherit;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -373,15 +373,12 @@ form {
     background-color: #2973FF;
 }
 
+.reset__link,
 .login__link {
     color: #0d3d95;
     font-weight: bold;
     white-space: nowrap;
-}
-
-.reset__link {
-    color: #0d3d95;
-    font-weight: bold;
+    text-decoration: underline;
 }
 
 .login__link:hover,

@@ -18,11 +18,10 @@
       {{ displayField(form.email, 'Enter email*') }}
       {{ displayField(form.password, 'Enter password*') }}
       {{ displayField(form.confirm_password, 'Re-enter password*') }}
-      {{ form.submit(class='btn btn--solid') }}
-      <p class="form__agreement">By clicking Sign Up, I agree to FstackForum's 
+      <p class="form__agreement">By clicking Sign Up, I agree to the FstackForum 
       <a class="login__link" href="{{ url_for('auth.terms_of_service') }}">terms of service</a> and 
-      <a class="login__link" href="{{ url_for('auth.privacy_policy') }}">privacy policy</a>
-      </p>
+      <a class="login__link" href="{{ url_for('auth.privacy_policy') }}">privacy policy</a>.</p>
+      {{ form.submit(class='btn btn--solid') }}
       <p class="form__link">Already have an account? <a class="login__link" href="{{ url_for('auth.login') }}">login</a></p>
 
     </form>
