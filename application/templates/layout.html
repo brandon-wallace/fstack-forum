@@ -32,13 +32,13 @@
             <li><a class="menu__link{% if request.endpoint == 'forum.index' %} active{% endif %}" href="{{ url_for('forum.index') }}">home</a></li>
             <li><a class="menu__link {% if request.endpoint == 'forum.about' %} active{% endif %}" href="{{ url_for('forum.about') }}">about</a></li>
             {% if current_user.is_authenticated %}
-            <li><a class="menu__link{% if request.endpoint == 'forum.forum_route' %} active{% endif %}" href="{{ url_for('forum.forum_route') }}">forum</a></li>
-            <li><a class="menu__link{% if request.endpoint == 'auth.profile' %} active{% endif %}" href="{{ url_for('auth.profile') }}">profile</a></li>
-            <li class="menu--left"><a class="menu__link" href="{{ url_for('auth.logout') }}">logout</a></li>
+              <li><a class="menu__link{% if request.endpoint == 'forum.forum_route' %} active{% endif %}" href="{{ url_for('forum.forum_route') }}">forum</a></li>
+              <li><a class="menu__link{% if request.endpoint == 'auth.profile' %} active{% endif %}" href="{{ url_for('auth.profile') }}">profile</a></li>
+              <li class="menu--left"><a class="menu__link" href="{{ url_for('auth.logout') }}">logout</a></li>
               <li><img class="profile-image image-small" src="{{ image_file }}"></li>
             {% else %}
-            <li class="menu--left"><a class="menu__link{% if request.endpoint == 'auth.sign_up' %} active{% endif %}" href="{{ url_for('auth.sign_up') }}">sign up</a></li>
-            <li><a class="menu__link btn--outline{% if request.endpoint == 'auth.login' %} active{% endif %}" href="{{ url_for('auth.login') }}">login</a></li>
+              <li class="menu--left"><a class="menu__link{% if request.endpoint == 'auth.sign_up' %} active{% endif %}" href="{{ url_for('auth.sign_up') }}">sign up</a></li>
+              <li><a class="menu__link btn--outline{% if request.endpoint == 'auth.login' %} active{% endif %}" href="{{ url_for('auth.login') }}">login</a></li>
             {% endif %}
   
           </ul>
@@ -53,9 +53,9 @@
         {% with messages = get_flashed_messages(with_categories=True) %}
           {% if messages %}
             {% for category, message in messages %}
-              <p class="message message--{{ category }}">
-                {{ message }}
-              </p>
+              <div class="message message--{{ category }}">
+                <p class="message__text">{{ message }}</p><button type="submit" class="close">&#10060;</button>
+              </div>
             {% endfor %}
           {% endif %}
         {% endwith %}

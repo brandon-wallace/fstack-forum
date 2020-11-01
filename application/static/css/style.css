@@ -200,13 +200,23 @@ nav {
     width: 100%;
     border: solid;
     margin: 0 auto;
+    display: flex;
     max-width: 520px;
     font-weight: bold;
-    line-height: 40px;
     border-radius: 4px;
     text-align: center;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+.message__text {
+    flex: 2;
+    margin: 8px;
+    text-align: center;
+}
+
+.message--message {
+    background-color: hsl(39, 100%, 50%);
 }
 
 .message--fail {
@@ -843,4 +853,11 @@ textarea {
 
 .active {
     text-decoration: underline;
+}
+
+.close {
+    border: 0;
+    color: #111111;
+    cursor: pointer;
+    background-color: transparent;
 }

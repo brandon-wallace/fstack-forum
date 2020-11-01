@@ -41,3 +41,11 @@ themeToggleButton.addEventListener('click', () => {
     }
 });
 */
+
+// Close flash messages.
+
+const closeMessageButton = document.querySelector('.close');
+
+closeMessageButton.addEventListener('click', () => {
+    document.querySelector('.message').remove();
+});
