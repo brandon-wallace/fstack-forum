@@ -113,6 +113,7 @@ DEV_DATABASE_URL='sqlite://<database_file>'
 SECRET_KEY=<your_secret_key>
 SECURITY_PASSWORD_SALT=<your_password_salt>
 MAIL_SERVER=<your_email_server>
+MAIL_PORT=<port_number>
 MAIL_USERNAME=<your_username>
 MAIL_PASSWORD=<your_password>
 MAIL_DEFAULT_SENDER=<your_default_email_address>
