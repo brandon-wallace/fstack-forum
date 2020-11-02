@@ -65,7 +65,7 @@ article {
 }
 
 main {
-    padding: 0 .5rem 150px .5rem;
+    padding: 0 .5rem 200px .5rem;
 }
 
 header {
@@ -83,7 +83,7 @@ section {
 footer {
     bottom: 0;
     width: 100%;
-    height: 150px;
+    height: 200px;
     padding: .5rem;
     position: absolute;
     -webkit-box-sizing: border-box;
@@ -429,6 +429,60 @@ form {
 
 .footer__link:hover {
     background-color: #818080;
+}
+
+.footer__anchor {
+    text-align: right;
+}
+
+.footer__anchor a {
+    color: dodgerblue;
+    text-decoration: underline;
+}
+
+.contact {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  min-height: 70vh;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.contact-info {
+  padding: 1rem;
+  color: #000000;
+  font-size: .9rem;
+  text-align: center;
+}
+
+.contact-icons {
+  width: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  font-size: 64px;
+  font-size: 4rem;
+  -ms-flex-pack: distribute;
+      justify-content: space-between;
+}
+
+.contact-icons .fab {
+  color: #000000;
+}
+
+.contact-icons .fab:hover {
+  color: #063FD2;
+}
+
+.contact-icon-label {
+  font-size: 1rem;
 }
 
 @media only screen and (min-width: 365px) {
