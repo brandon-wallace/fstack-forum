@@ -98,39 +98,43 @@ def sign_up():
         If you did not make this request then simply
         ignore this email and no changes will be made.
         '''
-        mail.send(msg)
+        # mail.send(msg)
         flash('Please check your email for account confirmation link.',
               'success')
         return redirect(url_for('auth.login'))
-        try:
-            hashed_password = bcrypt.generate_password_hash(form.password.data
-                                                            ).decode('utf-8')
-            user = User(username=form.username.data,
-                        email=form.email.data,
-                        email_confirmed=False,
-                        password=hashed_password,
-                        location=form.location.data)
-            db.session.add(user)
-            db.session.commit()
-        except Exception as e:
-            print(e)
-            db.session.rollback()
-            flash('Something has gone wrong.', 'danger')
-            return redirect(url_for('auth.signup'))
+        # return link
+        # try:
+        #     hashed_password = bcrypt.generate_password_hash(form.password.data
+        #                                                     ).decode('utf-8')
+        #     user = User(username=form.username.data,
+        #                 email=form.email.data,
+        #                 email_confirmed=False,
+        #                 password=hashed_password,
+        #                 location=form.location.data)
+        #     db.session.add(user)
+        #     db.session.commit()
+        # except Exception as e:
+        #     print(e)
+        #     db.session.rollback()
+        #     flash('Something has gone wrong.', 'danger')
+        #     return redirect(url_for('auth.signup'))
     return render_template('auth/signup.html', form=form)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-@check_email_confirmation
+# @check_email_confirmation
 def login():
     '''Login registered users'''
 
     if current_user.is_authenticated:
         return redirect(url_for('forum.index_page'))
 
+    print(current_user)
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        print('Is email confirmed?')
+        print(user.email_confirmed)
         if user and bcrypt.check_password_hash(user.password,
                                                form.password.data):
             view_count = int(request.cookies.get('view-count', 0))
@@ -145,7 +149,7 @@ def login():
             return redirect(url_for('forum.forum_route'))
         else:
             flash('Login unsuccessful. Please check your email/password.',
-                  'fail')
+                  'danger')
     return render_template('auth/login.html', form=form)
 
 
@@ -205,7 +209,8 @@ def logout():
     '''Log user out'''
 
     logout_user()
-    return render_template('auth/logout.html')
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('forum.forum_route'))
 
 
 @auth.route('/send_email')

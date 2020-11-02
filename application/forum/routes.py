@@ -57,8 +57,10 @@ def create_post():
             db.session.commit()
             db.session.remove()
             flash('Post created successfully', 'success')
+            return redirect(url_for('forum.create_post'))
         except IntegrityError:
             db.session.rollback()
+            flash('Post not successful', 'fail')
             return redirect(url_for('forum.forum_route'))
     content = {
             'image_file': profile_image,
