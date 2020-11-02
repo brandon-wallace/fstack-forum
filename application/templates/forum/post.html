@@ -98,15 +98,16 @@
             </div>
 
             <div class="tile__buttons">
-              <button class="tile__btn tile--reverse">Reply</button>
+              {# Do not display to non-logged in users.
+                <button class="tile__btn tile--reverse">Reply</button>
+              #}
             </div>
           </div>
 
           </div>
         </div>
-      </div><!-- END posts -->
+      </div>
 
-      <!-- comments -->
       {% if comments %}
         {% for comment in comments %}
           <div class="comment comment--wide">
@@ -125,13 +126,15 @@
                   <p class="comment__title">{{ comment.author.username }}</p>
                 </div>
                 <div class="comment__buttons">
-                  <button class="comment__btn comment--reverse">Reply</button>
+                  {# Do not display to non-logged in users.
+                    <button class="comment__btn comment--reverse">Reply</button>
+                  #}
                 </div>
               </div>
             </div>
           </div>
         {% endfor %}
-      {% endif %}<!-- END comments -->
+      {% endif %}
 
     {% endif %}
 
