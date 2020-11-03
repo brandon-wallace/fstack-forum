@@ -17,7 +17,7 @@
         <div class="tile__content">
           <div class="tile__header">
             <h2 class="tile__title"><a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h2>
-            <p class="tile__date">posted: {{ post.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+            <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
           </div>
 		    <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
             <div class="tile__text">

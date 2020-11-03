@@ -1,12 +1,6 @@
 // application/static/js/script.js
 
-
 "use strict";
-
-
-const confirmDelete = () => {
-    document.querySelector('modal').style.display = 'flex';
-}
 
 
 // Dark/Light theme toggle.
@@ -18,29 +12,29 @@ const themeToggleButton = document.querySelector('.toggle-theme');
 const enableDarkTheme = () => {
     document.body.classList.add('dark-theme');
     localStorage.setItem('darktheme', 'enabled');
-    themeToggleButton.textContent = 'light';
+    themeToggleButton.textContent = 'light theme';
 }
 
 const disableDarkTheme = () => {
     document.body.classList.remove('dark-theme');
     localStorage.setItem('darktheme', 'disabled');
-    themeToggleButton.textContent = 'dark';
+    themeToggleButton.textContent = 'dark theme';
 }
 
 if (darktheme === 'enabled') {
     enableDarkTheme();
 }
 
-/*
-themeToggleButton.addEventListener('click', () => {
-    darktheme = localStorage.getItem('darktheme');
-    if (darktheme === 'disabled') {
-        enableDarkTheme();
-    } else {
-        disableDarkTheme();
-    }
-});
-*/
+if (themeToggleButton) {
+    themeToggleButton.addEventListener('click', () => {
+        darktheme = localStorage.getItem('darktheme');
+        if (darktheme === 'disabled') {
+            enableDarkTheme();
+        } else {
+            disableDarkTheme();
+        }
+    });
+}
 
 // Close flash messages.
 

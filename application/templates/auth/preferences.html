@@ -8,29 +8,32 @@
 
 {% block content %}
 
-    <h2>Update Profile</h2>
+  <div class="profile__header">
 
+    <h2>Update Profile</h2>
     <img class="profile-image" src="{{ image_file }}">
 
-    <p class="">Theme: <a class="toggle-theme">dark</a></p>
+  </div>
 
-    <form action="" method="POST" enctype="multipart/form-data">
+  <p class=""><a class="toggle-theme">dark theme</a></p>
 
-      {{ form.csrf_token }}
+  <form action="" method="POST" enctype="multipart/form-data">
 
-      {{ displayField(form.username, 'Username') }}
-      {{ displayField(form.email, 'Enter email') }}
-      {{ displayField(form.location, 'Location') }}
-      <input class="input__field" type="text" value="" placeholder="Website URL">
-      <input class="input__field" type="text" value="" placeholder="Profile summary">
+    {{ form.csrf_token }}
 
-      <p>Upload a profile picture.</p>
-      <div class="upload">
-        <button class="upload__button">browse</button>
-        {{ form.profile_picture(class_='upload__input') }}
-      </div>
-      <input class="btn btn--solid" type="submit" value="SUBMIT">
+    {{ displayField(form.username, 'Username') }}
+    {{ displayField(form.email, 'Enter email') }}
+    {{ displayField(form.location, 'Location') }}
+    <input class="input__field" type="text" value="" placeholder="Website URL">
+    <input class="input__field" type="text" value="" placeholder="Profile summary">
 
-    </form>
+    <p>Upload a profile picture.</p>
+    <div class="upload">
+      <button class="upload__button">browse</button>
+      {{ form.profile_picture(class_='upload__input') }}
+    </div>
+    <input class="btn btn--solid" type="submit" value="SUBMIT">
+
+  </form>
 
 {% endblock %}

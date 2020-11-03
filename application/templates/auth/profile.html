@@ -9,14 +9,10 @@
   <div class="profile">
 
     <ul class="profile-menu">
-      <li><a class="profile__link" href="#"><i class="far fa-file-alt"></i> summary</a></li>
-      <li><a class="profile__link" href="#"><i class="fas fa-angle-double-right"></i> activity</a></li>
-      <li><a class="profile__link" href="#"><i class="far fa-comment"></i> notifications</a></li>
-      <li><a class="profile__link" href="#"><i class="far fa-envelope"></i> messages</a></li>
       <li><a class="profile__link" href="{{ url_for('auth.preferences') }}"><i class="fas fa-cog"></i> preferences</a></li>
     </ul>
 
-    <h2>{{ current_user.username }}</h2>
+    <h2>Welcome {{ current_user.username }}!</h2>
 
   </div>
 

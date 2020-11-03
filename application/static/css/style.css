@@ -5,6 +5,7 @@
     --light: #EAEAE3;
     --medium-light: #D9D9D9;
     --medium: #777777;
+    --medium-dark: #3B3B3B;
     --dark: #2B2B2B;
 
     --fg: var(--dark);
@@ -14,6 +15,7 @@
 .dark-theme {
     --fg: var(--light);
     --bg: var(--dark);
+    --medium-light: var(--medium-dark);
 }
 
 html,
@@ -55,23 +57,15 @@ article {
     position: relative;
 }
 
-.article-bg {
-    position: absolute;
-    top: 0;
-    height: 50%;
-    width: 100%;
-    background-color: #D9D9D9;
-    background-color: var(--medium-light, #D9D9D9);
-}
-
 main {
-    padding: 0 .5rem 200px .5rem;
+    padding: 8px .5rem 200px .5rem;
 }
 
 header {
     padding: .5rem;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
+    background-color: var(--medium-light, #DDDDDD);
 }
 
 section {
@@ -108,11 +102,10 @@ nav {
 }
 
 .toggle-theme {
-    color: var(--bg);
+    color: #2B2B2B;
     color: var(--bg, #2B2B2B);
     margin-bottom: .5rem;
     padding: .25rem .75rem;
-    text-transform: uppercase;
     background-color: #EAEAE3;
     background-color: var(--fg, #EAEAE3);
     border: 2px solid #777777;
@@ -175,12 +168,6 @@ nav {
     max-width: 350px;
     border: 2px solid #202020;
     background-color: #A6A6A6;
-}
-
-.reverse {
-    color: #DDDDDD;
-    border: .5px solid #202020;
-    background-color: #010100;
 }
 
 .profile__link {
@@ -290,6 +277,11 @@ form {
 
 .password__field {
     margin-bottom: 0;
+    letter-spacing: 2px;
+}
+
+.password__field::-moz-placeholder {
+    letter-spacing: unset;
 }
 
 .form__password_toggle {
@@ -356,7 +348,6 @@ form {
 }
 
 .btn {
-    border: 0;
     width: 100%;
     height: 40px;
     display: block;
@@ -369,7 +360,7 @@ form {
     margin: 0 auto 1rem;
     font-family: inherit;
     letter-spacing: 2.1px;
-    outline: 3px solid #0D3D95;
+    border: 3px solid #0D3D95;
 
 }
 
@@ -377,10 +368,10 @@ form {
     width: 100%;
     height: 34px;
     max-width: 345px;
-    color: #FFFFFF;
+    color: #2973FF;
     line-height: 34px;
     text-align: center;
-    background-color: #2973FF;
+    background-color: #FFFFFF;
 }
 
 .reset__link,
@@ -722,6 +713,7 @@ form {
     font-weight: bold;
     border-radius: 2px;
     margin-left: .5rem;
+    text-align: center;
     background-color: #FFFDFD;
 }
 
@@ -796,6 +788,12 @@ form {
 
 
 /* Profile */
+.profile__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .profile-image {
     margin-bottom: .5rem;
     height: 35px;
@@ -816,9 +814,6 @@ form {
     .profile-menu li {
         white-space: nowrap;
         margin-right: .5rem;
-    }
-    .profile-image {
-        display: none;
     }
     .image-small {
         display: block;
@@ -857,12 +852,10 @@ select {
     letter-spacing: 2.1px;
     text-decoration: none;
     background-color: #FDFDFD;
-    border: 3px solid #2973FF;
 }
 
 textarea {
     width: 100%;
-    resize: none;
     height: 280px;
     overflow: auto;
     min-width: 280px;
@@ -914,4 +907,10 @@ textarea {
     color: #111111;
     cursor: pointer;
     background-color: transparent;
+}
+
+.reverse {
+    color: #DDDDDD;
+    border: .5px solid #202020;
+    background-color: #010100;
 }

@@ -34,10 +34,9 @@
                 </div>
 
                 <div class="tile__buttons">
-                  <!--
-                  <button class="tile__btn tile--grey">Like</button>
-                  <button class="tile__btn tile--reverse">Reply</button>
-                  -->
+				  {% if current_user.is_authenticated %}
+                    <a class="tile__btn tile--reverse" href="{{ url_for('forum.display_post', post_id=post.id) }}">Reply</a>
+				  {% endif %}
                 </div>
               </div>
 

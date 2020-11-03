@@ -89,35 +89,36 @@ def sign_up():
 
     form = SignUpForm()
     if form.validate_on_submit():
-        msg = Message('Verify Your Email Address',
-                      sender='no-reply@fstackforum.com',
-                      recipients=[request.form['email']])
-        link = generate_url('auth.confirm_email',
-                            create_confirmation_token(request.form['email']))
-        msg.body = f'''Your email confirmation link is: {link}
-        If you did not make this request then simply
-        ignore this email and no changes will be made.
-        '''
+        # msg = Message('Verify Your Email Address',
+        #               sender='no-reply@fstackforum.com',
+        #               recipients=[request.form['email']])
+        # link = generate_url('auth.confirm_email',
+        #                     create_confirmation_token(request.form['email']))
+        # msg.body = f'''Your email confirmation link is: {link}
+        # If you did not make this request then simply
+        # ignore this email and no changes will be made.
+        # '''
         # mail.send(msg)
-        flash('Please check your email for account confirmation link.',
-              'success')
-        return redirect(url_for('auth.login'))
+        # flash('Please check your email for account confirmation link.',
+        #       'success')
+        # return redirect(url_for('auth.login'))
         # return link
-        # try:
-        #     hashed_password = bcrypt.generate_password_hash(form.password.data
-        #                                                     ).decode('utf-8')
-        #     user = User(username=form.username.data,
-        #                 email=form.email.data,
-        #                 email_confirmed=False,
-        #                 password=hashed_password,
-        #                 location=form.location.data)
-        #     db.session.add(user)
-        #     db.session.commit()
-        # except Exception as e:
-        #     print(e)
-        #     db.session.rollback()
-        #     flash('Something has gone wrong.', 'danger')
-        #     return redirect(url_for('auth.signup'))
+        try:
+            hashed_password = bcrypt.generate_password_hash(form.password.data
+                                                            ).decode('utf-8')
+            user = User(username=form.username.data,
+                        email=form.email.data,
+                        email_confirmed=False,
+                        password=hashed_password,
+                        location=form.location.data)
+            db.session.add(user)
+            db.session.commit()
+            flash('Account created successfully!', 'success')
+            return redirect(url_for('auth.login'))
+        except Exception:
+            db.session.rollback()
+            flash('Something has gone wrong.', 'fail')
+            return redirect(url_for('auth.signup'))
     return render_template('auth/signup.html', form=form)
 
 
@@ -133,8 +134,6 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        print('Is email confirmed?')
-        print(user.email_confirmed)
         if user and bcrypt.check_password_hash(user.password,
                                                form.password.data):
             view_count = int(request.cookies.get('view-count', 0))
@@ -148,8 +147,8 @@ def login():
                 return redirect(next_page)
             return redirect(url_for('forum.forum_route'))
         else:
-            flash('Login unsuccessful. Please check your email/password.',
-                  'danger')
+            flash('Login failed. Check your email/password.',
+                  'fail')
     return render_template('auth/login.html', form=form)
 
 
@@ -204,7 +203,6 @@ def preferences():
 
 
 @auth.route('/logout')
-@login_required
 def logout():
     '''Log user out'''
 
