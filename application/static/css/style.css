@@ -7,6 +7,7 @@
     --medium: #777777;
     --medium-dark: #3B3B3B;
     --dark: #2B2B2B;
+    --blue: #0606FB;
 
     --fg: var(--dark);
     --bg: var(--light);
@@ -466,6 +467,7 @@ form {
 
 .contact-icons .fab {
   color: #000000;
+  color: var(--fg, #000000);
 }
 
 .contact-icons .fab:hover {
@@ -473,7 +475,9 @@ form {
 }
 
 .contact-icon-label {
+  color: #000000;
   font-size: 1rem;
+  color: var(--fg, #000000);
 }
 
 @media only screen and (min-width: 365px) {
@@ -666,8 +670,8 @@ form {
     color: #EAEAE3;
 	color: var(--light, #EAEAE3);
 	font-style: italic;
-    background-color: #777777;
-	background-color: var(--medium, #777777);
+    background-color: #0606FB;
+	background-color: var(--blue, #0606FB);
 }
 
 .tile__text, 
@@ -794,13 +798,13 @@ form {
     justify-content: space-between;
 }
 
+.profile__header h2 {
+    margin: 10px 0;
+}
+
 .profile-image {
     margin-bottom: .5rem;
     height: 35px;
-}
-
-.image-small {
-    display: none;
 }
 
 @media only screen and (min-width: 750px) {

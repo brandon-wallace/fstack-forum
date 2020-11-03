@@ -5,7 +5,8 @@ from os import environ, path
 from PIL import Image
 from flask import Blueprint
 from datetime import datetime
-from flask import render_template, url_for, flash, redirect, request
+from flask import (render_template, url_for, flash,
+                   redirect, request, current_app)
 # from sqlalchemy.exc import IntegrityError
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message
@@ -17,7 +18,7 @@ from application.forms import (SignUpForm, LoginForm,
                                RequestPasswdResetForm,
                                ResetPasswdForm)
 from application.models import User
-from application.decorators import check_email_confirmation
+# from application.decorators import check_email_confirmation
 
 auth = Blueprint('auth', __name__)
 
@@ -166,7 +167,8 @@ def save_profile_picture(image_file):
     random_hex = secrets.token_hex(8)
     _, file_ext = path.splitext(image_file.filename)
     picture_filename = random_hex + file_ext
-    picture_path = path.join(auth.root_path, 'static/images', picture_filename)
+    picture_path = path.join(current_app.root_path,
+                             'static/images', picture_filename)
     output_size = (125, 125)
     pic = Image.open(image_file)
     pic.thumbnail(output_size)
