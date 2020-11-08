@@ -1,0 +1,25 @@
+{# application/templates/forum/update.html #}
+
+{% from 'macros.html' import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %}Update Post{% endblock %}
+
+{% block content %}
+
+    <h1>{{ page_title }} Post</h1>
+
+    <form action="" method="POST">
+
+      {{ displayField(form.title, 'Enter post title') }}
+      {{ displayField(form.content, 'Type content here') }}
+
+      <input class="btn btn--solid" type="submit" value="CREATE">
+      <a class="btn btn--cancel" href="{{ url_for('forum.forum_route') }}">CANCEL</a>
+
+      {{ form.csrf_token }}
+
+    </form>
+
+{% endblock %}

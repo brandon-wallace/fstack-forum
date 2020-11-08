@@ -127,15 +127,14 @@ def update_post(post_id):
             'form': form,
             'post': post
             }
-    return render_template('forum/create_post.html', **content)
+    return render_template('forum/update.html', **content)
 
 
-@forum.route('/post/<int:post_id>/delete', methods=['POST'])
+@forum.route('/post/<int:post_id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_post(post_id):
     '''Update a post'''
 
-    print('DELETING')
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
