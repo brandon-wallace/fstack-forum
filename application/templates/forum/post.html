@@ -30,6 +30,8 @@
               </div>
 
               <div class="tile__buttons">
+                <a class="tile__btn" href="{{ url_for('forum.update_post', post_id=post.id) }}">Update</a>
+                <a class="tile__btn" href="{{ url_for('forum.delete_post', post_id=post.id) }}">Delete</a>
                 <button class="tile__btn tile--reverse">Reply</button>
               </div>
             </div>
