@@ -8,7 +8,7 @@ from flask import (Blueprint, render_template, url_for,
 from sqlalchemy.exc import IntegrityError
 from application import db, bcrypt
 from application.forms import (SignUpForm, LoginForm, UpdateAccountForm,
-                               CreatePostForm, CommentForm)
+                               CreatePostForm, UpdatePostForm, CommentForm)
 from application.models import User, Post, Comment
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -111,7 +111,7 @@ def update_post(post_id):
                             current_user.image_file))
     if post.author != current_user:
         abort(403)
-    form = CreatePostForm()
+    form = UpdatePostForm()
     if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
