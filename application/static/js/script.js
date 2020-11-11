@@ -36,10 +36,26 @@ if (themeToggleButton) {
     });
 }
 
+
 // Close flash messages.
 
 const closeMessageButton = document.querySelector('.close');
 
-closeMessageButton.addEventListener('click', () => {
-    document.querySelector('.message').remove();
-});
+if (closeMessageButton) {
+    closeMessageButton.addEventListener('click', () => {
+        document.querySelector('.message').remove();
+    });
+}
+
+
+// Open comment form.
+
+const openCommentButton = document.querySelectorAll('.reply');
+
+if (openCommentButton) {
+    for (let i = 0; i < openCommentButton.length; i++) {
+        openCommentButton[i].addEventListener('click', () => {
+            document.querySelector('.comment__form').style.display = 'block';
+        });
+    }
+}
