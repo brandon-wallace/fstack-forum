@@ -3,10 +3,9 @@
 import secrets
 from os import environ, path
 from PIL import Image
-from flask import Blueprint
 from datetime import datetime
-from flask import (render_template, url_for, flash,
-                   redirect, request, current_app)
+from flask import (Blueprint, render_template, url_for,
+                   flash, redirect, request, current_app)
 # from sqlalchemy.exc import IntegrityError
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message
@@ -102,7 +101,7 @@ def sign_up():
         # mail.send(msg)
         # flash('Please check your email for account confirmation link.',
         #       'success')
-        # return redirect(url_for('auth.login'))
+        # return redirect(url_for('auth.login_route'))
         # return link
         try:
             hashed_password = bcrypt.generate_password_hash(form.password.data
@@ -115,7 +114,7 @@ def sign_up():
             db.session.add(user)
             db.session.commit()
             flash('Account created successfully!', 'success')
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.login_route'))
         except Exception:
             db.session.rollback()
             flash('Something has gone wrong.', 'fail')
@@ -125,7 +124,7 @@ def sign_up():
 
 @auth.route('/login', methods=['GET', 'POST'])
 # @check_email_confirmation
-def login():
+def login_route():
     '''Login registered users'''
 
     if current_user.is_authenticated:
@@ -210,7 +209,7 @@ def logout():
 
     logout_user()
     flash('You have been logged out.', 'info')
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login_route'))
 
 
 @auth.route('/send_email')
@@ -238,7 +237,7 @@ def request_reset_password():
         user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
         flash('An email has been sent to reset your password.', 'info')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login_route'))
     return render_template('auth/request_reset_password.html', form=form)
 
 
@@ -261,7 +260,7 @@ def reset_token(token):
         db.session.commit()
         db.session.remove()
         flash('Your password has been reset!', 'success')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login_route'))
     return render_template('auth/reset_password_token.html', form=form)
 
 
