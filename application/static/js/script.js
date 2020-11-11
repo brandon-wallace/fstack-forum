@@ -51,11 +51,13 @@ if (closeMessageButton) {
 // Open comment form.
 
 const openCommentButton = document.querySelectorAll('.reply');
+const commentForm = document.querySelector('.comment__form');
 
 if (openCommentButton) {
     for (let i = 0; i < openCommentButton.length; i++) {
         openCommentButton[i].addEventListener('click', () => {
-            document.querySelector('.comment__form').style.display = 'block';
+            commentForm.style.display = 'block';
+            commentForm.scrollIntoView(false);
         });
     }
 }
