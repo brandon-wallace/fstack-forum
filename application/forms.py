@@ -97,7 +97,7 @@ class UpdatePostForm(FlaskForm):
     title = StringField('Title', validators=[InputRequired()])
     content = TextAreaField('Content', validators=[
                             InputRequired(), Length(min=20)])
-    submit = SubmitField('UPDATE')
+    submit = SubmitField('SAVE')
 
 
 class CommentForm(FlaskForm):
