@@ -10,7 +10,7 @@
 
     <h2 class="form__header">Login</h2>
 
-    <form action="{{ url_for('auth.login') }}" method="POST">
+    <form action="{{ url_for('auth.login_route') }}" method="POST">
 
       {{ form.csrf_token }}
 
@@ -27,7 +27,5 @@
       <p class="form__link"><a class="reset__link" href="{{ url_for('auth.request_reset_password') }}">Forgot password?</a></p>
 
     </form>
-
-    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 
 {% endblock %}
