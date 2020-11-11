@@ -1,21 +1,30 @@
 /* application/static/css/style.css */
 
+@font-face {
+  font-family: 'firaMono-Regular';
+  src: url('../fonts/FiraMono-Regular.eot'); 
+  src: url('../fonts/FiraMono-Regular.woff2') format('woff2'), 
+       url('../fonts/FiraMono-Regular.woff') format('woff'), 
+       url('../fonts/FiraMono-Regular.ttf')  format('truetype'), 
+       url('../fonts/FiraMono-Regular.otf')  format('opentype') 
+}
+
 :root {
-    --lighter: #F4F4F4;
-    --light: #EAEAE3;
-    --medium-light: #D9D9D9;
-    --medium: #777777;
-    --medium-dark: #3B3B3B;
     --dark: #2B2B2B;
     --blue: #0606FB;
+    --light: #EAEAE3;
+    --medium: #777777;
+    --lighter: #F4F4F4;
+    --medium-dark: #3B3B3B;
+    --medium-light: #D9D9D9;
 
     --fg: var(--dark);
     --bg: var(--light);
 }
 
 .dark-theme {
-    --fg: var(--light);
     --bg: var(--dark);
+    --fg: var(--light);
     --medium-light: var(--medium-dark);
 }
 
@@ -30,9 +39,9 @@ body {
 body {
     color: #2B2B2B;
     color: var(--fg, #2B2B2B);
-    font-family: sans-serif;
     background-color: #EAEAE3;
     background-color: var(--bg, #EAEAE3);
+    font-family: 'FiraMono-Regular', monospace;
 }
 
 a {
@@ -50,7 +59,7 @@ a {
 }
 
 .menu__link:visited {
-    /* color: #600381; */
+    /* color: ???? #600381; */
 }
 
 article {
@@ -67,6 +76,11 @@ header {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     background-color: var(--medium-light, #DDDDDD);
+}
+
+.logged-in-user {
+    margin: 5px .5rem 0 0;
+    text-align: right;
 }
 
 section {
@@ -160,6 +174,7 @@ nav {
 
 .input__field {
     padding: .5rem 1rem;
+    font-family: inherit;
     border: 3px solid #777777;
     border: 3px solid var(--medium, #777777);
 }
@@ -187,8 +202,8 @@ nav {
 .message {
     width: 100%;
     border: solid;
-    margin: 0 auto;
     display: flex;
+    margin: 0 auto;
     max-width: 520px;
     font-weight: bold;
     border-radius: 4px;
@@ -251,8 +266,8 @@ form {
 }
 
 .about,
-.unconfirmed,
-.agreement {
+.agreement,
+.unconfirmed {
     margin: 0 auto;
     padding: .25rem;
     max-width: 800px;
@@ -268,28 +283,37 @@ form {
 .input__field {
     width: 100%;
     font-size: 1rem;
-    font-weight: bold;
     min-height: 50px;
-    margin-bottom: .75rem;
+    font-weight: bold;
     font-family: inherit;
+    margin-bottom: .75rem;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
 }
 
 .password__field {
     margin-bottom: 0;
-    letter-spacing: 2px;
 }
 
-.password__field::-moz-placeholder {
-    letter-spacing: unset;
+/* Set bigger spacing and size of the input text. */
+input[type="password"] {
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+}
+
+/* Return the spacing and size of the 
+ * placeholder text to match other input fields.
+ */
+input[type="password"]::-moz-placeholder { 
+    font-size: 1rem;
+    letter-spacing: 0;
 }
 
 .form__password_toggle {
+    width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    width: 100%;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
@@ -368,8 +392,8 @@ form {
 .btn--link {
     width: 100%;
     height: 34px;
-    max-width: 345px;
     color: #2973FF;
+    max-width: 345px;
     line-height: 34px;
     text-align: center;
     background-color: #FFFFFF;
@@ -424,6 +448,7 @@ form {
 }
 
 .footer__anchor {
+    margin: 0;
     text-align: right;
 }
 
@@ -499,9 +524,9 @@ form {
     }
     .menu__link {
         margin-bottom: 0;
+        text-align: center;
         padding: .5rem 1rem;
         white-space: nowrap;
-        text-align: center;
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
     }
@@ -513,7 +538,7 @@ form {
     }
     .message--fail,
     .message--success {
-        margin: 0 auto;
+        margin: 0 auto .5rem auto;
     }
     .page__header,
     .form__header {
@@ -524,8 +549,8 @@ form {
         font-size: 3.25rem;
     }
     .form__header {
-        font-size: 2.5rem;
         margin: .85rem 0;
+        font-size: 2.5rem;
     }
     form {
         margin: 0 auto;
@@ -559,10 +584,10 @@ form {
 .posts-new-link {
     width: 100px;
     padding: .5rem;
-    margin: 1rem 0 1rem 8px;
     display: block;
     text-align: center;
     text-decoration: none;
+    margin: 1rem 0 1rem 8px;
     border: 2px solid #202020;
     background-color: #B9B6B9;
 }
@@ -594,13 +619,13 @@ form {
 
 .comment {
     width: 100%;
+    padding: 1rem;
     height: 250px;
     margin: 0 auto;
     min-width: 285px;
     max-width: 1100px;
     margin-bottom: .5rem;
     background-color: #F7F7F7;
-    padding: 1rem;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     -webkit-box-shadow: 1px 1px 8px 1px #555555;
@@ -611,8 +636,8 @@ form {
 .tile,
 .comment {
     width: 100%;
-    padding: .75rem;
     margin: 0 auto;
+    padding: .75rem;
     min-width: 285px;
     max-width: 550px;
     margin-bottom: .5rem;
@@ -666,8 +691,8 @@ form {
 }
 
 .tile__category__link {
-	padding: 0 .25rem;
     color: #EAEAE3;
+	padding: 0 .25rem;
 	color: var(--light, #EAEAE3);
 	font-style: italic;
     background-color: #0606FB;
@@ -719,6 +744,7 @@ form {
     border-radius: 2px;
     margin-left: .5rem;
     text-align: center;
+    font-family: inherit;
     background-color: #FFFDFD;
 }
 
@@ -779,8 +805,9 @@ form {
         border: .5px solid #202020;
         background-color: #202020;
     }
-    .comment-form {
+    .comment__form {
         width: 100%;
+        display: none;
         margin: 0 auto;
         max-width: 1100px;
     }
@@ -832,9 +859,9 @@ form {
 
 /* Create post */
 select {
+    outline: 0;
     width: 100%;
     height: 40px;
-    outline: 0;
     padding: .25rem;
     font-size: 1rem;
     margin-bottom: 1rem;
@@ -857,6 +884,7 @@ select {
     font-family: inherit;
     letter-spacing: 2.1px;
     text-decoration: none;
+    box-sizing: border-box;
     background-color: #FDFDFD;
     border: 3px solid #0D3D95;
 }
