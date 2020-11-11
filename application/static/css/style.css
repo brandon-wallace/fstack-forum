@@ -1,7 +1,7 @@
 /* application/static/css/style.css */
 
 @font-face {
-  font-family: 'firaMono-Regular';
+  font-family: 'FiraMono-Regular';
   src: url('../fonts/FiraMono-Regular.eot'); 
   src: url('../fonts/FiraMono-Regular.woff2') format('woff2'), 
        url('../fonts/FiraMono-Regular.woff') format('woff'), 
@@ -34,6 +34,7 @@ body {
     padding: 0;
     width: 100%;
     height: 100%;
+    scroll-behavior: scroll;
 }
 
 body {
@@ -173,10 +174,6 @@ nav {
 }
 
 .input__field {
-    padding: .5rem 1rem;
-    font-family: inherit;
-    border: 3px solid #777777;
-    border: 3px solid var(--medium, #777777);
 }
 
 .forum__link {
@@ -285,16 +282,21 @@ form {
     font-size: 1rem;
     min-height: 50px;
     font-weight: bold;
+    padding: .5rem 1rem;
+    font-family: inherit;
     font-family: inherit;
     margin-bottom: .75rem;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
+    border: 3px solid #777777;
+    border: 3px solid var(--medium, #777777);
 }
 
 /* Set bigger spacing and size of the input text. */
 input[type="password"] {
     font-size: 1.4rem;
     letter-spacing: 4px;
+    margin-bottom: .75rem;
 }
 
 /* Return the spacing and size of the 
@@ -325,6 +327,7 @@ input[type="password"] {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    margin-top: -8px;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
@@ -750,16 +753,20 @@ input[type="password"] {
 .tile__btn,
 .comment__btn {
     border: 0;
-    width: 85px;
-    height: 48px;
+    width: 65px;
+    height: 50px;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: .9rem;
     font-weight: bold;
     border-radius: 2px;
     margin-left: .5rem;
     text-align: center;
     font-family: inherit;
     background-color: #FFFDFD;
+}
+
+.comment__form {
+    display: none;
 }
 
 .tile__btn:hover {
@@ -814,6 +821,11 @@ input[type="password"] {
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
     }
+    .tile__btn,
+    .comment__btn {
+        width: 85px;
+        font-weight: 1.1rem;
+    }
     .btn--dark {
         color: #DFDFDF;
         border: .5px solid #202020;
@@ -821,7 +833,6 @@ input[type="password"] {
     }
     .comment__form {
         width: 100%;
-        display: none;
         margin: 0 auto;
         max-width: 1100px;
     }
@@ -891,6 +902,7 @@ select {
     display: block;
     cursor: pointer;
     font-size: 1rem;
+    padding: .5rem 0;
     font-weight: bold;
     min-width: 130px;
     text-align: center;
