@@ -11,6 +11,7 @@
       {% for post in posts.items %}
       
         <div class="tile tile--wide">
+
           <div class="tile__content">
 
             <div class="tile__header">
@@ -19,23 +20,24 @@
             </div>
 
 		    <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
+
             <div class="tile__text">
               <p>{{ post.content }}</p>
             </div>
 
             <div class="tile__footer">
+
               <div class="tile__author">
                 <p class="tile__title">{{ post.author.username }}</p>
               </div>
 
               <div class="tile__buttons">
-				{% if current_user.is_authenticated %}
-                  <a class="tile__btn tile--reverse" href="{{ url_for('forum.display_post', post_id=post.id) }}">Reply</a>
-				{% endif %}
               </div>
+
             </div>
 
           </div>
+
         </div>
 
       {% endfor %}

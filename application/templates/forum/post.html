@@ -14,60 +14,79 @@
       
       <!-- posts -->
       <div class="tile tile--wide">
+
         <div class="tile__content">
+
           <div class="tile__header">
             <h2 class="tile__title"><a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h2>
-            <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+            <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d") }}</p>
           </div>
-		    <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
-            <div class="tile__text">
-              <p>{{ post.content }}</p>
+
+		  <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
+
+          <div class="tile__text">
+            <p>{{ post.content }}</p>
+          </div>
+
+          <div class="tile__footer">
+
+            <div class="tile__author">
+              <p class="tile__title">{{ post.author.username }}</p>
             </div>
 
-            <div class="tile__footer">
-              <div class="tile__author">
-                <p class="tile__title">{{ post.author.username }}</p>
-              </div>
-
-              <div class="tile__buttons">
-                <a class="tile__btn" href="{{ url_for('forum.update_post', post_id=post.id) }}">Update</a>
+            <div class="tile__buttons">
+              {% if current_user == post.author %}
+                <a class="tile__btn" href="{{ url_for('forum.update_post', post_id=post.id) }}">Edit</a>
                 <a class="tile__btn" href="{{ url_for('forum.delete_post', post_id=post.id) }}">Delete</a>
-                <button class="tile__btn tile--reverse">Reply</button>
-              </div>
+              {% endif %}
+              <button class="tile__btn tile--reverse reply">Reply</button>
             </div>
 
           </div>
+
         </div>
+
       </div><!-- END posts -->
 
       <!-- comments -->
       {% if comments %}
+
         {% for comment in comments %}
+
           <div class="comment comment--wide">
+
             <div class="comment__content">
-            <div class="comment__header">
-              <div class="comment__title"><h1>{{ comment.title }}</h1></div>
-              <p class="tile__date">{{ comment.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
-            </div>
 
-            <div class="comment__text">
-              <p>{{ comment.content }}</p>
-            </div>
-
-            <div class="comment__footer">
-              <div class="comment__author">
-                <p class="comment__title">{{ comment.author.username }}</p>
+              <div class="comment__header">
+                <div class="comment__title"><h1>{{ comment.title }}</h1></div>
+                <p class="tile__date">{{ comment.date_posted.strftime("%Y-%m-%d") }}</p>
               </div>
-              <div class="comment__buttons">
-                <button class="comment__btn comment--reverse">Reply</button>
+
+              <div class="comment__text">
+                <p>{{ comment.content }}</p>
+              </div>
+
+              <div class="comment__footer">
+
+                <div class="comment__author">
+                  <p class="comment__title">{{ comment.author.username }}</p>
                 </div>
+
+                <div class="comment__buttons">
+                  <button class="comment__btn comment--reverse reply">Reply</button>
+                </div>
+
               </div>
+
             </div>
+
           </div>
+
         {% endfor %}
+
       {% endif %}
 
-      <form class="comment-form" action="" method="POST">
+      <form class="comment__form" action="" method="POST">
 
         {{ form.csrf_token }}
 
@@ -82,41 +101,48 @@
       <p class="current-user">{{ current_user.username }}</p>
 
       <div class="tile tile--wide">
+
         <div class="tile__content">
 
           <div class="tile__header">
             <h2 class="tile__title"><a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h2>
-            <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+            <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d") }}</p>
           </div>
 
 		  <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
+
           <div class="tile__text">
             <p>{{ post.content }}</p>
           </div>
 
           <div class="tile__footer">
+
             <div class="tile__author">
               <p class="tile__title">{{ post.author.username }}</p>
             </div>
 
             <div class="tile__buttons">
-              {# Do not display to non-logged in users.
-                <button class="tile__btn tile--reverse">Reply</button>
-              #}
             </div>
+
           </div>
 
           </div>
+
         </div>
+
       </div>
 
       {% if comments %}
+
         {% for comment in comments %}
+
           <div class="comment comment--wide">
+
             <div class="comment__content">
+
               <div class="comment__header">
                 <div class="comment__title"><h1>{{ comment.title }}</h1></div>
-                <p class="tile__date">{{ comment.date_posted.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+                <p class="tile__date">{{ comment.date_posted.strftime("%Y-%m-%d") }}</p>
               </div>
 
               <div class="comment__text">
@@ -124,18 +150,22 @@
               </div>
 
               <div class="comment__footer">
+
                 <div class="comment__author">
                   <p class="comment__title">{{ comment.author.username }}</p>
                 </div>
+
                 <div class="comment__buttons">
-                  {# Do not display to non-logged in users.
-                    <button class="comment__btn comment--reverse">Reply</button>
-                  #}
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
         {% endfor %}
+
       {% endif %}
 
     {% endif %}

@@ -41,7 +41,10 @@
           </ul>
         </nav>
   
-        <h1 class="page__header">FStack Forum</h1>
+        {% if current_user.is_authenticated %}
+          <p class="logged-in-user">{{ current_user.username }}</p>
+        {% endif %}
+        <h1 class="page__header">Fstack Forum</h1>
   
       </header>
   
