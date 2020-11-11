@@ -291,10 +291,6 @@ form {
             box-sizing: border-box;
 }
 
-.password__field {
-    margin-bottom: 0;
-}
-
 /* Set bigger spacing and size of the input text. */
 input[type="password"] {
     font-size: 1.4rem;
@@ -304,7 +300,22 @@ input[type="password"] {
 /* Return the spacing and size of the 
  * placeholder text to match other input fields.
  */
-input[type="password"]::-moz-placeholder { 
+.password__field::-moz-placeholder { 
+    font-size: 1rem;
+    letter-spacing: 0;
+}
+
+.password__field::-webkit-input-placeholder {
+    font-size: 1rem;
+    letter-spacing: 0;
+}
+
+.password__field:-ms-input-placeholder {
+    font-size: 1rem;
+    letter-spacing: 0;
+}
+
+.password__field::placeholder {
     font-size: 1rem;
     letter-spacing: 0;
 }
@@ -379,14 +390,12 @@ input[type="password"]::-moz-placeholder {
     cursor: pointer;
     min-width: 135px;
     max-width: 345px;
-    line-height: 40px;
     font-size: 1.1rem;
     font-weight: bold;
     margin: 0 auto 1rem;
     font-family: inherit;
     letter-spacing: 2.1px;
     border: 3px solid #0D3D95;
-
 }
 
 .btn--link {
@@ -503,6 +512,11 @@ input[type="password"]::-moz-placeholder {
   color: #000000;
   font-size: 1rem;
   color: var(--fg, #000000);
+}
+
+.contact__link {
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 @media only screen and (min-width: 365px) {
