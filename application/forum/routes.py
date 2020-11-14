@@ -20,8 +20,11 @@ def index():
     '''Landing page'''
 
     # posts = Post.query.order_by(Post.date_posted.desc()).limit(4).all()
+    posts = Post.query.all()
+    # comments = Comment.query.filter(Comment.post_id == posts.id).count()
     page = request.args.get('page', 1, type=int)
     posts = Post.query.paginate(page=page, per_page=3)
+    # return render_template('forum/index.html', posts=posts, comments=comments)
     return render_template('forum/index.html', posts=posts)
 
 

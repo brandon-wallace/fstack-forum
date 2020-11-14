@@ -15,7 +15,7 @@ logging.basicConfig(filename='error.log', filemode='w',
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
-login_manager.login_view = 'auth.login'
+login_manager.login_view = 'auth.login_route'
 mail = Mail()
 toolbar = DebugToolbarExtension()
 

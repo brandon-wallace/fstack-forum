@@ -62,7 +62,7 @@ def preferences():
         current_user.email = form.email.data
         db.session.commit()
         flash('Account updated successfully.', 'success')
-        return redirect(url_for('profile'))
+        return redirect(url_for('admin.profile'))
     elif request.method == 'GET':
         # Populate username and email upon page load.
         form.username.data = current_user.username
@@ -78,4 +78,5 @@ def logout():
     '''Log user out'''
 
     logout_user()
+    flash('You have been logged out.', 'success')
     return redirect(url_for('forum.index'))
