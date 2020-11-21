@@ -4,6 +4,7 @@ import logging
 from os import environ
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
@@ -14,6 +15,7 @@ logging.basicConfig(filename='error.log', filemode='w',
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
+migrate = Migrate()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login_route'
 mail = Mail()
@@ -46,6 +48,7 @@ def create_app():
     app.config['MAIL_ASCII_ATTACHMENTS'] = True
 
     db.init_app(app)
+    migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)

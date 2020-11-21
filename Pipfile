@@ -20,6 +20,7 @@ gunicorn = "*"
 pytz = "*"
 flask-login = "*"
 python-dotenv = "*"
+flask-migrate = "*"
 
 [requires]
 python_version = "3.7"
