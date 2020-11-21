@@ -3,14 +3,15 @@
 
   <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="forum for fullstack developers">
-    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="A forum for fullstack developers">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>{% block title %}{% endblock %} - FStack Forum</title>
+    <link rel="stylesheet" media="screen,projection,tv" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}{% endblock %} FStack Forum</title>
 
   </head>
 
