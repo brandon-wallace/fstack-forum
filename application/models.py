@@ -20,7 +20,7 @@ class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), index=True, nullable=False)
-    email = db.Column(db.String(120), index=True, nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     email_confirmed = db.Column(db.Boolean, nullable=False, default=False)
     email_confirmed_on = db.Column(db.DateTime, nullable=True)
     image_file = db.Column(db.String(20), nullable=False,
