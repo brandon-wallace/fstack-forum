@@ -11,6 +11,7 @@
 ![screenshot3](application/static/images/screenshot3_dark.png)
 ![screenshot4](application/static/images/screenshot4.png)
 
+
 ```
 ├── application/
 │   ├── admin/
@@ -33,21 +34,6 @@
 │   │   │   ├── login.js
 │   │   │   └── script.js
 │   │   └── webfonts/
-│   │       ├── fa-brands-400.eot
-│   │       ├── fa-brands-400.svg
-│   │       ├── fa-brands-400.ttf
-│   │       ├── fa-brands-400.woff
-│   │       ├── fa-brands-400.woff2
-│   │       ├── fa-regular-400.eot
-│   │       ├── fa-regular-400.svg
-│   │       ├── fa-regular-400.ttf
-│   │       ├── fa-regular-400.woff
-│   │       ├── fa-regular-400.woff2
-│   │       ├── fa-solid-900.eot
-│   │       ├── fa-solid-900.svg
-│   │       ├── fa-solid-900.ttf
-│   │       ├── fa-solid-900.woff
-│   │       └── fa-solid-900.woff2
 │   ├── templates/
 │   │   ├── admin/
 │   │   │   ├── dashboard.html
@@ -101,17 +87,18 @@
 1) Clone repository.
 ```
 $ git clone git@github.com:brandon-wallace/fstack-forum.git
+
 $ cd fstack-forum/
 ```
 
-2) Create a .env file. Add the following settings:
+2) Create a .env file. Add the following settings before starting the virtual environment:
 ```
 $ vim .env
 
 FLASK_ENV=development
 FLASK_APP=run.py
-DATABASE_URL='postgres://<username>:<password>@<hostname>:<port>/<database_name>'
-DEV_DATABASE_URL='sqlite://<database_file>'
+DATABASE_URI='postgres://<username>:<password>@<hostname>:<port>/<database_name>'
+DEV_DATABASE_URI='sqlite://<database_file>'
 SECRET_KEY=<your_secret_key>
 SECURITY_PASSWORD_SALT=<your_password_salt>
 MAIL_SERVER=<your_email_server>
@@ -129,9 +116,19 @@ $ pipenv shell
 4) Install dependencies.
 ```
 $ pipenv install
+
+$ pipenv install flask-debugtoolbar --dev
 ```
 
-5) Create database.
+5) Create a Sqlite3 database for development purposes or create a PostgreSQL 
+database for production.
+
+Sqlite3
+```
+$ sqlite3 application/fstackforum.db
+```
+
+Postgresql:
 ```
 $ psql
 
@@ -142,8 +139,13 @@ $ psql
 
 6) Create tables.
 ```
-$ python3 cli.py initdb
+$ python3 
 
+>>> from application import db, create_app
+
+>>> db.create_all(app=create_app())
+
+>>> exit()
 ```
 
 7) Start the development server.
@@ -153,16 +155,6 @@ $ flask run -h 127.0.0.1 -p 5000
 
 8) Navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
-
-Reset database.
-```
-# Delete tables.
-$ python3 cli.py dropdb
-
-# Create tables.
-$ python3 cli.py initdb
-
-```
 
 # License
 
