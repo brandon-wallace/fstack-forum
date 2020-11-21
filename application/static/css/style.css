@@ -306,7 +306,7 @@ form {
 }
 
 /* Set bigger spacing and size of the input text. */
-input[type="password"] {
+.password__field {
     font-size: 1.4rem;
     letter-spacing: 4px;
     margin-bottom: .75rem;
