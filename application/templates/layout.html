@@ -23,6 +23,8 @@
 
     <article>
 
+      <!-- START header -->
+
       <header>
   
         <nav>
@@ -33,9 +35,9 @@
             {% if current_user.is_authenticated %}
               <li><a class="menu__link{% if request.endpoint == 'forum.forum_route' %} active{% endif %}" href="{{ url_for('forum.forum_route') }}">forum</a></li>
               <li><a class="menu__link{% if request.endpoint == 'auth.profile' %} active{% endif %}" href="{{ url_for('auth.profile') }}">profile</a></li>
-              <li class="menu--left"><a class="menu__link" href="{{ url_for('auth.logout') }}">logout</a></li>
+              <li class=""><a class="menu__link" href="{{ url_for('auth.logout') }}">logout</a></li>
             {% else %}
-              <li class="menu--left"><a class="menu__link{% if request.endpoint == 'auth.sign_up' %} active{% endif %}" href="{{ url_for('auth.sign_up') }}">sign up</a></li>
+              <li class=""><a class="menu__link{% if request.endpoint == 'auth.sign_up' %} active{% endif %}" href="{{ url_for('auth.sign_up') }}">sign up</a></li>
               <li><a class="menu__link btn--outline{% if request.endpoint == 'auth.login_route' %} active{% endif %}" href="{{ url_for('auth.login_route') }}">login</a></li>
             {% endif %}
   
@@ -48,6 +50,10 @@
         <h1 class="page__header">Fstack Forum</h1>
   
       </header>
+
+      <!-- END header -->
+
+      <!-- START main -->
   
       <main>
   
@@ -66,6 +72,10 @@
         {% endblock %}
 
       </main>
+
+      <!-- END main -->
+
+      <!-- START footer -->
 
       <footer>
   
@@ -90,6 +100,8 @@
         <p class="footer__anchor">Created by <a href="https://brandon-wallace.cc">brandon wallace</a></p>
 
       </footer>
+
+      <!-- END footer -->
 
     </article>
 

@@ -87,7 +87,7 @@ header {
 }
 
 section {
-    padding-bottom: 5px;
+    padding: 1rem 0;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
 }
@@ -560,6 +560,7 @@ form {
         -webkit-box-direction: normal;
             -ms-flex-direction: row;
                 flex-direction: row;
+        justify-content: flex-end;
     }
     .menu li {
         margin-right: .5rem;
@@ -571,9 +572,6 @@ form {
         white-space: nowrap;
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-    }
-    .menu--left {
-        margin-left: auto;
     }
     nav {
         width: 100%;
@@ -588,7 +586,8 @@ form {
         text-align: center;
     }
     .page__header {
-        font-size: 3.25rem;
+        font-size: 3.5rem;
+        margin-top: .75rem;
     }
     .form__header {
         margin: .85rem 0;
@@ -601,7 +600,7 @@ form {
 
 @media only screen and (min-width: 650px) {
     .page__header {
-        font-size: 4rem;
+        font-size: 5rem;
     }
 }
 

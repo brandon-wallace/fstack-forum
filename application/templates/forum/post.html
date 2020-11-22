@@ -12,7 +12,8 @@
 
     {% if current_user.is_authenticated %}
       
-      <!-- posts -->
+      <!-- START posts -->
+
       <div class="tile tile--wide">
 
         <div class="tile__content">
@@ -35,20 +36,25 @@
             </div>
 
             <div class="tile__buttons">
+
               {% if current_user == post.author %}
                 <a class="tile__btn" href="{{ url_for('forum.update_post', post_id=post.id) }}">Edit</a>
                 <a class="tile__btn" href="{{ url_for('forum.delete_post', post_id=post.id) }}">Delete</a>
               {% endif %}
               <button class="tile__btn tile--reverse reply">Reply</button>
+
             </div>
 
           </div>
 
         </div>
 
-      </div><!-- END posts -->
+      </div>
+      
+      <!-- END posts -->
 
-      <!-- comments -->
+      <!-- START comments -->
+
       {% if comments %}
 
         {% for comment in comments %}
@@ -94,9 +100,13 @@
         <input class="btn btn--solid" type="submit" value="SUBMIT">
         <a class="btn btn--link" href="{{ url_for('forum.forum_route') }}">CANCEL</a>
 
-      </form><!-- END comments -->
+      </form>
+      
+      <!-- END comments -->
 
     {% else %}
+
+      <!-- START post -->
 
       <p class="current-user">{{ current_user.username }}</p>
 
@@ -131,6 +141,10 @@
         </div>
 
       </div>
+
+      <!-- END posts -->
+
+      <!-- START comments -->
 
       {% if comments %}
 
@@ -167,6 +181,8 @@
         {% endfor %}
 
       {% endif %}
+
+      <!-- END comments -->
 
     {% endif %}
 
