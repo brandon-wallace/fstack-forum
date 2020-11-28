@@ -84,13 +84,29 @@
           <div class="footer__content">
   
             {% if posts %}
+
+              {% if posts.has_prev %}
+                <a class="footer__link arrow" href="{{ url_for('forum.index', page=posts.prev_num) }}">&#171;</a>
+              {% endif %}
+
               {% for page_num in posts.iter_pages() %}
+
                 {% if page_num %}
-                  <a class="footer__link" href="{{ url_for('forum.index', page=page_num) }}">{{ page_num }}</a>
-                {% else %}
-                  <p class="footer__link">...</p>
+
+                  {% if page_num != posts.page %}
+                    <a class="footer__link" href="{{ url_for('forum.index', page=page_num) }}">{{ page_num }}</a>
+                  {% else %}
+                    <a class="footer__link current__page" href="#">{{ page_num }}</a>
+                  {% endif %}
+
                 {% endif %}
+
               {% endfor %}
+
+              {% if posts.has_next %}
+                <a class="footer__link arrow" href="{{ url_for('forum.index', page=posts.next_num) }}">&#187;</a>
+              {% endif %}
+
             {% endif %}
   
           </div>

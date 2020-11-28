@@ -986,6 +986,11 @@ textarea {
     text-decoration: underline;
 }
 
+.current__page {
+    background-color: #C6C6C6;
+    text-decoration: underline;
+}
+
 .close {
     border: 0;
     color: #111111;
