@@ -456,6 +456,7 @@ form {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    margin-bottom: 1.5rem;
 	-webkit-box-align: center;
 	    -ms-flex-align: center;
 	        align-items: center;
@@ -486,6 +487,9 @@ form {
     color: var(--fg, #2B2B2B);
     background-color: #EAEAE3;
     background-color: var(--bg, #EAEAE3);
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
 .footer__anchor a {
