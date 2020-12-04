@@ -71,7 +71,7 @@ article {
 }
 
 main {
-    padding: 8px .5rem 200px .5rem;
+    padding: 8px .5rem 250px .5rem;
 }
 
 header {
@@ -95,7 +95,7 @@ section {
 footer {
     bottom: 0;
     width: 100%;
-    height: 200px;
+    height: 250px;
     padding: 1.5rem;
     position: absolute;
     -webkit-box-sizing: border-box;
