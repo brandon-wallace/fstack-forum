@@ -17,7 +17,7 @@ from application.forms import (SignUpForm, LoginForm,
                                RequestPasswdResetForm,
                                ResetPasswdForm)
 from application.models import User
-# from application.decorators import check_email_confirmation
+from application.decorators import check_email_confirmation
 
 auth = Blueprint('auth', __name__)
 
@@ -42,6 +42,13 @@ def confirm_token(token, expiration=3600):
     return email
 
 
+@auth.route('/confirm')
+def confirm():
+    '''Email confirmation route'''
+
+    return render_template('auth/confirm.html')
+
+
 @auth.route('/confirm/<token>')
 def confirm_email(token):
     '''Confirm user's email'''
@@ -49,28 +56,43 @@ def confirm_email(token):
     try:
         email = confirm_token(token)
     except BadTimeSignature:
-        return 'Email confirmation failed.'
+        flash('Email confirmation failed.', 'fail')
+        return
     except SignatureExpired:
-        return 'Token expired.'
+        flash('Token exired.', 'fail')
+        return
+
     user = User.query.filter_by(email=email).first_or_404()
     if user.email_confirmed:
-        flash('Account has been confirmed. Please login.', 'success')
+        flash('Account confirmed. Please login.', 'success')
         return redirect(url_for('auth.login_route', _external=True))
-    if email:
-        current_user.email_confirmed = True
-        current_user.email_confirmed_date = datetime.utcnow()
+    else:
+        user.email_confirmed = True
+        user.email_confirmed_date = datetime.utcnow()
         db.session.commit()
         flash('Account creation successful. Please login.', 'success')
     return redirect(url_for('auth.login_route', _external=True))
 
 
 @auth.route('/unconfirmed')
-def unconfirmed():
+@login_required
+def email_not_confirmed():
     '''
     Give user another chance to confirm their email
     '''
 
-    flash('Please confirm your account.', 'warning')
+    if request.method == 'POST':
+
+        token = create_confirmation_token(request.form['email'])
+        msg = Message('Confirm Email Address',
+                      sender=('root', 'no-reply@fstackforum.com'),
+                      recipients=[request.form['email']])
+        link = url_for('main.confirm_email', token=token, _external=True)
+        msg.body = f'''Email confirmation link: {link}
+If you did not make this request then simply
+ignore this email and no changes will be made.
+        '''
+        mail.send(msg)
     return render_template('auth/unconfirmed.html')
 
 
@@ -89,20 +111,16 @@ def sign_up():
 
     form = SignUpForm()
     if form.validate_on_submit():
-        # msg = Message('Verify Your Email Address',
-        #               sender='no-reply@fstackforum.com',
-        #               recipients=[request.form['email']])
-        # link = generate_url('auth.confirm_email',
-        #                     create_confirmation_token(request.form['email']))
-        # msg.body = f'''Your email confirmation link is: {link}
-        # If you did not make this request then simply
-        # ignore this email and no changes will be made.
-        # '''
-        # mail.send(msg)
-        # flash('Please check your email for account confirmation link.',
-        #       'success')
-        # return redirect(url_for('auth.login_route'))
-        # return link
+        msg = Message('Verify Your Email Address',
+                      sender='no-reply@fstackforum.com',
+                      recipients=[request.form['email']])
+        link = generate_url('auth.confirm_email',
+                            create_confirmation_token(request.form['email']))
+        msg.body = f'''Your email confirmation link is: {link}
+If you did not make this request then simply
+ignore this email and no changes will be made.
+        '''
+        mail.send(msg)
         try:
             hashed_password = bcrypt.generate_password_hash(form.password.data
                                                             ).decode('utf-8')
@@ -113,17 +131,15 @@ def sign_up():
                         location=form.location.data)
             db.session.add(user)
             db.session.commit()
-            flash('Account created successfully!', 'success')
-            return redirect(url_for('auth.login_route'))
+            db.session.remove()
+            return redirect(url_for('auth.confirm'))
         except Exception:
             db.session.rollback()
-            flash('Something has gone wrong.', 'fail')
             return redirect(url_for('auth.signup'))
     return render_template('auth/signup.html', form=form)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-# @check_email_confirmation
 def login_route():
     '''Login registered users'''
 
@@ -142,9 +158,9 @@ def login_route():
             # host = request.headers.get('Host')
             # referer = request.headers.get('Referer')
             login_user(user)
-            next_page = request.args.get('next')
-            if next_page:
-                return redirect(next_page)
+            # next_page = request.args.get('next')
+            # if next_page:
+            #     return redirect(next_page)
             return redirect(url_for('forum.forum_route'))
         else:
             flash('Login failed. Check your email/password.',
@@ -154,6 +170,7 @@ def login_route():
 
 @auth.route('/profile')
 @login_required
+@check_email_confirmation
 def profile():
     '''Profile route'''
 
@@ -204,6 +221,7 @@ def preferences():
 
 
 @auth.route('/logout')
+@login_required
 def logout():
     '''Log user out'''
 

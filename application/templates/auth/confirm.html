@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}email unconfirmed{% endblock %}
+
+{% block content %}
+
+    <p>Confirmation link has been sent to your email.</p>
+    <p>Please check your email (and your spam folder).</p>
+    <p>Didn't receive the email?</p> 
+    <a class="bttn" href="{{ url_for('auth.email_not_confirmed') }}">Resend confirmation link</a>
+
+{% endblock %}

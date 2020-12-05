@@ -11,6 +11,7 @@ from application.forms import (SignUpForm, LoginForm, UpdateAccountForm,
                                CreatePostForm, UpdatePostForm, CommentForm)
 from application.models import User, Post, Comment
 from flask_login import login_user, logout_user, login_required, current_user
+from application.decorators import check_email_confirmation
 
 forum = Blueprint('forum', __name__)
 
@@ -30,6 +31,7 @@ def index():
 
 @forum.route('/forum', methods=['GET'])
 @login_required
+@check_email_confirmation
 def forum_route():
     '''Forum route'''
 

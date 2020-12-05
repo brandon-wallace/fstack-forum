@@ -11,7 +11,7 @@ def check_email_confirmation(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         if current_user.email_confirmed is False:
-            flash('Your account is not confirmed!', 'danger')
-            return redirect(url_for('auth.unconfirmed'))
+            flash('Your account is not confirmed!', 'fail')
+            return redirect(url_for('auth.email_not_confirmed'))
         return func(*args, **kwargs)
     return decorated_function
