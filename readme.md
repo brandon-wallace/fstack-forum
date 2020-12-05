@@ -10,6 +10,7 @@
 ![screenshot2](application/static/images/screenshot2.png)
 ![screenshot3](application/static/images/screenshot3_dark.png)
 ![screenshot4](application/static/images/screenshot4.png)
+![screenshot5](application/static/images/screenshot5.png)
 
 
 ```
