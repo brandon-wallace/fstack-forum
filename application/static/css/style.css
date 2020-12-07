@@ -172,7 +172,7 @@ nav {
 }
 
 .menu__link {
-    max-width: 350px;
+    max-width: 400px;
     text-transform: uppercase;
     border: 2px solid #1D1E2A;
     border: 2px solid var(--fg, #1D1E2A);
@@ -350,6 +350,17 @@ form {
             justify-content: flex-end;
 }
 
+.email__unconfirmed {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.email__unconfirmed__text {
+    font-weight: bold;
+    font-size: 1.4rem;
+    text-align: justify;
+}
+
 .eye__button {
     border: 0;
     outline: none;
@@ -405,12 +416,14 @@ form {
     display: block;
     cursor: pointer;
     min-width: 135px;
-    max-width: 345px;
+    /* max-width: 345px; */
     font-size: 1.1rem;
     font-weight: bold;
+    text-align: center;
     margin: 0 auto 1rem;
     font-family: inherit;
     letter-spacing: 2.1px;
+    text-transform: uppercase;
     border: 3px solid #0D3D95;
 }
 
@@ -959,15 +972,25 @@ textarea {
     background-color: #2973FF;
 }
 
-.error__text,
-.error__emoji {
+.btn--large {
+    margin: 0;
+    max-width: 400px;
+    padding: .5rem 1rem;
+    box-sizing: border-box;
+}
+
+.error__text {
     font-size: 2rem;
     margin: 0 0 8px 0;
     text-align: center;
 }
 
-.error__emoji {
-    font-size: 3.5rem;
+.error__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    max-width: 500px;
 }
 
 .hide {

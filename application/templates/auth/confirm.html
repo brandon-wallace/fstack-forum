@@ -4,9 +4,11 @@
 
 {% block content %}
 
-    <p>Confirmation link has been sent to your email.</p>
-    <p>Please check your email (and your spam folder).</p>
+  <div class="email__unconfirmed">
+    <p class="email__unconfirmed__text">To prevent robots from signing up we kindly ask that you confirm your email account.
+    Confirmation link has been sent to your email. Please check your email (and your spam folder).</p>
     <p>Didn't receive the email?</p> 
-    <a class="bttn" href="{{ url_for('auth.email_not_confirmed') }}">Resend confirmation link</a>
+    <a class="btn btn--solid btn--outline btn--large" href="{{ url_for('auth.email_not_confirmed') }}">Resend confirmation link</a>
+  </div>
 
 {% endblock %}
