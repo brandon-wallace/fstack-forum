@@ -9,13 +9,14 @@ from flask import (Blueprint, render_template, url_for,
 # from sqlalchemy.exc import IntegrityError
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message
-from itsdangerous import (TimedJSONWebSignatureSerializer,
-                          BadTimeSignature, SignatureExpired)
+from itsdangerous import (URLSafeTimedSerializer, BadTimeSignature,
+                          SignatureExpired)
 from application import db, bcrypt, mail
 from application.forms import (SignUpForm, LoginForm,
                                UpdateAccountForm,
-                               RequestPasswdResetForm,
-                               ResetPasswdForm)
+                               RequestPasswordResetForm,
+                               SendConfirmationLinkForm,
+                               ResetPasswordForm)
 from application.models import User
 from application.decorators import check_email_confirmation
 
@@ -25,14 +26,14 @@ auth = Blueprint('auth', __name__)
 def create_confirmation_token(email):
     '''Create a confirmation token'''
 
-    serializer = TimedJSONWebSignatureSerializer(environ.get('SECRET_KEY'))
+    serializer = URLSafeTimedSerializer(environ.get('SECRET_KEY'))
     return serializer.dumps(email, salt=environ.get('SECURITY_PASSWORD_SALT'))
 
 
 def confirm_token(token, expiration=3600):
     '''Confirm email address with token'''
 
-    serializer = TimedJSONWebSignatureSerializer(environ.get('SECRET_KEY'))
+    serializer = URLSafeTimedSerializer(environ.get('SECRET_KEY'))
     try:
         email = serializer.loads(token,
                                  salt=environ.get('SECURITY_PASSWORD_SALT'),
@@ -80,20 +81,21 @@ def email_not_confirmed():
     '''
     Give user another chance to confirm their email
     '''
-
+    form = SendConfirmationLinkForm()
     if request.method == 'POST':
 
         token = create_confirmation_token(request.form['email'])
         msg = Message('Confirm Email Address',
-                      sender=('root', 'no-reply@fstackforum.com'),
+                      sender=('admin', 'no-reply@fstackforum.com'),
                       recipients=[request.form['email']])
         link = url_for('main.confirm_email', token=token, _external=True)
-        msg.body = f'''Email confirmation link: {link}
-If you did not make this request then simply
-ignore this email and no changes will be made.
+        msg.body = f'''Please confirm your email account to complete registration.
+Click on the link or cut and paste it into the address bar.
+Email confirmation link: {link}
+If you did not make this request then simply ignore this email.
         '''
         mail.send(msg)
-    return render_template('auth/unconfirmed.html')
+    return render_template('auth/unconfirmed.html', form=form)
 
 
 def generate_url(endpoint, token):
@@ -116,9 +118,10 @@ def sign_up():
                       recipients=[request.form['email']])
         link = generate_url('auth.confirm_email',
                             create_confirmation_token(request.form['email']))
-        msg.body = f'''Your email confirmation link is: {link}
-If you did not make this request then simply
-ignore this email and no changes will be made.
+        msg.body = f'''Please confirm your email account to complete registration.
+Click on the link or cut and paste it into the address bar.
+Your email confirmation link is: {link}
+If you did not make this request then simply ignore this email.
         '''
         mail.send(msg)
         try:
@@ -127,15 +130,14 @@ ignore this email and no changes will be made.
             user = User(username=form.username.data,
                         email=form.email.data,
                         email_confirmed=False,
-                        password=hashed_password,
-                        location=form.location.data)
+                        password=hashed_password)
             db.session.add(user)
             db.session.commit()
             db.session.remove()
-            return redirect(url_for('auth.confirm'))
+            return redirect(url_for('auth.confirm', _external=True))
         except Exception:
             db.session.rollback()
-            return redirect(url_for('auth.signup'))
+            return redirect(url_for('auth.signup', _external=True))
     return render_template('auth/signup.html', form=form)
 
 
@@ -146,7 +148,6 @@ def login_route():
     if current_user.is_authenticated:
         return redirect(url_for('forum.index_page'))
 
-    print(current_user)
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -158,13 +159,13 @@ def login_route():
             # host = request.headers.get('Host')
             # referer = request.headers.get('Referer')
             login_user(user)
-            # next_page = request.args.get('next')
+            next_page = request.args.get('next')
+            print(next_page)
             # if next_page:
             #     return redirect(next_page)
-            return redirect(url_for('forum.forum_route'))
+            return redirect(url_for('forum.forum_route', _external=True))
         else:
-            flash('Login failed. Check your email/password.',
-                  'fail')
+            flash('Login failed. Check your email/password.', 'fail')
     return render_template('auth/login.html', form=form)
 
 
@@ -209,7 +210,7 @@ def preferences():
         db.session.commit()
         db.session.remove()
         flash('Account updated successfully.', 'success')
-        return redirect(url_for('auth.profile'))
+        return redirect(url_for('auth.profile', _external=True))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
@@ -227,15 +228,15 @@ def logout():
 
     logout_user()
     flash('You have been logged out.', 'info')
-    return redirect(url_for('auth.login_route'))
+    return redirect(url_for('auth.login_route', _external=True))
 
 
 @auth.route('/send_email')
 def send_reset_email(user):
     '''Send email route'''
 
-    token = user.retrive_passwd_reset_token(1800)
-    msg = Message('Password Reset Request', sender='root@fstackforum.com',
+    token = user.create_password_reset_token()
+    msg = Message('Password Reset Request', sender='admin@fstackforum.com',
                   recipients=[user.email])
     msg.body = f'''To reset your password click on this link:
 { url_for('auth.reset_token', token=token, _external=True)}
@@ -243,19 +244,19 @@ def send_reset_email(user):
     mail.send(msg)
 
 
-@auth.route('/reset_password', methods=['GET', 'POST'])
+@auth.route('/request_reset_password', methods=['GET', 'POST'])
 def request_reset_password():
-    '''Reset password route'''
+    '''Request password reset route'''
 
     if current_user.is_authenticated:
         return redirect(url_for('forum.index_page'))
 
-    form = RequestPasswdResetForm()
+    form = RequestPasswordResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
         flash('An email has been sent to reset your password.', 'info')
-        return redirect(url_for('auth.login_route'))
+        return redirect(url_for('auth.request_reset_password', _external=True))
     return render_template('auth/request_reset_password.html', form=form)
 
 
@@ -264,27 +265,27 @@ def reset_token(token):
     '''Reset password route'''
 
     if current_user.is_authenticated:
-        return redirect(url_for('forum.index_page'))
+        return redirect(url_for('forum.index_page', _external=True))
 
-    user = User.verify_passwd_reset_token(token)
+    user = User.verify_password_reset_token(token)
     if user is None:
         flash('Invalid/Expired token', 'warning')
-        return redirect(url_for('auth.request_reset_password'))
+        return redirect(url_for('auth.request_reset_password', _external=True))
 
-    form = ResetPasswdForm()
+    form = ResetPasswordForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data)
-        user.password = hashed_password
+        new_passwd = bcrypt.generate_password_hash(form.password.data).decode(
+                                                    'utf-8')
+        user.password = new_passwd
         db.session.commit()
-        db.session.remove()
         flash('Your password has been reset!', 'success')
-        return redirect(url_for('auth.login_route'))
+        return redirect(url_for('auth.login_route', _external=True))
     return render_template('auth/reset_password_token.html', form=form)
 
 
 @auth.route('/privacy_policy')
 def privacy_policy():
-    '''Terms Of Service'''
+    '''Privacy Policy'''
 
     return render_template('auth/privacy_policy.html')
 
@@ -296,14 +297,14 @@ def terms_of_service():
     return render_template('auth/terms_of_service.html')
 
 
-@auth.route('/bulk')
-def bulk_email():
-    '''Send email in bulk'''
-
-    users = [{'name': 'Brandon Wallace', 'email': 'brandon@wallace.me'}]
-
-    with mail.connect() as conn:
-        for user in users:
-            msg = Message('BULK', recipients=[user['email']])
-            msg.body = 'Hey everyone!'
-            conn.send(msg)
+# @auth.route('/bulk')
+# def bulk_email():
+#     '''Send email in bulk'''
+#
+#     users = [{'name': 'Brandon Wallace', 'email': 'brandon@wallace.me'}]
+#
+#     with mail.connect() as conn:
+#         for user in users:
+#             msg = Message('BULK', recipients=[user['email']])
+#             msg.body = 'Hey everyone!'
+#             conn.send(msg)

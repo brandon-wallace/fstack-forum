@@ -107,7 +107,14 @@ class CommentForm(FlaskForm):
     submit = SubmitField('SUBMIT')
 
 
-class RequestPasswdResetForm(FlaskForm):
+class SendConfirmationLinkForm(FlaskForm):
+    '''Request a reset password form'''
+
+    email = StringField('Email', validators=[InputRequired(), Email()])
+    submit = SubmitField('SEND NEW LINK')
+
+
+class RequestPasswordResetForm(FlaskForm):
     '''Request a reset password form'''
 
     email = StringField('Email', validators=[InputRequired(), Email()])
@@ -121,7 +128,7 @@ class RequestPasswdResetForm(FlaskForm):
             raise ValidationError('Email does not exist.')
 
 
-class ResetPasswdForm(FlaskForm):
+class ResetPasswordForm(FlaskForm):
     ''''Reset password'''
 
     password = PasswordField('Password', validators=[InputRequired()])

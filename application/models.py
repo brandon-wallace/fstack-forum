@@ -1,8 +1,8 @@
 # application/models.py
 
-import os
+from os import environ
 from datetime import datetime
-from itsdangerous import TimedJSONWebSignatureSerializer as TJWSS
+from itsdangerous import URLSafeTimedSerializer
 from application import db, login_manager
 from flask_login import UserMixin
 
@@ -36,15 +36,18 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
-    def retrive_passwd_reset_token(self, expires_sec=1800):
-        '''Get the reset token'''
+    def create_password_reset_token(self):
+        '''Create the reset token'''
 
-        serializer = TJWSS(os.getenv('SECRET_KEY'), expires_sec)
-        return serializer.dumps({'user_id': self.id}).decode('utf-8')
+        serializer = URLSafeTimedSerializer(environ.get('SECRET_KEY'))
+        return serializer.dumps({'user_id': self.id})
 
+    # "Self" paramenter not needed since method is static.
     @staticmethod
-    def verify_passwd_reset_token(token):
-        serializer = TJWSS(os.getenv('SECRET_KEY'))
+    def verify_password_reset_token(token):
+        '''Load the reset token'''
+
+        serializer = URLSafeTimedSerializer(environ.get('SECRET_KEY'))
         try:
             user_id = serializer.loads(token)['user_id']
         except Exception:
@@ -62,9 +65,6 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, index=True, nullable=False,
                             default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-    # view_count = db.Column(db.Integer, default=0)
-    # like_count = db.Column(db.Integer, default=0)
-    # flag_count = db.Column(db.Integer, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
