@@ -6,11 +6,10 @@
 from flask import (Blueprint, render_template, url_for,
                    flash, redirect, request, abort)
 from sqlalchemy.exc import IntegrityError
-from application import db, bcrypt
-from application.forms import (SignUpForm, LoginForm, UpdateAccountForm,
-                               CreatePostForm, UpdatePostForm, CommentForm)
-from application.models import User, Post, Comment
-from flask_login import login_user, logout_user, login_required, current_user
+from application import db
+from application.forms import (CreatePostForm, UpdatePostForm, CommentForm)
+from application.models import Post, Comment
+from flask_login import login_required, current_user
 from application.decorators import check_email_confirmation
 
 forum = Blueprint('forum', __name__)
@@ -21,11 +20,10 @@ def index():
     '''Landing page'''
 
     # posts = Post.query.order_by(Post.date_posted.desc()).limit(4).all()
-    posts = Post.query.all()
+    # posts = Post.query.all()
     # comments = Comment.query.filter(Comment.post_id == posts.id).count()
     page = request.args.get('page', 1, type=int)
     posts = Post.query.paginate(page=page, per_page=3)
-    # return render_template('forum/index.html', posts=posts, comments=comments)
     return render_template('forum/index.html', posts=posts)
 
 
