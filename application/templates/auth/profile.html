@@ -2,17 +2,24 @@
 
 {% extends "layout.html" %}
 
-{% block title %}Welcome{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block content %}
 
   <div class="profile">
 
+    <div class="profile__header">
+
+      <h2>Welcome {{ current_user.username }}!</h2>
+      <img class="profile-image" src="{{ image_file if image_file }}">
+
+    </div>
+
     <ul class="profile-menu">
       <li><a class="profile__link" href="{{ url_for('auth.preferences') }}"><i class="fas fa-cog"></i> preferences</a></li>
     </ul>
 
-    <h2>Welcome {{ current_user.username }}!</h2>
+    <p><a class="toggle-theme">dark theme</a></p>
 
   </div>
 

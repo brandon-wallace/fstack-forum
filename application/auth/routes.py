@@ -8,7 +8,7 @@ from flask import (Blueprint, render_template, url_for,
                    flash, redirect, request, current_app)
 # from sqlalchemy.exc import IntegrityError
 from flask_login import login_user, logout_user, login_required, current_user
-from flask_mail import Message
+from flask_mail import Message, Mail
 from itsdangerous import (URLSafeTimedSerializer, BadTimeSignature,
                           SignatureExpired)
 from application import db, bcrypt, mail
@@ -93,7 +93,7 @@ def email_not_confirmed():
 Click on the link or cut and paste it into the address bar.
 Email confirmation link: {link}
 If you did not make this request then simply ignore this email.
-        '''
+'''
         mail.send(msg)
     return render_template('auth/unconfirmed.html', form=form)
 
@@ -122,8 +122,10 @@ def sign_up():
 Click on the link or cut and paste it into the address bar.
 Your email confirmation link is: {link}
 If you did not make this request then simply ignore this email.
-        '''
-        mail.send(msg)
+'''
+        with current_app.app_context():
+            mail = Mail()
+            mail.send(msg)
         try:
             hashed_password = bcrypt.generate_password_hash(form.password.data
                                                             ).decode('utf-8')
@@ -175,7 +177,9 @@ def login_route():
 def profile():
     '''Profile route'''
 
-    return render_template('auth/profile.html')
+    profile_image = url_for('static', filename='images/{}'.format(
+                            current_user.image_file))
+    return render_template('auth/profile.html', image_file=profile_image)
 
 
 def save_profile_picture(image_file):
@@ -249,7 +253,7 @@ def request_reset_password():
     '''Request password reset route'''
 
     if current_user.is_authenticated:
-        return redirect(url_for('forum.index_page'))
+        return redirect(url_for('forum.index_page', _external=True))
 
     form = RequestPasswordResetForm()
     if form.validate_on_submit():
@@ -275,7 +279,7 @@ def reset_token(token):
     form = ResetPasswordForm()
     if form.validate_on_submit():
         new_passwd = bcrypt.generate_password_hash(form.password.data).decode(
-                                                    'utf-8')
+                                                   'utf-8')
         user.password = new_passwd
         db.session.commit()
         flash('Your password has been reset!', 'success')
@@ -295,16 +299,3 @@ def terms_of_service():
     '''Terms Of Service'''
 
     return render_template('auth/terms_of_service.html')
-
-
-# @auth.route('/bulk')
-# def bulk_email():
-#     '''Send email in bulk'''
-#
-#     users = [{'name': 'Brandon Wallace', 'email': 'brandon@wallace.me'}]
-#
-#     with mail.connect() as conn:
-#         for user in users:
-#             msg = Message('BULK', recipients=[user['email']])
-#             msg.body = 'Hey everyone!'
-#             conn.send(msg)

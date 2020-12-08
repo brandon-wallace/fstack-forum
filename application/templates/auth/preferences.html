@@ -11,11 +11,9 @@
   <div class="profile__header">
 
     <h2>Update Profile</h2>
-    <img class="profile-image" src="{{ image_file }}">
+    <img class="profile-image" src="{{ image_file if image_file }}">
 
   </div>
-
-  <p class=""><a class="toggle-theme">dark theme</a></p>
 
   <form action="" method="POST" enctype="multipart/form-data">
 
