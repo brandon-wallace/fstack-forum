@@ -1,23 +1,25 @@
 {# application/templates/auth/unconfirmed.html #}
 
+{% from 'macros.html' import displayField %}
+
 {% extends "layout.html" %}
 
 {% block title %}Confirm Email{% endblock %}
 
 {% block content %}
 
-  <section class="unconfirmed m-width--800">
+  <section class="email__unconfirmed">
 
-    <h2 class="form__header">Confirm Email</h2>
-
-    <p>Please check your email for the confirmation link.</p>
-
-    <p>Check your inbox and spam folder. Add fstackforum.com to the whitelist.</p>
+    <p class="email__unconfirmed__text">Please check your email for the confirmation link.
+    Check your inbox and spam folder. Add fstackforum.com to the whitelist.</p>
 
     <form action="" method="POST">
-      <label for="email">email</label>
-      <input type="email" id="email" name="email" value="" placeholder="">
-      <button class="bttn" type="submit">SEND NEW LINK</button>
+
+      {{ form.csrf_token }}
+
+      {{ displayField(form.email, 'Enter email') }}
+      {{ displayField(form.submit, class='btn btn--solid') }}
+
     </form>
 
   </section>
