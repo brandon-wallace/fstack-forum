@@ -25,7 +25,7 @@
 
       <!-- START header -->
 
-      <header>
+      <header class="page__header">
   
         <nav>
           <ul class="menu">
@@ -47,7 +47,7 @@
         {% if current_user.is_authenticated %}
           <p class="logged-in-user">{{ current_user.username }}</p>
         {% endif %}
-        <h1 class="page__header">Fstack Forum</h1>
+        <h1 class="header-1">Fstack Forum</h1>
   
       </header>
 
@@ -111,7 +111,7 @@
 
       <!-- START footer -->
 
-      <footer>
+      <footer class="page__footer">
 
         <img src="{{ url_for('static', filename='images/message-square.svg') }}">
   

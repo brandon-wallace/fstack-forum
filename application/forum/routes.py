@@ -6,6 +6,7 @@
 from flask import (Blueprint, render_template, url_for,
                    flash, redirect, request, abort)
 from sqlalchemy.exc import IntegrityError
+from jinja2 import TemplateNotFound
 from application import db
 from application.forms import (CreatePostForm, UpdatePostForm, CommentForm)
 from application.models import Post, Comment
@@ -155,68 +156,18 @@ def about():
     return render_template('forum/about.html')
 
 
-@forum.route('/feedback')
-def feedback():
-    '''Feedback route'''
+@forum.route('/category', defaults={'category': 'general'})
+@forum.route('/category/<category>')
+def categories(category):
+    '''Route for all categories'''
 
-    posts = Post.query.filter_by(category='feedback')
-    return render_template('forum/feedback.html', posts=posts)
-
-
-@forum.route('/help')
-def help():
-    '''Help route'''
-
-    posts = Post.query.filter_by(category='help')
-    return render_template('forum/help.html', posts=posts)
-
-
-@forum.route('/html-css')
-def html_css():
-    '''HTML CSS route'''
-
-    posts = Post.query.filter_by(category='html-css')
-    return render_template('forum/html-css.html', posts=posts)
-
-
-@forum.route('/javascript')
-def javascript():
-    '''Javascript route'''
-
-    posts = Post.query.filter_by(category='javascript')
-    return render_template('forum/javascript.html', posts=posts)
-
-
-@forum.route('/general')
-def general():
-    '''General route'''
-
-    posts = Post.query.filter_by(category='general')
-    return render_template('forum/general.html', posts=posts)
-
-
-@forum.route('/nodejs')
-def nodejs():
-    '''Nodejs route'''
-
-    posts = Post.query.filter_by(category='nodejs')
-    return render_template('forum/nodejs.html', posts=posts)
-
-
-@forum.route('/support')
-def support():
-    '''Support route'''
-
-    posts = Post.query.filter_by(category='support')
-    return render_template('forum/support.html', posts=posts)
-
-
-@forum.route('/python')
-def python():
-    '''Python route'''
-
-    posts = Post.query.filter_by(category='python')
-    return render_template('forum/python.html', posts=posts)
+    try:
+        page = request.args.get('page', 1, type=int)
+        posts = Post.query.filter_by(category=category).paginate(
+                                     page=page, per_page=3)
+        return render_template('forum/{}.html'.format(category), posts=posts)
+    except TemplateNotFound:
+        return abort(404)
 
 
 @forum.app_errorhandler(404)

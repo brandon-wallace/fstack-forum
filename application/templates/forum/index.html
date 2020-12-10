@@ -14,10 +14,10 @@
 
           <div class="tile__content">
 
-            <div class="tile__header">
+            <header class="tile__header">
               <h2 class="tile__title"><a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h2>
               <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d") }}</p>
-            </div>
+            </header>
 
 		    <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
 
@@ -25,7 +25,7 @@
               <p>{{ post.content }}</p>
             </div>
 
-            <div class="tile__footer">
+            <footer class="tile__footer">
 
               <div class="tile__author">
                 <p class="tile__title">{{ post.author.username }}</p>
@@ -34,7 +34,7 @@
               <div class="tile__buttons">
               </div>
 
-            </div>
+            </footer>
 
           </div>
 

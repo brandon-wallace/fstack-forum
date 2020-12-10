@@ -1,4 +1,4 @@
-{# application/templates/forum/nodejs.html #}
+{# application/templates/forum/general.html #}
 
 {% extends "layout.html" %}
 
@@ -6,18 +6,39 @@
 
 {% block content %}
 
-    <h2>Nodejs</h2>
+  <h2>Nodejs</h2>
 
-    <section class="row latest">
+  <section class="row">
 
-      {% for post in posts %}
-        <div class="tile tile--wide">
-          <h2 class="tile__header">category: <a href="#">{{ post.category }}</a></h2>
-          <h4 class="tile__title">Title: {{ post.title_ }}</h4>
-          <p class="tile__date">posted: {{ post.date_posted.strftime("%Y-%m-%d") }}</p>
+    {% for post in posts.items %}
+
+      <div class="tile tile--wide">
+
+        <div class="tile__content">
+
+          <header class="tile__header">
+            <h3 class="tile__title"><a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h3>
+            <p class="tile__date"><time datetime="{{ post.date_posted.strftime("%Y-%m-%d") }}">{{ post.date_posted.strftime("%Y-%m-%d") }}</time></p>
+          </header>
+
+          <div class="tile__text">
+            <p>{{ post.content }}</p>
+          </div>
+
+          <footer class="tile__footer">
+
+            <div class="tile__author">
+              <p class="tile__title">{{ post.author.username }}</p>
+            </div>
+
+          </footer>
+
         </div>
-      {% endfor %}
 
-    </section>
+      </div>
+
+    {% endfor %}
+
+  </section>
 
 {% endblock %}

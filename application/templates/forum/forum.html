@@ -25,7 +25,7 @@
                 <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d") }}</p>
               </div>
 
-		      <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
+		      <p class="tile__category"><a class="tile__category__link" href="{{ url_for('forum.categories', category=post.category ) }}">{{ post.category }}</a></p>
 
               <div class="tile__text">
                 <p>{{ post.content }}</p>
