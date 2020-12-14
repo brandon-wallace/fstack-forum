@@ -7,6 +7,7 @@
 {% block content %}
 
     <ul class="forum-menu">
+      <li class="forum-menu__item"><a class="forum__link" href="{{ url_for('forum.forum_route', view='latest') }}">LATEST</a></li>
       <li class="forum-menu__item"><a class="forum__link reverse" href="{{ url_for('forum.create_post') }}">NEW POST</a></li>
     </ul>
 

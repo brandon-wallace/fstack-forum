@@ -29,20 +29,38 @@ def index():
 
 
 @forum.route('/forum', methods=['GET'])
+@forum.route('/forum/<view>', methods=['GET'])
 @login_required
 @check_email_confirmation
-def forum_route():
+def forum_route(view=None):
     '''Forum route'''
 
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.paginate(page=page, per_page=4)
     profile_image = url_for('static', filename='images/{}'.format(
                             current_user.image_file))
-    content = {
-            'image_file': profile_image,
-            'posts': posts
-            }
-    return render_template('forum/forum.html', **content)
+    if view == 'latest':
+        posts = Post.query.order_by(Post.date_posted.desc()).paginate(
+                                    page=page, per_page=4)
+        content = {'image_file': profile_image, 'posts': posts}
+        return render_template('forum/forum.html', **content)
+    else:
+        posts = Post.query.paginate(page=page, per_page=4)
+        content = {'image_file': profile_image, 'posts': posts}
+        return render_template('forum/forum.html', **content)
+
+
+@forum.route('/category', defaults={'category': 'general'})
+@forum.route('/category/<category>')
+def categories(category):
+    '''Route for all categories'''
+
+    try:
+        page = request.args.get('page', 1, type=int)
+        posts = Post.query.filter_by(category=category).paginate(
+                                     page=page, per_page=3)
+        return render_template('forum/{}.html'.format(category), posts=posts)
+    except TemplateNotFound:
+        return abort(404)
 
 
 @forum.route('/post/new', methods=['GET', 'POST'])
@@ -154,20 +172,6 @@ def about():
     '''About page'''
 
     return render_template('forum/about.html')
-
-
-@forum.route('/category', defaults={'category': 'general'})
-@forum.route('/category/<category>')
-def categories(category):
-    '''Route for all categories'''
-
-    try:
-        page = request.args.get('page', 1, type=int)
-        posts = Post.query.filter_by(category=category).paginate(
-                                     page=page, per_page=3)
-        return render_template('forum/{}.html'.format(category), posts=posts)
-    except TemplateNotFound:
-        return abort(404)
 
 
 @forum.app_errorhandler(404)

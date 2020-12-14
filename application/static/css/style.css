@@ -191,7 +191,7 @@ nav {
 
 .forum__link {
     color: #010101;
-    max-width: 350px;
+    max-width: 400px;
     border: 2px solid #202020;
     background-color: #A6A6A6;
 }
@@ -853,11 +853,11 @@ form {
         -webkit-box-direction: normal;
             -ms-flex-direction: row;
                 flex-direction: row;
-        margin-bottom: 1rem;
+        /* margin-bottom: 1rem; */
+        justify-content: flex-end;
     }
     .forum-menu__item {
-        margin-left: auto;
-        margin-right: .5rem;
+        margin-left: .5rem;
     }
     .forum__link {
         margin-bottom: 0;
