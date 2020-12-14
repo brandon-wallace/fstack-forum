@@ -95,6 +95,8 @@ Email confirmation link: {link}
 If you did not make this request then simply ignore this email.
 '''
         mail.send(msg)
+        flash('Check your email for the confirmation link.', 'success')
+        return redirect(url_for('auth.login_route', _external=True))
     return render_template('auth/unconfirmed.html', form=form)
 
 
