@@ -30,7 +30,7 @@ def create_confirmation_token(email):
     return serializer.dumps(email, salt=environ.get('SECURITY_PASSWORD_SALT'))
 
 
-def confirm_token(token, expiration=3600):
+def confirm_token(token, expiration=86400):
     '''Confirm email address with token'''
 
     serializer = URLSafeTimedSerializer(environ.get('SECRET_KEY'))
@@ -89,10 +89,14 @@ def email_not_confirmed():
                       sender=('admin', 'no-reply@fstackforum.com'),
                       recipients=[request.form['email']])
         link = url_for('main.confirm_email', token=token, _external=True)
-        msg.body = f'''Please confirm your email account to complete registration.
-Click on the link or cut and paste it into the address bar.
+        msg.body = f'''Hi.
+
+Please confirm your email account to complete registration at Fstackforum.com.
+Click on the link or copy and paste it into the address bar.
 Email confirmation link: {link}
 If you did not make this request then simply ignore this email.
+
+This link will expire in 24 hours.
 '''
         mail.send(msg)
         flash('Check your email for the confirmation link.', 'success')
@@ -120,10 +124,14 @@ def sign_up():
                       recipients=[request.form['email']])
         link = generate_url('auth.confirm_email',
                             create_confirmation_token(request.form['email']))
-        msg.body = f'''Please confirm your email account to complete registration.
-Click on the link or cut and paste it into the address bar.
+        msg.body = f'''Hi {request.form['username']},
+
+Please confirm your email account to complete registration at Fstackforum.com.
+Click on the link or copy and paste it into the address bar.
 Your email confirmation link is: {link}
 If you did not make this request then simply ignore this email.
+
+This link will expire in 24 hours.
 '''
         with current_app.app_context():
             mail = Mail()
@@ -164,8 +172,8 @@ def login_route():
             # referer = request.headers.get('Referer')
             login_user(user)
             next_page = request.args.get('next')
-            print(next_page)
-            # if next_page:
+            if next_page:
+                pass
             #     return redirect(next_page)
             return redirect(url_for('forum.forum_route', _external=True))
         else:
