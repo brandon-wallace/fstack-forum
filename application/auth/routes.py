@@ -1,5 +1,6 @@
 # application/auth/routes.py
 
+import logging
 import secrets
 from os import environ, path
 from PIL import Image
@@ -20,6 +21,14 @@ from application.forms import (SignUpForm, LoginForm,
 from application.models import User
 from application.decorators import check_email_confirmation
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler('auth_error.log')
+formatter = logging.Formatter('%(asctime)s: %(levelname)s: \
+                              %(name)s: %(message)s')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
 auth = Blueprint('auth', __name__)
 
 
@@ -39,6 +48,7 @@ def confirm_token(token, expiration=86400):
                                  salt=environ.get('SECURITY_PASSWORD_SALT'),
                                  max_age=expiration)
     except Exception:
+        logger.error(f'Confirm token error', exc_info=True)
         return False
     return email
 
@@ -58,9 +68,11 @@ def confirm_email(token):
         email = confirm_token(token)
     except BadTimeSignature:
         flash('Email confirmation failed.', 'fail')
+        logger.error('BadTimeSignature Error!!!!', exc_info=True)
         return
     except SignatureExpired:
         flash('Token exired.', 'fail')
+        logger.error('SignatureExpired Error!!!!', exc_info=True)
         return
 
     user = User.query.filter_by(email=email).first_or_404()
@@ -93,8 +105,11 @@ def email_not_confirmed():
 
 Please confirm your email account to complete registration at Fstackforum.com.
 Click on the link or copy and paste it into the address bar.
-Email confirmation link: {link}
-If you did not make this request then simply ignore this email.
+Email confirmation link:
+
+{link}
+
+If you did not make this request then ignore this email.
 
 This link will expire in 24 hours.
 '''
@@ -128,8 +143,11 @@ def sign_up():
 
 Please confirm your email account to complete registration at Fstackforum.com.
 Click on the link or copy and paste it into the address bar.
-Your email confirmation link is: {link}
-If you did not make this request then simply ignore this email.
+Email confirmation link:
+
+{link}
+
+If you did not make this request then ignore this email.
 
 This link will expire in 24 hours.
 '''
@@ -148,6 +166,7 @@ This link will expire in 24 hours.
             db.session.remove()
             return redirect(url_for('auth.confirm', _external=True))
         except Exception:
+            logger.error('Sign up route error!!!!', exc_info=True)
             db.session.rollback()
             return redirect(url_for('auth.signup', _external=True))
     return render_template('auth/signup.html', form=form)
@@ -177,6 +196,7 @@ def login_route():
             #     return redirect(next_page)
             return redirect(url_for('forum.forum_route', _external=True))
         else:
+            logger.warn('Login failure!!!!', exc_info=True)
             flash('Login failed. Check your email/password.', 'fail')
     return render_template('auth/login.html', form=form)
 
@@ -252,7 +272,9 @@ def send_reset_email(user):
     token = user.create_password_reset_token()
     msg = Message('Password Reset Request', sender='admin@fstackforum.com',
                   recipients=[user.email])
-    msg.body = f'''To reset your password click on this link:
+    msg.body = f'''To reset your password click on this link or copy and paste
+it into your browser:
+
 { url_for('auth.reset_token', token=token, _external=True)}
 '''
     mail.send(msg)

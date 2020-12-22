@@ -1,8 +1,6 @@
 # application/forum/routes.py
 
-# import os
-# from PIL import Image
-# from datetime import datetime
+import logging
 from flask import (Blueprint, render_template, url_for,
                    flash, redirect, request, abort)
 from sqlalchemy.exc import IntegrityError
@@ -12,6 +10,14 @@ from application.forms import (CreatePostForm, UpdatePostForm, CommentForm)
 from application.models import Post, Comment
 from flask_login import login_required, current_user
 from application.decorators import check_email_confirmation
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler('forum_error.log')
+formatter = logging.Formatter('%(asctime)s: %(levelname)s: \
+                              %(name)s: %(message)s')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 forum = Blueprint('forum', __name__)
 
@@ -60,6 +66,7 @@ def categories(category):
                                      page=page, per_page=3)
         return render_template('forum/{}.html'.format(category), posts=posts)
     except TemplateNotFound:
+        logger.error('category TemplateNotFound error!!!!', exc_info=True)
         return abort(404)
 
 
@@ -81,6 +88,7 @@ def create_post():
             flash('Post created successfully', 'success')
             return redirect(url_for('forum.create_post'))
         except IntegrityError:
+            logger.error('create_post IntegrityError error', exc_info=True)
             db.session.rollback()
             flash('Post not successful', 'fail')
             return redirect(url_for('forum.forum_route'))
@@ -111,6 +119,7 @@ def display_post(post_id):
             flash(' Your comment has been posted.', 'success')
             return redirect(url_for('forum.display_post', post_id=post.id))
         except IntegrityError:
+            logger.error('display_post IntegrityError error', exc_info=True)
             flash(' Your comment has not been posted.', 'fail')
             db.session.rollback()
             return redirect(url_for('forum.display_post',
