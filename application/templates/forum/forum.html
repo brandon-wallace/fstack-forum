@@ -2,6 +2,8 @@
 
 {% extends "layout.html" %}
 
+{% from 'macros.html' import categoryType %}
+
 {% block title %}Forum{% endblock %}
 
 {% block content %}
@@ -26,7 +28,7 @@
                 <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d") }}</p>
               </div>
 
-		      <p class="tile__category"><a class="tile__category__link" href="{{ url_for('forum.categories', category=post.category ) }}">{{ post.category }}</a></p>
+              {{ categoryType(type=post.category, category_text=post.category) }}
 
               <div class="tile__text">
                 <p>{{ post.content }}</p>

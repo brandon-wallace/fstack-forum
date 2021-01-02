@@ -2,6 +2,8 @@
 
 {% extends "layout.html" %}
 
+{% from 'macros.html' import categoryType %}
+
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -19,7 +21,7 @@
               <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d") }}</p>
             </header>
 
-		    <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
+            {{ categoryType(type=post.category, category_text=post.category) }}
 
             <div class="tile__text">
               <p>{{ post.content }}</p>

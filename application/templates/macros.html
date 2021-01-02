@@ -3,17 +3,49 @@
 
 {% macro displayField(fieldName, placeholderValue) %}
 
-    {{ fieldName(class_='input__field', placeholder=placeholderValue, **kwargs) }}
+  {{ fieldName(class_='input__field', placeholder=placeholderValue, **kwargs) }}
 
-    {% for error in fieldName.errors %}
-        <p class="form__error">{{ error }}</p>
-    {% endfor %}
+  {% for error in fieldName.errors %}
+    <p class="form__error">{{ error }}</p>
+  {% endfor %}
 
 {% endmacro %}
 
 
-{% macro displayCommentField(fieldName, placeholderValue) %}
+{% macro categoryType(category, type, category_text=category_text) %}
 
-    {{ fieldName(class_='input_field', placeholder=placeholderValue, **kwargs) }}
+  {% if type == 'general' %}
+    <p class="tile__category">
+      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link purple-bg">{{ category_text }}</a>
+    </p>
+  {% elif type == 'javascript' %}
+    <p class="tile__category">
+      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link green-bg">{{ category_text }}</a>
+    </p>
+  {% elif type == 'nodejs' %}
+    <p class="tile__category">
+      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link orange-bg">{{ category_text }}</a>
+    </p>
+  {% elif type == 'python' %}
+    <p class="tile__category">
+      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link blue-bg">{{ category_text }}</a>
+    </p>
+  {% elif type == 'html-css' %}
+    <p class="tile__category">
+      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link magenta-bg">{{ category_text }}</a>
+    </p>
+  {% elif type == 'support' %}
+    <p class="tile__category">
+      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link amber-bg">{{ category_text }}</a>
+    </p>
+  {% elif type == 'help' %}
+    <p class="tile__category">
+      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link turquoise-bg">{{ category_text }}</a>
+    </p>
+  {% else %}
+    <p class="tile__category">
+      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link red-bg">{{ category_text }}</a>
+    </p>
+  {% endif %}
 
 {% endmacro %}
