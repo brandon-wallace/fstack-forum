@@ -1,12 +1,12 @@
-{# application/templates/forum/general.html #}
+{# application/templates/forum/html-css.html #}
 
 {% extends "layout.html" %}
 
-{% block title %}HTML CSS{% endblock %}
+{% block title %}html-css{% endblock %}
 
 {% block content %}
 
-  <h2>HTML CSS</h2>
+  <h2 class="category-h2 magenta-bg">HTML-CSS</h2>
 
   <section class="row">
 
@@ -20,6 +20,8 @@
             <h3 class="tile__title"><a href="{{ url_for('forum.display_post', post_id=post.id) }}">{{ post.title }}</a></h3>
             <p class="tile__date"><time datetime="{{ post.date_posted.strftime("%Y-%m-%d") }}">{{ post.date_posted.strftime("%Y-%m-%d") }}</time></p>
           </header>
+
+          <p class="tile__category"><a href="{{ url_for('forum.categories', category=post.category ) }}">{{ post.category }}</a></p>
 
           <div class="tile__text">
             <p>{{ post.content }}</p>

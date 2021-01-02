@@ -1039,6 +1039,12 @@ textarea {
     background-color: #010100;
 }
 
+.category-h2 {
+    color: #FFFFFF;
+    display: inline;
+    font-style: italic;
+}
+
 .red-bg { background-color: #CC0000; }
 .orange-bg { background-color: #CC3300; }
 .blue-bg { background-color: #0066CC; }
