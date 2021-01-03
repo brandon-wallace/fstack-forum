@@ -112,7 +112,7 @@ def display_post(post_id):
     if form.validate_on_submit():
         try:
             comment = Comment(content=form.content.data, post_id=post_id,
-                              author=current_user)
+                              category=post.category, author=current_user)
             db.session.add(comment)
             db.session.commit()
             # db.session.remove()

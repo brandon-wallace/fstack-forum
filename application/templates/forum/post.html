@@ -64,7 +64,7 @@
             <div class="comment__content">
 
               <div class="comment__header">
-                <div class="comment__title"><h1>{{ comment.title }}</h1></div>
+                <h2 class="comment__title">{{ comment.title }}</h2>
                 <p class="tile__date">{{ comment.date_posted.strftime("%Y-%m-%d") }}</p>
               </div>
 
@@ -75,7 +75,7 @@
               <div class="comment__footer">
 
                 <div class="comment__author">
-                  <p class="comment__title">{{ comment.author.username }}</p>
+                  <p class="comment__title">{{ comment.author.username or 'Anonymous' }}</p>
                 </div>
 
                 <div class="comment__buttons">
