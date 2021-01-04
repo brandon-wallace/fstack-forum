@@ -88,20 +88,20 @@ def confirm_email(token):
 
 
 @auth.route('/unconfirmed')
-@login_required
 def email_not_confirmed():
     '''
     Give user another chance to confirm their email
     '''
-    form = SendConfirmationLinkForm()
-    if request.method == 'POST':
 
-        token = create_confirmation_token(request.form['email'])
-        msg = Message('Confirm Email Address',
-                      sender=('admin', 'no-reply@fstackforum.com'),
-                      recipients=[request.form['email']])
-        link = url_for('main.confirm_email', token=token, _external=True)
-        msg.body = f'''Hi.
+    form = SendConfirmationLinkForm()
+    if form.validate_on_submit():
+        email = request.form['email']
+        msg = Message('Confirm Your Email Address',
+                      sender='no-reply@fstackforum.com',
+                      recipients=[email])
+        link = generate_url('auth.confirm_email',
+                            create_confirmation_token(email))
+        msg.body = f'''Hi!
 
 Please confirm your email account to complete registration at Fstackforum.com.
 Click on the link or copy and paste it into the address bar.
@@ -109,11 +109,13 @@ Email confirmation link:
 
 {link}
 
-If you did not make this request then ignore this email.
+If you did not make this request ignore this email.
 
 This link will expire in 24 hours.
 '''
-        mail.send(msg)
+        with current_app.app_context():
+            mail = Mail()
+            mail.send(msg)
         flash('Check your email for the confirmation link.', 'success')
         return redirect(url_for('auth.login_route', _external=True))
     return render_template('auth/unconfirmed.html', form=form)
@@ -134,12 +136,13 @@ def sign_up():
 
     form = SignUpForm()
     if form.validate_on_submit():
+        email = request.form['email']
         msg = Message('Verify Your Email Address',
                       sender='no-reply@fstackforum.com',
-                      recipients=[request.form['email']])
+                      recipients=[email])
         link = generate_url('auth.confirm_email',
-                            create_confirmation_token(request.form['email']))
-        msg.body = f'''Hi {request.form['username']},
+                            create_confirmation_token(email))
+        msg.body = f'''Hi {request.form['username']}!,
 
 Please confirm your email account to complete registration at Fstackforum.com.
 Click on the link or copy and paste it into the address bar.
@@ -147,7 +150,7 @@ Email confirmation link:
 
 {link}
 
-If you did not make this request then ignore this email.
+If you did not make this request ignore this email.
 
 This link will expire in 24 hours.
 '''
@@ -270,7 +273,8 @@ def send_reset_email(user):
     '''Send email route'''
 
     token = user.create_password_reset_token()
-    msg = Message('Password Reset Request', sender='admin@fstackforum.com',
+    msg = Message('Password Reset Request',
+                  sender=('no-reply', 'no-reply@fstackforum.com'),
                   recipients=[user.email])
     msg.body = f'''To reset your password click on this link or copy and paste
 it into your browser:
