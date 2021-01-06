@@ -12,7 +12,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message, Mail
 from itsdangerous import (URLSafeTimedSerializer, BadTimeSignature,
                           SignatureExpired)
-from application import db, bcrypt, mail
+from application import db, bcrypt
 from application.forms import (SignUpForm, LoginForm,
                                UpdateAccountForm,
                                RequestPasswordResetForm,
@@ -268,20 +268,27 @@ def logout():
     return redirect(url_for('auth.login_route', _external=True))
 
 
-@auth.route('/send_email')
 def send_reset_email(user):
     '''Send email route'''
 
-    token = user.create_password_reset_token()
     msg = Message('Password Reset Request',
                   sender=('no-reply', 'no-reply@fstackforum.com'),
                   recipients=[user.email])
-    msg.body = f'''To reset your password click on this link or copy and paste
-it into your browser:
+    link = generate_url('auth.reset_token',
+                        user.retrive_password_reset_token())
+    msg.body = f'''To reset your password please click on this link or or cut
+and paste it into your browser.
 
-{ url_for('auth.reset_token', token=token, _external=True)}
+{link}
+
+This link will expire in 15 minutes.
+
+The Fstackforum Team
+-
 '''
-    mail.send(msg)
+    with current_app.app_context():
+        mail = Mail()
+        mail.send(msg)
 
 
 @auth.route('/request_reset_password', methods=['GET', 'POST'])
@@ -293,10 +300,10 @@ def request_reset_password():
 
     form = RequestPasswordResetForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form.email.data).first_or_404()
         send_reset_email(user)
-        flash('An email has been sent to reset your password.', 'info')
-        return redirect(url_for('auth.request_reset_password', _external=True))
+        flash('Check your email for reset link.', 'info')
+        return redirect(url_for('auth.login_route', _external=True))
     return render_template('auth/request_reset_password.html', form=form)
 
 
