@@ -65,15 +65,14 @@ $ pipenv install
 $ pipenv install flask-debugtoolbar --dev
 ```
 
-## Create a Sqlite3 database for development purposes or create a PostgreSQL 
-database for production.
+## Create a Sqlite3 or PostgreSQL database.
 
-Sqlite3
+### Sqlite3:
 ```
 $ sqlite3 application/fstackforum.db
 ```
 
-Postgresql:
+### Postgresql:
 ```
 $ psql
 
@@ -105,7 +104,7 @@ $ flask run -h 127.0.0.1 -p 5000
 
 ## Create a systemd service to run application.
 ```
-vim /etc/systemd/system/fstackforum.service 
+$ vim /etc/systemd/system/fstackforum.service 
 
 [Unit]
 Description=Use Guicorn to run fstackforum.
@@ -122,9 +121,9 @@ WantedBy=multi-user.target
 ```
 Start the service.
 ```
-sudo systemctl enable fstackforum.service
+$ sudo systemctl enable fstackforum.service
 
-sudo systemctl start fstackforum.service
+$ sudo systemctl start fstackforum.service
 ```
 
 # Troubleshooting
@@ -143,9 +142,9 @@ ExecStart=/path/to/gunicorn --workers 3 --bind unix:/path/to/fstackforum/fstackf
 
 Check the systemd service.
 ```
-sudo systemctl status fstackforum.service
+$ sudo systemctl status fstackforum.service
 
-journal -xe
+$ journal -xe
 ```
 
 ## License
