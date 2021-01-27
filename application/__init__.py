@@ -10,8 +10,13 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_debugtoolbar import DebugToolbarExtension
 
-logging.basicConfig(filename='error.log', filemode='w',
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler('application_error.log')
+formatter = logging.Formatter('%(asctime)s: %(levelname)s: \
+                              %(name)s: %(message)s')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
