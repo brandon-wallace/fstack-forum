@@ -4,6 +4,7 @@ import logging
 from os import environ
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_admin import Admin
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
@@ -25,6 +26,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login_route'
 mail = Mail()
 toolbar = DebugToolbarExtension()
+admin = Admin(name='fstack-forum')
 
 
 def create_app():
@@ -53,6 +55,7 @@ def create_app():
     app.config['MAIL_ASCII_ATTACHMENTS'] = True
 
     db.init_app(app)
+    admin.init_app(app)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
@@ -62,10 +65,15 @@ def create_app():
     from application.auth.routes import auth
     app.register_blueprint(auth)
 
-    from application.admin.routes import admin
-    app.register_blueprint(admin)
+    from application.admin.routes import admin_bp
+    app.register_blueprint(admin_bp)
 
     from application.forum.routes import forum
     app.register_blueprint(forum)
 
     return app
+
+
+from flask_admin.contrib.sqla import ModelView
+from application.models import db, User
+admin.add_view(ModelView(User, db.session))

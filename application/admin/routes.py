@@ -1,18 +1,16 @@
 # application/admin/routes.py
 
-# import os
-# from PIL import Image
-# from datetime import datetime
 from flask import Blueprint
 from flask import render_template, url_for, flash, redirect, request
+from flask_login import login_user, logout_user, current_user
 from application import db, bcrypt
 from application.forms import LoginForm, UpdateAccountForm
 from application.models import User
-from flask_login import login_user, logout_user, login_required, current_user
-admin = Blueprint('admin', __name__)
+
+admin_bp = Blueprint('admin_bp', __name__)
 
 
-@admin.route('/login', methods=['GET', 'POST'])
+@admin_bp.route('/login', methods=['GET', 'POST'])
 def admin_page():
     '''Login administrator'''
 
@@ -31,7 +29,7 @@ def admin_page():
     return render_template('admin/login.html', form=form)
 
 
-@admin.route('/dashboard')
+@admin_bp.route('/dashboard')
 # @login_required
 def dashboard():
     '''Dashboard route'''
@@ -40,14 +38,14 @@ def dashboard():
     return render_template('admin/dashboard.html', users=users)
 
 
-@admin.route('/profile')
+@admin_bp.route('/profile')
 def profile():
     '''Profile route'''
 
     return render_template('admin/profile.html')
 
 
-@admin.route('/preferences', methods=['GET', 'POST'])
+@admin_bp.route('/preferences', methods=['GET', 'POST'])
 # @login_required
 def preferences():
     '''Update profile information'''
@@ -73,7 +71,7 @@ def preferences():
                            image_file=profile_image, form=form)
 
 
-@admin.route('/logout')
+@admin_bp.route('/logout')
 def logout():
     '''Log user out'''
 

@@ -3,8 +3,8 @@
 from os import environ
 from datetime import datetime
 from itsdangerous import URLSafeTimedSerializer
-from application import db, login_manager
 from flask_login import UserMixin
+from application import db, login_manager
 
 
 @login_manager.user_loader
