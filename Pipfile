@@ -21,6 +21,7 @@ pytz = "*"
 flask-login = "*"
 python-dotenv = "*"
 flask-migrate = "*"
+flask-admin = "*"
 
 [requires]
 python_version = "3.7"
