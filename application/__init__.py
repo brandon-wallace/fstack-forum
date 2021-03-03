@@ -5,6 +5,7 @@ from os import environ
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
+from flask_security import Security, SQLAlchemyUserDatastore
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
@@ -71,9 +72,12 @@ def create_app():
     from application.forum.routes import forum
     app.register_blueprint(forum)
 
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    security = Security(app, user_datastore)
+
     return app
 
 
 from flask_admin.contrib.sqla import ModelView
-from application.models import db, User
+from application.models import db, User, Role
 admin.add_view(ModelView(User, db.session))

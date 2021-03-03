@@ -4,6 +4,7 @@ from os import environ
 from datetime import datetime
 from itsdangerous import URLSafeTimedSerializer
 from flask_login import UserMixin
+from flask_security import RoleMixin
 from application import db, login_manager
 
 
@@ -14,7 +15,14 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-class User(UserMixin, db.Model):
+users_roles = db.Table('users_roles',
+                       db.Column('user_id', db.Integer,
+                       db.ForeignKey('user.id')),
+                       db.Column('role_id', db.Integer,
+                       db.ForeignKey('role.id')))
+
+
+class User(db.Model, UserMixin):
     '''User table'''
 
     __tablename__ = 'user'
@@ -32,6 +40,8 @@ class User(UserMixin, db.Model):
     post_count = db.Column(db.Integer, default=0)
     posts = db.relationship('Post', backref='author', lazy=True)
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
+    roles = db.relationship('Role', secondary=users_roles,
+                            backref=db.backref('users'), lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -53,6 +63,14 @@ class User(UserMixin, db.Model):
         except Exception:
             return None
         return User.query.get(user_id)
+
+
+class Role(db.Model, RoleMixin):
+    '''Role table'''
+
+    __tablename__ = 'role'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True)
 
 
 class Post(db.Model):
