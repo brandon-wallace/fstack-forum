@@ -21,6 +21,7 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 db = SQLAlchemy()
+security = Security()
 bcrypt = Bcrypt()
 migrate = Migrate()
 login_manager = LoginManager()
@@ -72,8 +73,7 @@ def create_app():
     from application.forum.routes import forum
     app.register_blueprint(forum)
 
-    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-    security = Security(app, user_datastore)
+    security.init_app(app, user_datastore)
 
     return app
 

@@ -4,7 +4,7 @@ from os import environ
 from datetime import datetime
 from itsdangerous import URLSafeTimedSerializer
 from flask_login import UserMixin
-from flask_security import RoleMixin
+from flask_security import RoleMixin, SQLAlchemyUserDatastore
 from application import db, login_manager
 
 
@@ -105,3 +105,6 @@ class Comment(db.Model):
 
     def __repr__(self):
         return '<Comment {}>'.format(self.id)
+
+
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
