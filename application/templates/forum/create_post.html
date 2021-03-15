@@ -25,7 +25,7 @@
         </select>
       {{ displayField(form.content, 'Type content here') }}
 
-      <input class="btn btn--solid" type="submit" value="CREATE">
+      <button class="btn btn--solid" aria-label="Create" type="submit">CREATE</button>
       <a class="btn btn--cancel" href="{{ url_for('forum.forum_route') }}">CANCEL</a>
 
       {{ form.csrf_token }}
