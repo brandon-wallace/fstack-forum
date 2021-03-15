@@ -7,6 +7,7 @@ from flask_login import UserMixin
 from flask_security import RoleMixin, SQLAlchemyUserDatastore
 from application import db, login_manager
 
+# user_datastore = SQLAlchemyUserDatastore()
 
 @login_manager.user_loader
 def load_user(user_id):

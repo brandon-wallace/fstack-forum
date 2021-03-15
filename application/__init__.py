@@ -73,7 +73,7 @@ def create_app():
     from application.forum.routes import forum
     app.register_blueprint(forum)
 
-    security.init_app(app, user_datastore)
+    # security.init_app(app, user_datastore)
 
     return app
 
