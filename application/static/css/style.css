@@ -6,7 +6,7 @@
   src: url('../fonts/FiraMono-Regular.woff2') format('woff2'), 
        url('../fonts/FiraMono-Regular.woff') format('woff'), 
        url('../fonts/FiraMono-Regular.ttf')  format('truetype'), 
-       url('../fonts/FiraMono-Regular.otf')  format('opentype') 
+       url('../fonts/FiraMono-Regular.otf')  format('opentype');
 }
 
 :root {
