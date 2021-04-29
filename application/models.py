@@ -30,7 +30,8 @@ class User(UserMixin, db.Model):
                                    default=datetime.utcnow)
     location = db.Column(db.String(100), nullable=True)
     post_count = db.Column(db.Integer, default=0)
-    posts = db.relationship('Post', backref='author', lazy=True)
+    posts = db.relationship('Post', cascade='all, delete',
+                            backref='author', lazy=True)
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
 
     def __repr__(self):
