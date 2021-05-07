@@ -1026,6 +1026,7 @@ textarea {
 }
 
 .current__page {
+    color: var(--bg);
     background-color: #C6C6C6;
     text-decoration: underline;
 }
