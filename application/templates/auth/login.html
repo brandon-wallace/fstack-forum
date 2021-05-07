@@ -22,7 +22,7 @@
           <i id="eye__closed_icon" class="far fa-eye-slash flip--horizontal"></i>
         </button>
       </div>
-      <button class="btn btn--solid" type="submit">SUBMIT</button>
+      {{ form.submit(class='btn btn--solid') }}
 
       <p class="form__link"><a class="reset__link" href="{{ url_for('auth.request_reset_password') }}">Forgot password?</a></p>
 
