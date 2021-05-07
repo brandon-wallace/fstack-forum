@@ -16,17 +16,17 @@
     --light: #FFFFFF;
     --medium: #777777;
     --lighter: #F4F4F4;
-    --medium-dark: #3B3B3B;
-    --medium-light: #D0D0D2;
+    --medium-dark: #626262;
+    --medium-light: #6C6C6C;
 
     --fg: var(--dark);
     --bg: var(--light);
 }
 
 .dark-theme {
-    --bg: var(--dark);
     --fg: var(--light);
-    --medium-dark: var(--medium-light);
+    --bg: var(--dark);
+    --medium-light: var(--medium-dark);
 }
 
 html,
@@ -121,9 +121,9 @@ nav {
                 -2.0px  2.0px 0 var(--fg),
                  2.0px -2.0px 0 var(--fg),
                 -2.0px -2.0px 0 var(--fg),
-                 3px    3px   0 var(--medium-dark),
-                 4px    4px   0 var(--medium-dark),
-                 5px    5px   0 var(--medium-dark);
+                 3px    3px   0 var(--medium-light),
+                 4px    4px   0 var(--medium-light),
+                 5px    5px   0 var(--medium-light);
 }
 
 .toggle-theme {
@@ -173,12 +173,12 @@ nav {
 }
 
 .menu__link {
-    max-width: 400px;
+    max-width: 480px;
+    color: #1D1E2A;
+    color: var(--fg, #1D1E2A);
     text-transform: uppercase;
     border: 2px solid #1D1E2A;
     border: 2px solid var(--fg, #1D1E2A);
-    color: #1D1E2A;
-    color: var(--fg, #1D1E2A);
     background-color: #FFFFFF;
     background-color: var(--bg, #FFFFFF);
 }
@@ -417,7 +417,7 @@ form {
     display: block;
     cursor: pointer;
     min-width: 135px;
-    /* max-width: 345px; */
+    max-width: 345px;
     font-size: 1.1rem;
     font-weight: bold;
     text-align: center;
@@ -571,7 +571,7 @@ form {
 
 @media only screen and (min-width: 500px) {
     .header-1 {
-        word-spacing: -40px;
+        word-spacing: -20px;
     }
     .menu {
         width: 100%;
@@ -727,6 +727,10 @@ form {
     width: 100%;
 }
 
+.tile__content {
+    min-height: 250px;
+}
+
 .tile__header,
 .comment__header {
     display: -webkit-box;
@@ -743,7 +747,6 @@ form {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    min-height: 250px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -781,7 +784,6 @@ form {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    line-height: 50px;
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
@@ -807,6 +809,7 @@ form {
     text-align: center;
     font-family: inherit;
     background-color: #FFFDFD;
+    border: 2px solid #000000;
 }
 
 .comment__form {
@@ -1027,7 +1030,7 @@ textarea {
 
 .current__page {
     color: var(--bg);
-    background-color: #C6C6C6;
+    background-color: #727272;
     text-decoration: underline;
 }
 
