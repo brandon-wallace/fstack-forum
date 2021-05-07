@@ -1,7 +1,7 @@
 from application.models import User
 
 
-def test_new_user(new_user):
+def test_new_user():
     '''
     Check the email, password, password, creation
     date fields are defined correctly.
