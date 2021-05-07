@@ -26,7 +26,7 @@
 .dark-theme {
     --bg: var(--dark);
     --fg: var(--light);
-    --medium-light: var(--medium-dark);
+    --medium-dark: var(--medium-light);
 }
 
 html,
@@ -67,7 +67,6 @@ a {
 article {
     min-height: 100%;
     position: relative;
-    background-color: var(--medium-light);
 }
 
 main {
@@ -78,7 +77,8 @@ main {
     padding: .5rem;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-    background: linear-gradient(to left, #0375E3, #1647A6);
+    border-bottom: 4px solid #000000;
+    border-bottom: 4px solid var(--fg);
 }
 
 .logged-in-user {
@@ -103,7 +103,7 @@ section {
     color: #2B2B2B;
     color: var(--fg, #2B2B2B);
     background-color: #FFFFFF;
-    background-color: var(--bg, #FFFFFF);
+    border-top: 4px solid #000000;
 }
 
 header,
@@ -112,17 +112,18 @@ nav {
 }
 
 .header-1 {
-    color: #1D1E2A;
-    color: var(--fg, #1D1E2A);
+    color: #FFFFFF;
+    color: var(--bg, #FFFFFF);
     font-size: 2.5rem;
+    text-align: center;
     margin-bottom: .2rem;
-	text-shadow: 1.5px  1.5px 0 var(--medium-light),
-                -1.5px  1.5px 0 var(--medium-light),
-                 1.5px -1.5px 0 var(--medium-light),
-                -1.5px -1.5px 0 var(--bg),
-                 2px    2px   0 var(--bg),
-                 3px    3px   0 var(--bg),
-                 4px    4px   0 var(--bg);
+	text-shadow: 2.0px  2.0px 0 var(--fg),
+                -2.0px  2.0px 0 var(--fg),
+                 2.0px -2.0px 0 var(--fg),
+                -2.0px -2.0px 0 var(--fg),
+                 3px    3px   0 var(--medium-dark),
+                 4px    4px   0 var(--medium-dark),
+                 5px    5px   0 var(--medium-dark);
 }
 
 .toggle-theme {
@@ -494,14 +495,12 @@ form {
 
 .footer__anchor {
     margin: 0;
-    text-align: right;
-    color: #2B2B2B;
-    color: var(--fg, #2B2B2B);
-    background-color: #FFFFFF;
-    background-color: var(--bg, #FFFFFF);
-    position: absolute;
-    bottom: 10px;
     right: 10px;
+    bottom: 10px;
+    color: #2B2B2B;
+    text-align: right;
+    position: absolute;
+    background-color: #FFFFFF;
 }
 
 .footer__anchor a {
@@ -571,6 +570,9 @@ form {
 }
 
 @media only screen and (min-width: 500px) {
+    .header-1 {
+        word-spacing: -40px;
+    }
     .menu {
         width: 100%;
         -webkit-box-orient: horizontal;
@@ -908,8 +910,10 @@ form {
 }
 
 .profile-image {
-    margin-bottom: .5rem;
     height: 35px;
+    margin-bottom: .5rem;
+    border: 2px solid #000000;
+    border: 2px solid var(--fg);
 }
 
 @media only screen and (min-width: 750px) {
