@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 flask-debugtoolbar = "*"
+pytest = "*"
 
 [packages]
 psycopg2-binary = "*"
@@ -23,7 +24,6 @@ python-dotenv = "*"
 flask-migrate = "*"
 flask-admin = "*"
 flask-security = "*"
-pytest = "*"
 
 [requires]
 python_version = "3.7"
