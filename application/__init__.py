@@ -28,7 +28,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login_route'
 mail = Mail()
 toolbar = DebugToolbarExtension()
-admin = Admin(name='fstack-forum')
+administrator = Admin(name='fstack-forum')
 
 
 def create_app():
@@ -40,8 +40,8 @@ def create_app():
     app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = False
-    # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
-    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DEV_DATABASE_URI')
+    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
+    # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DEV_DATABASE_URI')
     app.config['DEBUG_TB_ENABLED'] = False
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     app.config['DEBUG_TB_TEMPLATE_EDITOR_ENABLED'] = False
@@ -57,7 +57,7 @@ def create_app():
     app.config['MAIL_ASCII_ATTACHMENTS'] = True
 
     db.init_app(app)
-    admin.init_app(app)
+    administrator.init_app(app)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
@@ -80,4 +80,4 @@ def create_app():
 
 from flask_admin.contrib.sqla import ModelView
 from application.models import db, User, Role
-admin.add_view(ModelView(User, db.session))
+administrator.add_view(ModelView(User, db.session))
