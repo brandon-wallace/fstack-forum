@@ -1,8 +1,9 @@
 import os
 import sys
-currentdir = os.path.dirname(os.path.realpath(__file__))
-parentdir = os.path.dirname(currentdir)
-sys.path.append(parentdir)
+from datetime import datetime
+current_directory = os.path.dirname(os.path.realpath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
 import pytest
 from application.models import User
 
@@ -10,5 +11,8 @@ from application.models import User
 @pytest.fixture(scope='module')
 def new_user():
 
-    user = User('brandon', 'brandon@example.com')
+    user = User(username='brandon',
+                password='asdfasdf',
+                email='brandon@example.com',
+                account_created_on=datetime.utcnow().strftime('%Y-%m-%d'))
     return user
