@@ -10,7 +10,6 @@ from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-from flask_debugtoolbar import DebugToolbarExtension
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -27,7 +26,6 @@ migrate = Migrate()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login_route'
 mail = Mail()
-toolbar = DebugToolbarExtension()
 administrator = Admin(name='fstack-forum')
 
 
@@ -42,9 +40,6 @@ def create_app():
     app.config['SQLALCHEMY_ECHO'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
     # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DEV_DATABASE_URI')
-    app.config['DEBUG_TB_ENABLED'] = False
-    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-    app.config['DEBUG_TB_TEMPLATE_EDITOR_ENABLED'] = False
     app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
     app.config['MAIL_PORT'] = environ.get('MAIL_PORT')
     app.config['MAIL_USE_TLS'] = True
@@ -62,7 +57,6 @@ def create_app():
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-    toolbar.init_app(app)
 
     from application.auth.routes import auth
     app.register_blueprint(auth)
