@@ -995,10 +995,17 @@ textarea {
     box-sizing: border-box;
 }
 
-.error__text {
-    font-size: 2rem;
-    margin: 0 0 8px 0;
+.error h1,
+.error h2 {
+    margin: 1rem 0;
     text-align: center;
+}
+
+.error h1 {
+    font-size: 8rem;
+}
+.error h2 {
+    font-size: 2rem;
 }
 
 .error__img {

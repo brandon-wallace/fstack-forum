@@ -1,13 +1,14 @@
-{# application/templates/404.html #}
+{# application/templates/403.html #}
 
 {% extends "layout.html" %}
 
-{% block title %}Page Not Found{% endblock %}
+{% block title %}Forbidden{% endblock %}
 
 {% block content %}
 
   <div class="error">
-    <h1 class="error__text">403 Forbidden</h1>
+    <h1>403</h1>
+    <h2>Sorry, This Page Is Forbidden</h2>
     <img class="error__img" src="{{ url_for('static', filename='images/error-message-square.png') }}">
   </div>
 
