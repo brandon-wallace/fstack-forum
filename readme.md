@@ -12,16 +12,17 @@
 ![screenshot4](application/static/images/screenshot4.png)
 
 
-# Quick Start
+# Installation
 
 ## Clone repository.
+
 ```
 $ git clone git@github.com:brandon-wallace/fstack-forum.git
 
 $ cd fstack-forum/
 ```
 
-## Create a .env file. Add the following settings before starting the virtual environment:
+## Create a .env file. Add the following environmental variables:
 
 ```
 $ vim .env
@@ -35,43 +36,45 @@ SECURITY_PASSWORD_SALT=<your_password_salt>
 ```
 
 To connect to a local SMTP server add this to the .env file.
+
 ```
 MAIL_SERVER='localhost'
 MAIL_PORT=25
 MAIL_USERNAME=""
 MAIL_PASSWORD=""
-MAIL_DEFAULT_SENDER="no-reply@yourdomain.com"
+MAIL_DEFAULT_SENDER="no-reply@<yourdomain.com>"
 ```
 
 To use Gmail as an SMTP server add this to the .env file.
+
 ```
 MAIL_SERVER='smtp@gmail.com'
 MAIL_PORT=465
 MAIL_USERNAME="<your_gmail_username@gmail.com>"
 MAIL_PASSWORD="<your_gmail_password>"
-MAIL_DEFAULT_SENDER=("Your gmail username", "your_gmail_username@gmail.com")
+MAIL_DEFAULT_SENDER=("<Your gmail username>", "<your_gmail_username@gmail.com>")
 ```
 
 ## Initialize and activate virtual environment.
+
 ```
 $ pipenv shell
 ```
 
 ## Install dependencies.
+
 ```
 $ pipenv install
 
 $ pipenv install flask-debugtoolbar --dev
 ```
 
-## Create a Sqlite3 or PostgreSQL database.
+## Install PostgreSQL
 
-### Sqlite3:
-```
-$ sqlite3 application/fstackforum.db
-```
+[Install PostgreSQL](https://www.postgresql.org/download/)
 
-### Postgresql:
+# Create a database.
+
 ```
 $ psql
 
@@ -80,7 +83,8 @@ $ psql
 # \q
 ```
 
-## Create tables.
+## Create tables in the database.
+
 ```
 $ python3 
 
@@ -92,16 +96,17 @@ $ python3
 ```
 
 ## Start the development server.
+
 ```
 $ flask run -h 127.0.0.1 -p 5000
 ```
 
 ## Navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
-
 # Run application as a service.
 
 ## Create a systemd service to run application.
+
 ```
 $ vim /etc/systemd/system/fstackforum.service 
 
@@ -119,6 +124,7 @@ ExecStart=/path/to/gunicorn --workers 3 --bind unix:/path/to/fstackforum/fstackf
 WantedBy=multi-user.target
 ```
 Start the service.
+
 ```
 $ sudo systemctl enable fstackforum.service
 
@@ -129,17 +135,20 @@ $ sudo systemctl start fstackforum.service
 
 Add logging to Gunicorn. 
 Change the systemd file from this.
+
 ```
 ExecStart=/path/to/gunicorn --workers 3 --bind unix:/path/to/fstackforum/fstackforum.sock wsgi:app 
 
 ```
 To this:
+
 ```
 ExecStart=/path/to/gunicorn --workers 3 --bind unix:/path/to/fstackforum/fstackforum.sock wsgi:app --error-logfile /path/to/fstackforum/gunicorn-error.log --log-level debug
 
 ```
 
 Check the systemd service.
+
 ```
 $ sudo systemctl status fstackforum.service
 
