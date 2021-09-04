@@ -805,6 +805,7 @@ form {
     cursor: pointer;
     font-size: .9rem;
     font-weight: bold;
+    line-height: 50px;
     border-radius: 2px;
     margin-left: .5rem;
     text-align: center;
