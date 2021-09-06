@@ -919,6 +919,7 @@ form {
 /* Profile */
 .profile__header {
     display: flex;
+    margin-bottom: 2em;
     align-items: center;
     justify-content: space-between;
 }
