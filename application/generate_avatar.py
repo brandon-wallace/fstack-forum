@@ -78,5 +78,5 @@ def create_image():
 
     chars = ''.join(string.ascii_letters)
     filename = ''.join(random.choice(chars) for _ in range(16))
-    img.save(f'application/static/images/{filename}.png')
+    img.save(f'application/static/images/avatars/{filename}.png')
     return f'{filename}.png'
