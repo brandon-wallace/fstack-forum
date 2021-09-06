@@ -131,5 +131,6 @@ dmypy.json
 # Custom
 application/*.db
 *.swp
+application/static/images/avatars/*.png
 
 ### End
