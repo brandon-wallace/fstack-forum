@@ -212,9 +212,7 @@ def login_route():
 def profile():
     '''Profile route'''
 
-    profile_image = url_for('static', filename='images/{}'.format(
-                            current_user.image_file))
-    return render_template('auth/profile.html', image_file=profile_image)
+    return render_template('auth/profile.html')
 
 
 def save_profile_picture(image_file):
@@ -246,6 +244,8 @@ def preferences():
         current_user.username = form.username.data
         current_user.email = form.email.data
         current_user.location = form.location.data
+        current_user.website_url = form.website_url.data
+        current_user.profile_summary = form.profile_summary.data
         db.session.commit()
         db.session.remove()
         flash('Account updated successfully.', 'success')
@@ -254,10 +254,9 @@ def preferences():
         form.username.data = current_user.username
         form.email.data = current_user.email
         form.location.data = current_user.location
-    profile_image = url_for('static', filename='images/{}'.format(
-                            current_user.image_file))
-    return render_template('auth/preferences.html',
-                           image_file=profile_image, form=form)
+        form.website_url.data = current_user.website_url
+        form.profile_summary.data = current_user.profile_summary
+    return render_template('auth/preferences.html', form=form)
 
 
 @auth.route('/logout')

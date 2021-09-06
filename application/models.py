@@ -9,6 +9,7 @@ from application import db, login_manager
 
 # user_datastore = SQLAlchemyUserDatastore()
 
+
 @login_manager.user_loader
 def load_user(user_id):
     '''Login user to session'''
@@ -16,11 +17,11 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-users_roles = db.Table('users_roles',
-                       db.Column('user_id', db.Integer,
+users_roles = db.Table('users_roles', db.Column('user_id', db.Integer,
                        db.ForeignKey('user.id')),
-                       db.Column('role_id', db.Integer,
-                       db.ForeignKey('role.id')))
+                       db.Column('role_id',
+                                 db.Integer,
+                                 db.ForeignKey('role.id')))
 
 
 class User(db.Model, UserMixin):
@@ -38,6 +39,8 @@ class User(db.Model, UserMixin):
     account_created_on = db.Column(db.DateTime, nullable=False,
                                    default=datetime.utcnow)
     location = db.Column(db.String(100), nullable=True)
+    website_url = db.Column(db.String(200), nullable=True)
+    profile_summary = db.Column(db.String(300), nullable=True)
     post_count = db.Column(db.Integer, default=0)
     posts = db.relationship('Post', cascade='all, delete',
                             backref='author', lazy=True)
