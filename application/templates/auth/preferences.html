@@ -11,7 +11,7 @@
   <div class="profile__header">
 
     <h2>Update Profile</h2>
-    <img class="profile-image" src="{{ image_file if image_file }}">
+    <img class="profile-image" src="static/images/avatars/{{ current_user.image_file }}">
 
   </div>
 
@@ -22,8 +22,8 @@
     {{ displayField(form.username, 'Username') }}
     {{ displayField(form.email, 'Enter email') }}
     {{ displayField(form.location, 'Location') }}
-    <input class="input__field" type="text" value="" placeholder="Website URL">
-    <input class="input__field" type="text" value="" placeholder="Profile summary">
+    {{ displayField(form.website_url, 'Website https://') }}
+    {{ displayField(form.profile_summary, 'Profile Summary') }}
 
     <p>Upload a profile picture.</p>
     <div class="upload">
