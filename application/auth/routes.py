@@ -20,6 +20,7 @@ from application.forms import (SignUpForm, LoginForm,
                                ResetPasswordForm)
 from application.models import User
 from application.decorators import check_email_confirmation
+from application.generate_avatar import create_image
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -163,6 +164,7 @@ This link will expire in 24 hours.
             user = User(username=form.username.data,
                         email=form.email.data,
                         email_confirmed=False,
+                        image_file=create_image(),
                         password=hashed_password)
             db.session.add(user)
             db.session.commit()
@@ -171,7 +173,7 @@ This link will expire in 24 hours.
         except Exception:
             logger.error('Sign up route error!!!!', exc_info=True)
             db.session.rollback()
-            return redirect(url_for('auth.signup', _external=True))
+            return redirect(url_for('auth.sign_up', _external=True))
     return render_template('auth/signup.html', form=form)
 
 
