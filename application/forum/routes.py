@@ -9,7 +9,6 @@ from application import db
 from application.forms import (CreatePostForm, UpdatePostForm, CommentForm)
 from application.models import Post, Comment
 from flask_login import login_required, current_user
-from application.models import User
 from application.decorators import check_email_confirmation
 
 logger = logging.getLogger(__name__)
