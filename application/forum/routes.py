@@ -9,6 +9,7 @@ from application import db
 from application.forms import (CreatePostForm, UpdatePostForm, CommentForm)
 from application.models import Post, Comment
 from flask_login import login_required, current_user
+from application.models import User
 from application.decorators import check_email_confirmation
 
 logger = logging.getLogger(__name__)
@@ -26,9 +27,6 @@ forum = Blueprint('forum', __name__)
 def index():
     '''Landing page'''
 
-    # posts = Post.query.order_by(Post.date_posted.desc()).limit(4).all()
-    # posts = Post.query.all()
-    # comments = Comment.query.filter(Comment.post_id == posts.id).count()
     page = request.args.get('page', 1, type=int)
     posts = Post.query.paginate(page=page, per_page=3)
     return render_template('forum/index.html', posts=posts)
