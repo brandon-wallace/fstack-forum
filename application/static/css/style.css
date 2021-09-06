@@ -812,7 +812,7 @@ form {
 .tile__btn,
 .comment__btn {
     border: 0;
-    width: 65px;
+    width: 70px;
     height: 50px;
     cursor: pointer;
     font-size: .9rem;
@@ -822,6 +822,7 @@ form {
     margin-left: .5rem;
     text-align: center;
     font-family: inherit;
+    box-sizing: border-box;
     background-color: #FFFDFD;
     border: 2px solid #000000;
 }
