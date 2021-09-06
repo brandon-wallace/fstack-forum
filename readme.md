@@ -29,7 +29,7 @@ $ vim .env
 
 FLASK_ENV=development
 FLASK_APP=run.py
-DATABASE_URI='postgres://<username>:<password>@<hostname>:<port>/<database_name>'
+DATABASE_URI='postgresql://<username>:<password>@<hostname>:<port>/<database_name>'
 DEV_DATABASE_URI='sqlite://<database_file>'
 SECRET_KEY=<your_secret_key>
 SECURITY_PASSWORD_SALT=<your_password_salt>
