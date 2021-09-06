@@ -88,9 +88,11 @@ $ psql
 ```
 $ python3 
 
->>> from application import db, create_app
+>>> from application import create_app
 
->>> db.create_all(app=create_app())
+>>> app = create_app()
+
+>>> app.app_context().push()
 
 >>> exit()
 ```

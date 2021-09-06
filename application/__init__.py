@@ -13,7 +13,7 @@ from flask_mail import Mail
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('application_error.log')
+file_handler = logging.FileHandler('flask_error.log')
 formatter = logging.Formatter('%(asctime)s: %(levelname)s: \
                               %(name)s: %(message)s')
 file_handler.setFormatter(formatter)
@@ -37,7 +37,7 @@ def create_app():
     app.config['DEBUG'] = True
     app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_ECHO'] = False
+    app.config['SQLALCHEMY_ECHO'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
     # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DEV_DATABASE_URI')
     app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
@@ -51,7 +51,8 @@ def create_app():
     app.config['MAIL_SUPPRESS_SEND'] = True
     app.config['MAIL_ASCII_ATTACHMENTS'] = True
 
-    db.init_app(app)
+    with app.app_context():
+        db.init_app(app)
     administrator.init_app(app)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
