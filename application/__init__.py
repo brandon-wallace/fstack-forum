@@ -3,6 +3,7 @@
 import logging
 from os import environ
 from flask import Flask
+from dotenv import load_dotenv, find_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_security import Security, SQLAlchemyUserDatastore
@@ -10,6 +11,8 @@ from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+
+load_dotenv(find_dotenv())
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
