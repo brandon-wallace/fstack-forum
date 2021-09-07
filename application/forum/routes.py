@@ -83,12 +83,12 @@ def create_post():
             db.session.commit()
             db.session.remove()
             flash('Post created successfully', 'success')
-            return redirect(url_for('forum.create_post'))
+            return redirect(url_for('forum.create_post', _external=True))
         except IntegrityError:
             logger.error('create_post IntegrityError error', exc_info=True)
             db.session.rollback()
             flash('Post not successful', 'fail')
-            return redirect(url_for('forum.forum_route'))
+            return redirect(url_for('forum.forum_route', _external=True))
     content = {
             'image_file': profile_image,
             'page_title': 'New',

@@ -133,7 +133,7 @@ def sign_up():
     '''Sign up new users'''
 
     if current_user.is_authenticated:
-        return redirect(url_for('forum.index'))
+        return redirect(url_for('forum.index', _external=True))
 
     form = SignUpForm()
     if form.validate_on_submit():
@@ -199,7 +199,7 @@ def login_route():
             if next_page:
                 pass
             #     return redirect(next_page)
-            return redirect(url_for('forum.forum_route', _external=True))
+            return redirect(url_for('auth.profile', _external=True))
         else:
             logger.warn('Login failure!!!!', exc_info=True)
             flash('Login failed. Check your email/password.', 'fail')
