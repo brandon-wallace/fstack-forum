@@ -7,8 +7,11 @@
 # Screenshots
 
 ![screenshot1](application/static/images/screenshot1.png)
+
 ![screenshot2](application/static/images/screenshot2.png)
+
 ![screenshot3](application/static/images/screenshot3.png)
+
 ![screenshot4](application/static/images/screenshot4.png)
 
 
