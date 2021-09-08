@@ -12,11 +12,13 @@ def set_dimentions(width=600, height=600):
 
 
 def random_color():
-    '''Select from the 12 main RGB colors'''
+    '''Select one of 20 colors'''
 
-    rgb_colors = ['#FF0000', '#FF8000', '#FFFF00', '#80FF00',
+    rgb_colors = ['#FF0000', '#FF8000', '#FFD700', '#80FF00',
                   '#00FF00', '#00FF80', '#00FFFF', '#0080FF',
-                  '#0000FF', '#8000FF', '#FF00FF', '#FF0080']
+                  '#0000FF', '#8000FF', '#FF00FF', '#FF0080',
+                  '#000000', '#505050', '#663300', '#50394C',
+                  '#36486B', '#625750', '#96897F', '#8D0A30']
 
     return random.choice(rgb_colors)
 
