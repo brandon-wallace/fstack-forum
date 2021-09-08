@@ -856,6 +856,11 @@ form {
     text-decoration: underline;
 }
 
+section > .tile__category {
+    font-size: 1.4rem;
+    margin-bottom: 2em;
+}
+
 .tile--wide, 
 .comment--wide {
     max-width: 1100px;

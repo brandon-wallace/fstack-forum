@@ -1,6 +1,7 @@
 {# application/templates/forum/post.html #}
 
 {% from 'macros.html' import displayField %}
+{% from 'macros.html' import categoryType %}
 
 {% extends "layout.html" %}
 
@@ -13,6 +14,8 @@
     {% if current_user.is_authenticated %}
       
       <!-- START posts -->
+
+      {{ categoryType(type=post.category, category_text=post.category) }}
 
       <div class="tile tile--wide">
 
@@ -107,7 +110,7 @@
 
       <!-- START post -->
 
-      <p class="current-user">{{ current_user.username }}</p>
+      {{ categoryType(type=post.category, category_text=post.category) }}
 
       <div class="tile tile--wide">
 
