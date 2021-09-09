@@ -14,9 +14,13 @@
 
       {{ form.csrf_token }}
 
+      {{ displayField(form.username.label) }}
       {{ displayField(form.username, 'Username*', autofocus=true) }}
+      {{ displayField(form.email.label) }}
       {{ displayField(form.email, 'Enter email*') }}
+      {{ displayField(form.password.label) }}
       {{ displayField(form.password, 'Enter password*', class='input__field password__field') }}
+      {{ displayField(form.confirm_password.label) }}
       {{ displayField(form.confirm_password, 'Re-enter password*', class='input__field password__field') }}
       {{ form.submit(class='btn btn--solid') }}
       <p class="form__agreement">By clicking Sign Up, I agree to the FstackForum 
