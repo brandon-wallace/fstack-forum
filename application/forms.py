@@ -13,7 +13,7 @@ from application.models import User
 class SignUpForm(FlaskForm):
     '''Sign up form for new users'''
 
-    username = StringField('Username', validators=[InputRequired()])
+    username = StringField('Enter username', validators=[InputRequired()])
     email = StringField('Email', validators=[InputRequired(), Email()])
     password = PasswordField('Password', validators=[InputRequired(),
                              Length(min=4, max=32)])
@@ -90,7 +90,7 @@ class CreatePostForm(FlaskForm):
                             ])
     content = TextAreaField('Content', validators=[
                             InputRequired(), Length(min=20)])
-    submit = SubmitField('CREATE')
+    submit = SubmitField('CREATE POST')
 
 
 class UpdatePostForm(FlaskForm):
