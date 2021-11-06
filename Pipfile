@@ -25,4 +25,4 @@ flask-admin = "*"
 flask-security = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"
