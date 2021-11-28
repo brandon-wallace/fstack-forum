@@ -21,8 +21,6 @@
             <p class="tile__date"><time datetime="{{ post.date_posted.strftime("%Y-%m-%d") }}">{{ post.date_posted.strftime("%Y-%m-%d") }}</time></p>
           </header>
 
-          <p class="tile__category"><a href="{{ url_for('forum.categories', category=post.category ) }}">{{ post.category }}</a></p>
-
           <div class="tile__text">
             <p>{{ post.content }}</p>
           </div>
@@ -30,6 +28,7 @@
           <footer class="tile__footer">
 
             <div class="tile__author">
+              <img class="profile-image" src="static/images/avatars/{{ post.author.image_file }}" alt="Profile Avatar">
               <p class="tile__title">{{ post.author.username }}</p>
             </div>
 
