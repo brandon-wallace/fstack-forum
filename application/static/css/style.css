@@ -78,6 +78,7 @@ main {
 
 .index-content {
     display: flex;
+    flex-direction: column;
 }
 
 .index-categories {
@@ -655,6 +656,11 @@ input.input__field {
     }
 }
 
+@media only screen and (min-width: 700px) {
+    .index-content {
+        flex-direction: row;
+    }
+}
 
 /* Forum */
 .posts {
