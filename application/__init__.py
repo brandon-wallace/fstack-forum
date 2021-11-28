@@ -41,11 +41,13 @@ def create_app():
     app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
-    # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DEV_DATABASE_URI')
+    # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
+    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DEV_DATABASE_URI')
     app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
     app.config['MAIL_PORT'] = environ.get('MAIL_PORT')
-    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USE_TLS'] = environ.get('MAIL_USE_TLS')
+    app.config['MAIL_USERNAME'] = environ.get('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = environ.get('SENDGRID_API_KEY')
     app.config['MAIL_DEFAULT_SENDER'] = environ.get('MAIL_DEFAULT_SENDER')
     app.config['MAIL_USE_SSL'] = False
     app.config['MAIL_DEBUG'] = True
