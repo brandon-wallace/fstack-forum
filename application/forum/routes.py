@@ -28,7 +28,8 @@ def index():
 
     page = request.args.get('page', 1, type=int)
     posts = Post.query.paginate(page=page, per_page=3)
-    return render_template('forum/index.html', posts=posts)
+    categories = Post.query.group_by(Post.category).distinct()
+    return render_template('forum/index.html', posts=posts, categories=categories)
 
 
 @forum.route('/forum', methods=['GET'])
@@ -46,10 +47,9 @@ def forum_route(view=None):
                                     page=page, per_page=4)
         content = {'image_file': profile_image, 'posts': posts}
         return render_template('forum/forum.html', **content)
-    else:
-        posts = Post.query.paginate(page=page, per_page=4)
-        content = {'image_file': profile_image, 'posts': posts}
-        return render_template('forum/forum.html', **content)
+    posts = Post.query.paginate(page=page, per_page=4)
+    content = {'image_file': profile_image, 'posts': posts}
+    return render_template('forum/forum.html', **content)
 
 
 @forum.route('/category', defaults={'category': 'general'})
@@ -61,7 +61,10 @@ def categories(category):
         page = request.args.get('page', 1, type=int)
         posts = Post.query.filter_by(category=category).paginate(
                                      page=page, per_page=3)
-        return render_template('forum/{}.html'.format(category), posts=posts)
+        profile_image = url_for('static', filename='images/{}'.format(
+                                current_user.image_file))
+        content = {'image_file': profile_image, 'posts': posts}
+        return render_template('forum/{}.html'.format(category), **content)
     except TemplateNotFound:
         logger.error('category TemplateNotFound error!!!!', exc_info=True)
         return abort(404)
