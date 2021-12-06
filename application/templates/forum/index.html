@@ -2,6 +2,8 @@
 
 {% extends "layout.html" %}
 
+{% from 'macros.html' import categoryType %}
+
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -13,9 +15,11 @@
       <div class="categories">
 
         <ul class="category-menu">
+
           {% for category in categories %}
-            <li><a class="category-item" href="{{ url_for('forum.categories', category=category.category) }}">{{ category.category }}</a></li>
+            {{ categoryType(type=category.category, category_text=category.category) }}
           {% endfor %}
+
         </ul>
       
       </div>
