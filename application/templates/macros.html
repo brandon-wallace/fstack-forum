@@ -15,37 +15,45 @@
 {% macro categoryType(category, type, category_text=category_text) %}
 
   {% if type == 'general' %}
-    <p class="tile__category">
+    <li class="tile__category">
       <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link purple-bg">{{ category_text }}</a>
-    </p>
+    </li>
+
   {% elif type == 'javascript' %}
-    <p class="tile__category">
+    <li class="tile__category">
       <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link green-bg">{{ category_text }}</a>
-    </p>
+    </li>
+
   {% elif type == 'nodejs' %}
-    <p class="tile__category">
+    <li class="tile__category">
       <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link orange-bg">{{ category_text }}</a>
-    </p>
+    </li>
+
   {% elif type == 'python' %}
-    <p class="tile__category">
+    <li class="tile__category">
       <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link blue-bg">{{ category_text }}</a>
-    </p>
+    </li>
+
   {% elif type == 'html-css' %}
-    <p class="tile__category">
+    <li class="tile__category">
       <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link magenta-bg">{{ category_text }}</a>
-    </p>
+    </li>
+
   {% elif type == 'support' %}
-    <p class="tile__category">
+    <li class="tile__category">
       <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link amber-bg">{{ category_text }}</a>
-    </p>
+    </li>
+
   {% elif type == 'help' %}
-    <p class="tile__category">
+    <li class="tile__category">
       <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link turquoise-bg">{{ category_text }}</a>
-    </p>
+    </li>
+
   {% else %}
-    <p class="tile__category">
+    <li class="tile__category">
       <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link red-bg">{{ category_text }}</a>
-    </p>
+    </li>
+
   {% endif %}
 
 {% endmacro %}
