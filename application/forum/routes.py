@@ -28,7 +28,7 @@ def index():
 
     page = request.args.get('page', 1, type=int)
     posts = Post.query.paginate(page=page, per_page=3)
-    categories = Post.query.group_by(Post.category).distinct()
+    categories = Post.query.distinct(Post.category).all()
     return render_template('forum/index.html',
                            posts=posts, categories=categories)
 
