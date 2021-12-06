@@ -18,7 +18,10 @@
   <body>
   
     <noscript>
-      <p style="color:#FC0000;text-align:center">Please enable Javascript</p>
+      <div style="color:#FC0000;background-color:#FFFFFF;text-align:center">
+        <p>Warning! It seems that JavaScript is not working in your browser. It could be that JavaScript is not supported, or JavaScript is disabled.</p>
+        <p>Please enable JavaScript. Some of the features on fstackforum.com will not function properly with out javascript enabled.</p>
+      </div>
     </noscript>
 
     <article>
@@ -47,7 +50,7 @@
         {% if current_user.is_authenticated %}
           <p class="logged-in-user">{{ current_user.username }}</p>
         {% endif %}
-        <h1 class="header-1">Fstack Forum</h1>
+        <h1 class="header-1">FstackForum</h1>
   
       </header>
 
@@ -115,7 +118,7 @@
 
         <img src="{{ url_for('static', filename='images/message-square.svg') }}">
   
-        <p class="footer__anchor">Fstackforum.com &copy; 2021 created by <a href="https://brandonwallace.cc" target="_blank" rel="nonreferrer">brandon wallace</a></p>
+        <p class="footer__anchor">Fstackforum.com &copy; 2022 created by <a href="https://brandonwallace.cc" target="_blank" rel="nonreferrer">brandon wallace</a></p>
 
       </footer>
 

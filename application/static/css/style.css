@@ -76,6 +76,23 @@ main {
     padding: 8px .5rem 250px .5rem;
 }
 
+.index-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.index-categories {
+    flex: 1;
+    margin: 1em;
+    border-radius: 6px;
+    border: .5px solid #323739;
+    box-shadow: 1px 1px 2px 3px #555555;
+}
+
+.index-tiles {
+    flex: 3;
+}
+
 .page__header {
     padding: .5rem;
     -webkit-box-sizing: border-box;
@@ -130,8 +147,12 @@ nav {
 }
 
 .toggle-theme {
+    display: block;
     color: #FFFFFF;
     color: var(--bg, #FFFFFF);
+    max-width: 125px;
+    text-align: center;
+    border-radius: 4px;
     margin-bottom: .5rem;
     padding: .25rem .75rem;
     background-color: #EAEAE3;
@@ -160,6 +181,10 @@ nav {
     margin-left: auto;
 }
 
+.forum-menu__item a {
+    border-radius: 4px;
+}
+
 .menu__link,
 .forum__link,
 .profile__link {
@@ -175,9 +200,33 @@ nav {
   	background-color: var(--lighter, #F4F4F4);
 }
 
+.categories {
+    width: 150px;
+    margin: 0 auto;
+    padding: 1em 0;
+}
+
+.category-menu {
+    margin: 0;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.category-menu li {
+    padding: 1rem; 
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.category-item {
+    color: #2B2B2B;
+    color: var(--fg, #2B2B2B);
+}
+
 .menu__link {
     max-width: 480px;
     color: #1D1E2A;
+    border-radius: 4px;
     color: var(--fg, #1D1E2A);
     text-transform: uppercase;
     border: 2px solid #1D1E2A;
@@ -191,6 +240,9 @@ nav {
 }
 
 .input__field {
+    padding: .5rem;
+    font-size: 1rem;
+    font-family: inherit;
 }
 
 .forum__link {
@@ -203,6 +255,7 @@ nav {
 .profile__link {
     color: #1D1E2A;
     max-width: 350px;
+    border-radius: 4px;
     text-transform: uppercase;
     border: 2px solid #202020;
     background-color: #FFFFFF;
@@ -485,6 +538,7 @@ input.input__field {
 .footer__link {
     padding: 1rem 1.4rem;
     display: block;
+    border-radius: 6px;
     margin-left: .5rem;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -589,6 +643,7 @@ input.input__field {
         justify-content: flex-end;
     }
     .menu li {
+        min-width: 100px;
         margin-right: .5rem;
     }
     .menu__link {
@@ -634,6 +689,11 @@ input.input__field {
     }
 }
 
+@media only screen and (min-width: 700px) {
+    .index-content {
+        flex-direction: row;
+    }
+}
 
 /* Forum */
 .posts {
@@ -711,6 +771,7 @@ input.input__field {
     padding: .75rem;
     min-width: 285px;
     max-width: 550px;
+    border-radius: 6px;
     margin-bottom: .5rem;
     background-color: #F7F7F7;
     -webkit-box-sizing: border-box;
@@ -962,6 +1023,10 @@ section > .tile__category {
     .image-small {
         display: block;
     }
+    .index-tiles {
+        flex: 5;
+    }
+
 }
 
 

@@ -2,13 +2,27 @@
 
 {% extends "layout.html" %}
 
-{% from 'macros.html' import categoryType %}
-
 {% block title %}Home{% endblock %}
 
 {% block content %}
 
-    <section class="row">
+  <div class="index-content">
+
+    <aside class="index-categories">
+    
+      <div class="categories">
+
+        <ul class="category-menu">
+          {% for category in categories %}
+            <li><a class="category-item" href="{{ url_for('forum.categories', category=category.category) }}">{{ category.category }}</a></li>
+          {% endfor %}
+        </ul>
+      
+      </div>
+
+    </aside>
+
+    <section class="index-tiles row">
 
       {% for post in posts.items %}
 
@@ -21,8 +35,6 @@
               <span class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d") }}</span>
             </header>
 
-            {{ categoryType(type=post.category, category_text=post.category) }}
-
             <div class="tile__text">
               <p>{{ post.content }}</p>
             </div>
@@ -30,7 +42,7 @@
             <footer class="tile__footer">
 
               <div class="tile__author">
-                <img class="profile-image" src="static/images/avatars/{{ post.author.image_file }}">
+                <img class="profile-image" src="static/images/avatars/{{ post.author.image_file }}" alt="Profile Avatar">
                 <span class="tile__title">{{ post.author.username }}</span>
               </div>
 
@@ -46,5 +58,7 @@
       {% endfor %}
 
     </section>
+
+  </div>
 
 {% endblock %}

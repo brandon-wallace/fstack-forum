@@ -10,6 +10,7 @@
 
     <ul class="forum-menu">
       <li class="forum-menu__item"><a class="forum__link" href="{{ url_for('forum.forum_route', view='latest') }}">LATEST</a></li>
+      <li class="forum-menu__item"><a class="forum__link" href="{{ url_for('forum.forum_route', view='oldest') }}">OLDEST</a></li>
       <li class="forum-menu__item"><a class="forum__link reverse" href="{{ url_for('forum.create_post') }}">NEW POST</a></li>
     </ul>
 
@@ -37,7 +38,7 @@
               <div class="tile__footer">
 
                 <div class="tile__author">
-                  <img class="profile-image" src="static/images/avatars/{{ post.author.image_file }}">
+                  <img class="profile-image" src="static/images/avatars/{{ post.author.image_file }}" alt="Profile Avatar">
                   <span class="tile__title">{{ post.author.username }}</span>
                 </div>
 
