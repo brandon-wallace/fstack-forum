@@ -839,13 +839,11 @@ input.input__field {
 }
 
 .tile__category__link {
-	padding: 0 .25rem;
     color: #F4F4F4;
+	padding: 0 .25rem;
+    font-weight: bold;
 	font-style: italic;
-    /*
-    background-color: #004DBB;
-	background-color: var(--blue, #004DBB);
-    */
+    width: fit-content;
 }
 
 .tile__text, 

@@ -17,7 +17,9 @@
         <ul class="category-menu">
 
           {% for category in categories %}
-            {{ categoryType(type=category.category, category_text=category.category) }}
+            <li class="tile__category">
+              {{ categoryType(type=category.category, category_text=category.category) }}
+            </li>
           {% endfor %}
 
         </ul>

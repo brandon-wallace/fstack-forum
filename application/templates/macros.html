@@ -15,44 +15,28 @@
 {% macro categoryType(category, type, category_text=category_text) %}
 
   {% if type == 'general' %}
-    <li class="tile__category">
-      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link purple-bg">{{ category_text }}</a>
-    </li>
+    <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link purple-bg">{{ category_text }}</a>
 
   {% elif type == 'javascript' %}
-    <li class="tile__category">
-      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link green-bg">{{ category_text }}</a>
-    </li>
+    <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link green-bg">{{ category_text }}</a>
 
   {% elif type == 'nodejs' %}
-    <li class="tile__category">
-      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link orange-bg">{{ category_text }}</a>
-    </li>
+    <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link orange-bg">{{ category_text }}</a>
 
   {% elif type == 'python' %}
-    <li class="tile__category">
-      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link blue-bg">{{ category_text }}</a>
-    </li>
+    <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link blue-bg">{{ category_text }}</a>
 
   {% elif type == 'html-css' %}
-    <li class="tile__category">
-      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link magenta-bg">{{ category_text }}</a>
-    </li>
+    <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link magenta-bg">{{ category_text }}</a>
 
   {% elif type == 'support' %}
-    <li class="tile__category">
-      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link amber-bg">{{ category_text }}</a>
-    </li>
+    <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link amber-bg">{{ category_text }}</a>
 
   {% elif type == 'help' %}
-    <li class="tile__category">
-      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link turquoise-bg">{{ category_text }}</a>
-    </li>
+    <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link turquoise-bg">{{ category_text }}</a>
 
   {% else %}
-    <li class="tile__category">
-      <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link red-bg">{{ category_text }}</a>
-    </li>
+    <a href="{{ url_for('forum.categories', category=category_text) }}" class="tile__category__link red-bg">{{ category_text }}</a>
 
   {% endif %}
 
