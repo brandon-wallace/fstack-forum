@@ -9,16 +9,20 @@
   <div class="index-content">
 
     <aside class="index-categories">
+    
+      <div class="categories">
 
-      <ul class="category-menu">
-        {% for category in categories %}
-          <li><a href="{{ url_for('forum.categories', category=category.category) }}">{{ category.category }}</a></li>
-        {% endfor %}
-      </ul>
+        <ul class="category-menu">
+          {% for category in categories %}
+            <li><a class="category-item" href="{{ url_for('forum.categories', category=category.category) }}">{{ category.category }}</a></li>
+          {% endfor %}
+        </ul>
+      
+      </div>
 
     </aside>
 
-    <section class="row">
+    <section class="index-tiles row">
 
       {% for post in posts.items %}
 
