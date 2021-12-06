@@ -82,8 +82,15 @@ main {
 }
 
 .index-categories {
-    width: 100%;
-    max-width: 175px;
+    flex: 1;
+    margin: 1em;
+    border-radius: 6px;
+    border: .5px solid #323739;
+    box-shadow: 1px 1px 2px 3px #555555;
+}
+
+.index-tiles {
+    flex: 3;
 }
 
 .page__header {
@@ -140,8 +147,12 @@ nav {
 }
 
 .toggle-theme {
+    display: block;
     color: #FFFFFF;
     color: var(--bg, #FFFFFF);
+    max-width: 125px;
+    text-align: center;
+    border-radius: 4px;
     margin-bottom: .5rem;
     padding: .25rem .75rem;
     background-color: #EAEAE3;
@@ -170,6 +181,10 @@ nav {
     margin-left: auto;
 }
 
+.forum-menu__item a {
+    border-radius: 4px;
+}
+
 .menu__link,
 .forum__link,
 .profile__link {
@@ -185,6 +200,12 @@ nav {
   	background-color: var(--lighter, #F4F4F4);
 }
 
+.categories {
+    width: 150px;
+    margin: 0 auto;
+    padding: 1em 0;
+}
+
 .category-menu {
     margin: 0;
     padding-left: 0;
@@ -192,7 +213,14 @@ nav {
 }
 
 .category-menu li {
-    padding: 1rem 1rem 1rem 2rem;
+    padding: 1rem; 
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.category-item {
+    color: #2B2B2B;
+    color: var(--fg, #2B2B2B);
 }
 
 .menu__link {
@@ -212,6 +240,9 @@ nav {
 }
 
 .input__field {
+    padding: .5rem;
+    font-size: 1rem;
+    font-family: inherit;
 }
 
 .forum__link {
@@ -224,6 +255,7 @@ nav {
 .profile__link {
     color: #1D1E2A;
     max-width: 350px;
+    border-radius: 4px;
     text-transform: uppercase;
     border: 2px solid #202020;
     background-color: #FFFFFF;
@@ -611,6 +643,7 @@ input.input__field {
         justify-content: flex-end;
     }
     .menu li {
+        min-width: 100px;
         margin-right: .5rem;
     }
     .menu__link {
@@ -990,6 +1023,10 @@ section > .tile__category {
     .image-small {
         display: block;
     }
+    .index-tiles {
+        flex: 5;
+    }
+
 }
 
 
