@@ -49,6 +49,13 @@ body {
     font-family: 'FiraMono-Regular', monospace;
 }
 
+ul {
+    width: 150px;
+    margin: 0 auto;
+    padding: 1em 0;
+    list-style-type: none;
+}
+
 a {
     color: #111111;
     text-decoration: none;
@@ -201,21 +208,17 @@ nav {
 }
 
 .categories {
-    width: 150px;
+    width: 175px;
     margin: 0 auto;
-    padding: 1em 0;
+    padding: 1em;
 }
 
 .category-menu {
-    margin: 0;
-    padding-left: 0;
-    list-style-type: none;
 }
 
-.category-menu li {
-    padding: 1rem; 
+.category-menu li a {
     font-weight: bold;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 }
 
 .category-item {
@@ -832,7 +835,7 @@ input.input__field {
 }
 
 .tile__category {
-	margin: 5px 0 0 0;
+	margin: 0 0 1em 0;
 }
 
 .tile__category__link {
