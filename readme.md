@@ -86,6 +86,8 @@ $ pipenv install flask-debugtoolbar --dev
 # Create a database.
 
 ```
+$ sudo su - postgres
+
 $ psql
 
 # CREATE DATABASE fstackforum.db
@@ -98,11 +100,29 @@ $ psql
 ```
 $ python3 
 
->>> from application import create_app
+>>> from application.models import User, Post, Comment
+
+>>> from application import db, create_app
 
 >>> app = create_app()
 
 >>> app.app_context().push()
+
+>>> db.create_all()
+
+# Output
+
+[...]
+2020-07-05 13:50:21,831 INFO sqlalchemy.engine.Engine  
+CREATE TABLE "user" (                                  
+        id SERIAL NOT NULL,                            
+        username VARCHAR(20) NOT NULL,                 
+        email VARCHAR(120) NOT NULL,                   
+        email_confirmed BOOLEAN NOT NULL,              
+        email_confirmed_on TIMESTAMP WITHOUT TIME ZONE,
+        image_file VARCHAR(20) NOT NULL,               
+        password VARCHAR(60) NOT NULL,                 
+[...]
 
 >>> exit()
 ```
