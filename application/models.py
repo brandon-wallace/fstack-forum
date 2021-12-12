@@ -51,6 +51,18 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+    @property
+    def post_count(self):
+        '''Return post count'''
+
+        return Post.query.filter(Post.user_id == self.id).count()
+
+    @property
+    def comment_count(self):
+        '''Return comment count'''
+
+        return Comment.query.filter(Comment.user_id == self.id).count()
+
     def create_password_reset_token(self):
         '''Create the reset token'''
 
