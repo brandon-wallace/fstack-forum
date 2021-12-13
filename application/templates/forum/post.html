@@ -37,7 +37,7 @@
             </div>
 
             <div class="tile__buttons">
-
+              <a class="tile__like__btn" title="Like" href="#"><img class="like__icon" src="{{ url_for('static', filename='images/heart_outline_icon_25x25.png') }}"></a>
               {% if current_user == post.author %}
                 <a class="tile__btn" href="{{ url_for('forum.update_post', post_id=post.id) }}">Edit</a>
                 <a class="tile__btn" href="{{ url_for('forum.delete_post', post_id=post.id) }}">Delete</a>
@@ -80,6 +80,7 @@
                 </div>
 
                 <div class="comment__buttons">
+                  <a class="tile__like__btn" title="Like" href="#"><img class="like__icon" src="{{ url_for('static', filename='images/heart_outline_icon_25x25.png') }}"></a>
                   <button class="comment__btn comment--reverse reply">Reply</button>
                 </div>
 
