@@ -800,10 +800,17 @@ input.input__field {
     width: 100%;
 }
 
+.tile__buttons,
 .tile__author {
     height: 75px;
     display: flex;
     align-items: center;
+}
+
+.tile__like__btn {
+    height: 25px;
+    cursor: pointer;
+    display: inline-block;
 }
 
 .tile__title {
