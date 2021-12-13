@@ -1148,6 +1148,11 @@ textarea {
     background-color: #010100;
 }
 
+.category__header {
+    margin: 0 auto;
+    max-width: 1100px;
+}
+
 .category-h2 {
     color: #FFFFFF;
     display: inline;
