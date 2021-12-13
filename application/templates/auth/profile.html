@@ -10,7 +10,12 @@
 
     <div class="profile__header">
 
-      <h2>Welcome {{ current_user.username }}!</h2>
+      <div>
+        <h2>Welcome {{ current_user.username }}</h2>
+        <p>Posts : {{ current_user.post_count }}</p>
+        <p>Comments : {{ current_user.comment_count }}</p>
+      </div>
+
       <img class="profile-image" src="static/images/avatars/{{ current_user.image_file }}">
 
     </div>

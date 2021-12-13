@@ -40,7 +40,7 @@ $ vim .env
 FLASK_ENV=development
 FLASK_APP=run.py
 DATABASE_URI='postgresql://<username>:<password>@<hostname>:<port>/<database_name>'
-DEV_DATABASE_URI='sqlite:///<database_file>'
+DEV_DATABASE_URI='postgresql://<username>:<password>@<hostname>:<port>/<dev_database_name>'
 SECRET_KEY=<your_secret_key>
 SECURITY_PASSWORD_SALT=<your_password_salt>
 ```
@@ -91,6 +91,8 @@ $ sudo su - postgres
 $ psql
 
 # CREATE DATABASE fstackforum.db
+
+# CREATE DATABASE fstackforumdev.db
 
 # \q
 ```

@@ -88,3 +88,23 @@ if (openCommentButton) {
         });
     }
 }
+
+
+// Toggle like button.
+
+const buttonToggle = (event) => {
+    event.preventDefault();
+    const likeIconPath = event.currentTarget.src.split('/');
+    const image = event.currentTarget.src.split('/')[likeIconPath.length - 1];
+    if (image.includes('outline')) { 
+        event.currentTarget.src = '/static/images/heart_solid_icon_25x25.png';
+    } else {
+        event.currentTarget.src = '/static/images/heart_outline_icon_25x25.png';
+    }
+}
+
+const likeButtons = document.querySelectorAll('.like__icon');
+
+likeButtons.forEach(bttn => {
+    bttn.addEventListener('click', buttonToggle);
+});

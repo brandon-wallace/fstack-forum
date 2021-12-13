@@ -26,8 +26,6 @@
             <p class="tile__date">{{ post.date_posted.strftime("%Y-%m-%d") }}</p>
           </div>
 
-		  <p class="tile__category"><a class="tile__category__link">{{ post.category }}</a></p>
-
           <div class="tile__text">
             <p>{{ post.content }}</p>
           </div>
@@ -35,10 +33,11 @@
           <div class="tile__footer">
 
             <div class="tile__author">
+              {{ post.author.username }}
             </div>
 
             <div class="tile__buttons">
-
+              <a class="tile__like__btn" title="Like" href="#"><img class="like__icon" src="{{ url_for('static', filename='images/heart_outline_icon_25x25.png') }}"></a>
               {% if current_user == post.author %}
                 <a class="tile__btn" href="{{ url_for('forum.update_post', post_id=post.id) }}">Edit</a>
                 <a class="tile__btn" href="{{ url_for('forum.delete_post', post_id=post.id) }}">Delete</a>
@@ -81,6 +80,7 @@
                 </div>
 
                 <div class="comment__buttons">
+                  <a class="tile__like__btn" title="Like" href="#"><img class="like__icon" src="{{ url_for('static', filename='images/heart_outline_icon_25x25.png') }}"></a>
                   <button class="comment__btn comment--reverse reply">Reply</button>
                 </div>
 
