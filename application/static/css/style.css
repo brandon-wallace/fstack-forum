@@ -756,7 +756,7 @@ input.input__field {
 .comment {
     width: 100%;
     padding: 1rem;
-    height: 250px;
+    min-height: 250px;
     margin: 0 auto;
     min-width: 285px;
     max-width: 1100px;
