@@ -15,13 +15,13 @@
       {{ form.csrf_token }}
 
       {{ displayField(form.username.label) }}
-      {{ displayField(form.username, 'Enter username*', autofocus=true) }}
+      {{ displayField(form.username, 'Enter username', autofocus=true) }}
       {{ displayField(form.email.label) }}
-      {{ displayField(form.email, 'Enter email*') }}
+      {{ displayField(form.email, 'Enter email') }}
       {{ displayField(form.password.label) }}
-      {{ displayField(form.password, 'Enter password*', class='input__field password__field') }}
+      {{ displayField(form.password, 'Enter password', class='input__field password__field') }}
       {{ displayField(form.confirm_password.label) }}
-      {{ displayField(form.confirm_password, 'Re-enter password*', class='input__field password__field') }}
+      {{ displayField(form.confirm_password, 'Re-enter password', class='input__field password__field') }}
       {{ form.submit(class='btn btn--solid') }}
       <p class="form__agreement">By clicking Sign Up, I agree to the FstackForum 
       <a class="login__link" href="{{ url_for('auth.terms_of_service') }}">Terms Of Service</a> and 

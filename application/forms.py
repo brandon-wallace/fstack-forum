@@ -13,11 +13,11 @@ from application.models import User
 class SignUpForm(FlaskForm):
     '''Sign up form for new users'''
 
-    username = StringField('Enter username', validators=[InputRequired()])
-    email = StringField('Email', validators=[InputRequired(), Email()])
-    password = PasswordField('Password', validators=[InputRequired(),
+    username = StringField('Username*', validators=[InputRequired()])
+    email = StringField('Email*', validators=[InputRequired(), Email()])
+    password = PasswordField('Password*', validators=[InputRequired(),
                              Length(min=4, max=32)])
-    confirm_password = PasswordField('Re-Enter Password', validators=[
+    confirm_password = PasswordField('Re-Enter Password*', validators=[
                                      InputRequired(), EqualTo('password')])
     location = StringField('Location')
     submit = SubmitField('SIGN UP')
