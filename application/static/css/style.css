@@ -817,10 +817,6 @@ input.input__field {
     display: inline-block;
 }
 
-.tile__content {
-    min-height: 250px;
-}
-
 .tile__header,
 .comment__header {
     display: -webkit-box;
@@ -834,6 +830,7 @@ input.input__field {
 .tile__content,
 .comment__content {
     height: 100%;
+    min-height; 250px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
