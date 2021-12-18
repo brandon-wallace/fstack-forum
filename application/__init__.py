@@ -2,6 +2,7 @@
 
 import logging
 from os import environ
+from datetime import datetime, timedelta
 from flask import Flask
 from dotenv import load_dotenv, find_dotenv
 from flask_sqlalchemy import SQLAlchemy
@@ -30,6 +31,15 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login_route'
 mail = Mail()
 administrator = Admin(name='fstack-forum')
+
+
+def datetime_format(value, format="%Y-%m-%d %H:%M:%S"):
+    '''Format datetime'''
+
+    time_passed = datetime.utcnow() + timedelta(days=value.day,
+                                                minutes=value.minute,
+                                                hours=value.hour)
+    return time_passed.strftime(format)
 
 
 def create_app():
@@ -72,6 +82,8 @@ def create_app():
 
     from application.forum.routes import forum
     app.register_blueprint(forum)
+
+    app.jinja_env.filters['datetime_format'] = datetime_format
 
     # security.init_app(app, user_datastore)
 
