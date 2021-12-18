@@ -1094,8 +1094,8 @@ textarea {
 }
 
 .btn--outline {
-    color: #202020;
-    border: 2px solid #202020;
+    color: var(--fg);
+    border: 2px solid var(--fg);
 }
 
 .btn--solid {
