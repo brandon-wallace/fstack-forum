@@ -10,7 +10,9 @@
 
   <div class="index-content">
 
-    <aside class="index-categories">
+    <!-- Categories -->
+
+    <section class="index-categories">
     
       <div class="categories">
 
@@ -26,9 +28,13 @@
       
       </div>
 
-    </aside>
+    </section>
 
-    <section class="index-tiles row">
+    <!-- END -->
+
+    <!-- Post -->
+
+    <article class="index-tiles row">
 
       {% for post in posts.items %}
 
@@ -64,7 +70,38 @@
 
       {% endfor %}
 
-    </section>
+    </article>
+
+    <!-- END -->
+
+    <!-- Latest -->
+
+    <article class="index-latest">
+
+      <header class="index__latest__header">
+        <h3 class="tile__title">Latest</h3>
+      </header>
+
+      {% for comment in comments %}
+
+        <div class="tile">
+
+          <div class="tile__content">
+            <header class="align-horizontal">
+              <h4>{{ comment.author.username }} </h4><span>{{ comment.date_posted|datetime_format("%Hh:%Mm %dd ago") }}</span>
+            </header>
+            <p class="crop-text">{{ comment.content }}</p>
+            <span><small>Reply to:</small> <a class="underline" href="{{ url_for('forum.display_post', post_id=comment.id) }}">{{ comment.post.title }}</a></span>
+            <p>{{ categoryType(type=comment.category, category_text=comment.category) }}</p>
+          </div>
+
+        </div>
+
+      {% endfor %}
+
+    </article>
+
+    <!-- END -->
 
   </div>
 
