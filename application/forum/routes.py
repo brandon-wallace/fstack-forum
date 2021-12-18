@@ -29,7 +29,7 @@ def index():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.paginate(page=page, per_page=3)
     categories = Post.query.distinct(Post.category).all()
-    comments = Comment.query.order_by(Comment.date_posted.desc()).limit(3)
+    comments = Comment.query.order_by(Comment.date_posted.desc()).limit(3).all()
     return render_template('forum/index.html',
                            posts=posts, categories=categories,
                            comments=comments)

@@ -91,7 +91,7 @@
               <h4>{{ comment.author.username }} </h4><span>{{ comment.date_posted|datetime_format("%Hh:%Mm %dd ago") }}</span>
             </header>
             <p class="crop-text">{{ comment.content }}</p>
-            <span><small>Reply to:</small> <a class="underline" href="{{ url_for('forum.display_post', post_id=comment.id) }}">{{ comment.post.title }}</a></span>
+            <span><small>Reply to:</small> <a class="underline" href="{{ url_for('forum.display_post', post_id=comment.post.id) }}">{{ comment.post.title }}</a></span>
             <p>{{ categoryType(type=comment.category, category_text=comment.category) }}</p>
           </div>
 
