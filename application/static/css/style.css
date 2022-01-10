@@ -511,6 +511,15 @@ input.input__field {
     background-color: #FFFFFF;
 }
 
+.post__form,
+.comment__form {
+    max-width: 1200px;
+}
+
+.post-btn {
+    margin-top: 1rem;
+}
+
 .reset__link,
 .login__link {
     color: #0d3d95;

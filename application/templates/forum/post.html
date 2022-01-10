@@ -29,7 +29,7 @@
           </div>
 
           <div class="tile__text">
-            <p>{{ post.content }}</p>
+            <p>{{ post.content | safe }}</p>
           </div>
 
           <div class="tile__footer">
@@ -72,7 +72,7 @@
               </div>
 
               <div class="comment__text">
-                <p>{{ comment.content }}</p>
+                <p>{{ comment.content | safe }}</p>
               </div>
 
               <div class="comment__footer">
@@ -101,11 +101,14 @@
         {{ form.csrf_token }}
 
         {{ displayField(form.content, 'Type commet here...') }}
-        <input class="btn btn--solid" type="submit" value="SUBMIT">
+        <button class="btn btn--solid post-btn" type="submit">SUBMIT</button>
         <a class="btn btn--link" href="{{ url_for('forum.forum_route') }}">CANCEL</a>
 
       </form>
       
+      {{ ckeditor.load() }}
+      {{ ckeditor.config(name='content') }}
+
       <!-- END comments -->
 
     {% else %}
@@ -126,7 +129,7 @@
           <p class="tile__category"><a class="tile__category__link" href="{{ url_for('forum.categories', category=post.category) }}">{{ post.category }}</a></p>
 
           <div class="tile__text">
-            <p>{{ post.content }}</p>
+            <p>{{ post.content | safe }}</p>
           </div>
 
           <div class="tile__footer">
@@ -166,7 +169,7 @@
               </div>
 
               <div class="comment__text">
-                <p>{{ comment.content }}</p>
+                <p>{{ comment.content | safe }}</p>
               </div>
 
               <div class="comment__footer">

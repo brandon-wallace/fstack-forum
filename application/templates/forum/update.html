@@ -8,18 +8,21 @@
 
 {% block content %}
 
-    <h1>{{ page_title }} Post</h1>
+  <h1>{{ page_title }} Post</h1>
 
-    <form action="" method="POST">
+  <form class="post__form" action="" method="POST">
 
-      {{ displayField(form.title, 'Enter post title') }}
-      {{ displayField(form.content, 'Type content here') }}
+    {{ displayField(form.title, 'Enter post title') }}
+    {{ displayField(form.content, 'Type content here') }}
 
-      <input class="btn btn--solid" type="submit" value="SAVE">
-      <a class="btn btn--cancel" href="{{ url_for('forum.forum_route') }}">CANCEL</a>
+    <input class="btn btn--solid post-btn" type="submit" value="SAVE">
+    <a class="btn btn--cancel" href="{{ url_for('forum.forum_route') }}">CANCEL</a>
 
-      {{ form.csrf_token }}
+    {{ form.csrf_token }}
 
-    </form>
+  </form>
+
+  {{ ckeditor.load() }}
+  {{ ckeditor.config(name='content') }}
 
 {% endblock %}

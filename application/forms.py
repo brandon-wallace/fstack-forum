@@ -3,10 +3,11 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import (StringField, PasswordField, SubmitField,
-                     TextAreaField, SelectField)
+from wtforms import (StringField, PasswordField,
+                     SubmitField, SelectField)
 from wtforms.validators import (InputRequired, Email, EqualTo,
                                 ValidationError, Length)
+from flask_ckeditor import CKEditorField
 from application.models import User
 
 
@@ -88,7 +89,7 @@ class CreatePostForm(FlaskForm):
                             ('support', 'Support'),
                             ('javascript', 'Javascript')
                             ])
-    content = TextAreaField('Content', validators=[
+    content = CKEditorField('Content', validators=[
                             InputRequired(), Length(min=20)])
     submit = SubmitField('CREATE POST')
 
@@ -97,7 +98,7 @@ class UpdatePostForm(FlaskForm):
     '''Update post form'''
 
     title = StringField('Title', validators=[InputRequired()])
-    content = TextAreaField('Content', validators=[
+    content = CKEditorField('Content', validators=[
                             InputRequired(), Length(min=20)])
     submit = SubmitField('SAVE')
 
@@ -105,7 +106,7 @@ class UpdatePostForm(FlaskForm):
 class CommentForm(FlaskForm):
     '''Comment post form'''
 
-    content = TextAreaField('Comment', validators=[InputRequired()])
+    content = CKEditorField('Comment', validators=[InputRequired()])
     submit = SubmitField('SUBMIT')
 
 

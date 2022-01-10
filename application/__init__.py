@@ -12,6 +12,7 @@ from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_ckeditor import CKEditor
 
 load_dotenv(find_dotenv())
 
@@ -31,6 +32,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login_route'
 mail = Mail()
 administrator = Admin(name='fstack-forum')
+ckeditor = CKEditor()
 
 
 def datetime_format(value, format="%Y-%m-%d %H:%M:%S"):
@@ -53,6 +55,7 @@ def create_app():
     app.config['SQLALCHEMY_ECHO'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URI')
     # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DEV_DATABASE_URI')
+    app.config['CKEDITOR_PKG_TYPE'] = 'basic'
     app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
     app.config['MAIL_PORT'] = environ.get('MAIL_PORT')
     app.config['MAIL_USE_TLS'] = environ.get('MAIL_USE_TLS')
@@ -73,6 +76,7 @@ def create_app():
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+    ckeditor.init_app(app)
 
     from application.auth.routes import auth
     app.register_blueprint(auth)

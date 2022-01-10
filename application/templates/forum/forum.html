@@ -32,7 +32,7 @@
               {{ categoryType(type=post.category, category_text=post.category) }}
 
               <div class="tile__text">
-                <p>{{ post.content }}</p>
+                <p>{{ post.content | safe }}</p>
               </div>
 
               <div class="tile__footer">

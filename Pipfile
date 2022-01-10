@@ -23,6 +23,7 @@ python-dotenv = "*"
 flask-migrate = "*"
 flask-admin = "*"
 flask-security = "*"
+flask-ckeditor = "*"
 
 [requires]
 python_version = "3.9"

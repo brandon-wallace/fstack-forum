@@ -10,7 +10,7 @@
 
     <h1>{{ page_title }} Post</h1>
 
-    <form action="" method="POST">
+    <form class="post__form" action="" method="POST">
 
       {{ displayField(form.title, 'Enter post title') }}
         <select id="category" name="category">
@@ -25,11 +25,14 @@
         </select>
       {{ displayField(form.content, 'Type content here') }}
 
-      <button class="btn btn--solid" aria-label="Create" type="submit">CREATE</button>
+      <button class="btn btn--solid post-btn" aria-label="Create" type="submit">CREATE</button>
       <a class="btn btn--cancel" href="{{ url_for('forum.forum_route') }}">CANCEL</a>
 
       {{ form.csrf_token }}
 
     </form>
+
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='content') }}
 
 {% endblock %}
