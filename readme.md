@@ -22,6 +22,10 @@
 
 ---
 
+![screenshot6](application/static/images/screenshot6.png)
+
+---
+
 # Installation
 
 ## Clone repository.
