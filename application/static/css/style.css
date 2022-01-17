@@ -49,11 +49,6 @@ body {
     font-family: 'FiraMono-Regular', monospace;
 }
 
-header {
-    border-bottom: 4px solid #000000;
-    border-bottom: 4px solid var(--fg);
-}
-
 ul {
     width: 150px;
     margin: 0 auto;
@@ -652,29 +647,20 @@ input.input__field {
     color: var(--fg, #000000);
 }
 
-/* @media only screen and (min-width: 365px) {
-    .header-1 {
-        font-size: 2.8rem;
-    }
-} */
+.hr--border {
+    border-bottom: 4px solid #000000;
+    border-bottom: 4px solid var(--fg);
+}
 
 @media only screen and (min-width: 500px) {
-    /* .header-1 {
-        word-spacing: -20px;
-    } */
     .message--fail,
     .message--success {
         margin: 0 auto .5rem auto;
     }
-    /* .header-1, */
     .form__header {
         font-weight: bold;
         text-align: center;
     }
-    /* .header-1 {
-        font-size: 3.5rem;
-        margin-top: .75rem;
-    } */
     .form__header {
         margin: .85rem 0;
         font-size: 2.5rem;
@@ -687,12 +673,6 @@ input.input__field {
         margin: 0 auto;
     }
 }
-
-/* @media only screen and (min-width: 650px) {
-    .header-1 {
-        font-size: 5rem;
-    }
-} */
 
 @media only screen and (min-width: 700px) {
     .index-content {
@@ -757,10 +737,6 @@ input.input__field {
 .row {
     width: 100%;
     height: 100%;
-    /*
-    max-width: 1100px;
-    margin: 0 auto;
-    */
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
