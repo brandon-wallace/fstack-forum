@@ -2,10 +2,10 @@
 
 @font-face {
   font-family: 'FiraMono-Regular';
-  src: url('../fonts/FiraMono-Regular.eot'); 
-  src: url('../fonts/FiraMono-Regular.woff2') format('woff2'), 
-       url('../fonts/FiraMono-Regular.woff') format('woff'), 
-       url('../fonts/FiraMono-Regular.ttf')  format('truetype'), 
+  src: url('../fonts/FiraMono-Regular.eot');
+  src: url('../fonts/FiraMono-Regular.woff2') format('woff2'),
+       url('../fonts/FiraMono-Regular.woff') format('woff'),
+       url('../fonts/FiraMono-Regular.ttf')  format('truetype'),
        url('../fonts/FiraMono-Regular.otf')  format('opentype');
   font-display: swap;
 }
@@ -42,11 +42,16 @@ body {
 
 body {
     color: #2B2B2B;
-    line-height: 1.75;   
+    line-height: 1.75;
     color: var(--fg, #2B2B2B);
     background-color: #FFFFFF;
     background-color: var(--bg, #FFFFFF);
     font-family: 'FiraMono-Regular', monospace;
+}
+
+header {
+    border-bottom: 4px solid #000000;
+    border-bottom: 4px solid var(--fg);
 }
 
 ul {
@@ -113,14 +118,14 @@ main {
 
 .page__header {
     padding: .5rem;
+    display: flex;
+    flex-direction: column;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-    border-bottom: 4px solid #000000;
-    border-bottom: 4px solid var(--fg);
 }
 
 .logged-in-user {
-    margin: 5px .5rem 0 0;
+    margin: 0 1rem 1rem 0;
     text-align: right;
 }
 
@@ -154,8 +159,8 @@ nav {
     color: var(--bg, #FFFFFF);
     font-size: 2.5rem;
     text-align: center;
-    margin-bottom: .2rem;
-	text-shadow: 2.0px  2.0px 0 var(--fg),
+    margin: 0;
+	  text-shadow: 2.0px  2.0px 0 var(--fg),
                 -2.0px  2.0px 0 var(--fg),
                  2.0px -2.0px 0 var(--fg),
                 -2.0px -2.0px 0 var(--fg),
@@ -238,7 +243,7 @@ nav {
 }
 
 .menu__link {
-    max-width: 480px;
+    max-width: 700px;
     color: #1D1E2A;
     border-radius: 4px;
     color: var(--fg, #1D1E2A);
@@ -387,10 +392,10 @@ input.input__field {
     margin-bottom: .75rem;
 }
 
-/* Return the spacing and size of the 
+/* Return the spacing and size of the
  * placeholder text to match other input fields.
  */
-.password__field::-moz-placeholder { 
+.password__field::-moz-placeholder {
     font-size: 1rem;
     letter-spacing: 0;
 }
@@ -647,15 +652,54 @@ input.input__field {
     color: var(--fg, #000000);
 }
 
-@media only screen and (min-width: 365px) {
+/* @media only screen and (min-width: 365px) {
     .header-1 {
         font-size: 2.8rem;
     }
-}
+} */
 
 @media only screen and (min-width: 500px) {
-    .header-1 {
+    /* .header-1 {
         word-spacing: -20px;
+    } */
+    .message--fail,
+    .message--success {
+        margin: 0 auto .5rem auto;
+    }
+    /* .header-1, */
+    .form__header {
+        font-weight: bold;
+        text-align: center;
+    }
+    /* .header-1 {
+        font-size: 3.5rem;
+        margin-top: .75rem;
+    } */
+    .form__header {
+        margin: .85rem 0;
+        font-size: 2.5rem;
+    }
+    .footer__content {
+        min-height: 150px;
+        align-items: flex-end;
+    }
+    form {
+        margin: 0 auto;
+    }
+}
+
+/* @media only screen and (min-width: 650px) {
+    .header-1 {
+        font-size: 5rem;
+    }
+} */
+
+@media only screen and (min-width: 700px) {
+    .index-content {
+        flex-direction: row;
+    }
+    .header-1 {
+        text-align: left;
     }
     .menu {
         width: 100%;
@@ -679,42 +723,6 @@ input.input__field {
     }
     nav {
         width: 100%;
-    }
-    .message--fail,
-    .message--success {
-        margin: 0 auto .5rem auto;
-    }
-    .header-1,
-    .form__header {
-        font-weight: bold;
-        text-align: center;
-    }
-    .header-1 {
-        font-size: 3.5rem;
-        margin-top: .75rem;
-    }
-    .form__header {
-        margin: .85rem 0;
-        font-size: 2.5rem;
-    }
-    .footer__content {
-        min-height: 150px;
-        align-items: flex-end;
-    }
-    form {
-        margin: 0 auto;
-    }
-}
-
-@media only screen and (min-width: 650px) {
-    .header-1 {
-        font-size: 5rem;
-    }
-}
-
-@media only screen and (min-width: 700px) {
-    .index-content {
-        flex-direction: row;
     }
 }
 
@@ -889,7 +897,7 @@ input.input__field {
 }
 
 
-.tile__text, 
+.tile__text,
 .comment__text {
     -webkit-box-flex: 2;
         -ms-flex: 2;
@@ -972,14 +980,21 @@ section > .tile__category {
     margin: 0 auto 2rem auto;
 }
 
-.tile--wide, 
+.tile--wide,
 .comment--wide {
     max-width: 1100px;
 }
 
-.tile--narrow, 
+.tile--narrow,
 .comment--narrow {
     max-width: 550px;
+}
+
+@media only screen and (min-width: 800px) {
+  .page__header {
+      flex-direction: row;
+      align-items: center;
+  }
 }
 
 

@@ -16,7 +16,7 @@
   </head>
 
   <body>
-  
+
     <noscript>
       <div style="color:#FC0000;background-color:#FFFFFF;text-align:center">
         <p>Warning! It seems that JavaScript is not working in your browser. It could be that JavaScript is not supported, or JavaScript is disabled.</p>
@@ -28,11 +28,15 @@
 
       <!-- START header -->
 
-      <header class="page__header">
-  
+      <header>
+
+        <div class="page__header">
+
+        <h1 class="header-1">FstackForum</h1>
+
         <nav>
           <ul class="menu">
-  
+
             <li><a class="menu__link{% if request.endpoint == 'forum.index' %} active{% endif %}" href="{{ url_for('forum.index') }}">home</a></li>
             <li><a class="menu__link {% if request.endpoint == 'forum.about' %} active{% endif %}" href="{{ url_for('forum.about') }}">about</a></li>
             {% if current_user.is_authenticated %}
@@ -43,23 +47,24 @@
               <li class=""><a class="menu__link{% if request.endpoint == 'auth.sign_up' %} active{% endif %}" href="{{ url_for('auth.sign_up') }}">sign up</a></li>
               <li><a class="menu__link btn--outline{% if request.endpoint == 'auth.login_route' %} active{% endif %}" href="{{ url_for('auth.login_route') }}">login</a></li>
             {% endif %}
-  
+
           </ul>
         </nav>
-  
-        {% if current_user.is_authenticated %}
-          <p class="logged-in-user">{{ current_user.username }}</p>
-        {% endif %}
-        <h1 class="header-1">FstackForum</h1>
-  
+
+      </div>
+
+      {% if current_user.is_authenticated %}
+        <p class="logged-in-user">{{ current_user.username }}</p>
+      {% endif %}
+
       </header>
 
       <!-- END header -->
 
       <!-- START main -->
-  
+
       <main>
-  
+
         {% with messages = get_flashed_messages(with_categories=True) %}
           {% if messages %}
             {% for category, message in messages %}
@@ -69,15 +74,15 @@
             {% endfor %}
           {% endif %}
         {% endwith %}
-  
+
         {% block content %}
-  
+
         {% endblock %}
 
         <nav class="footer__nav">
 
           <div class="footer__content">
-  
+
             {% if posts %}
 
               {% if posts.has_prev %}
@@ -103,11 +108,11 @@
               {% endif %}
 
             {% endif %}
-  
+
           </div>
 
         </nav>
-  
+
       </main>
 
       <!-- END main -->
@@ -117,7 +122,7 @@
       <footer class="page__footer">
 
         <img src="{{ url_for('static', filename='images/message-square.svg') }}">
-  
+
         <p class="footer__anchor">Fstackforum.com &copy; <script>document.write(new Date().getFullYear());</script> created by <a href="https://brandonwallace.cc" target="_blank" rel="nonreferrer">brandon wallace</a></p>
 
       </footer>
