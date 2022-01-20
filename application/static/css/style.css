@@ -75,7 +75,9 @@ a {
 }
 
 article {
+    margin: 0 auto;
     min-height: 100%;
+    max-width: 1900px;
     position: relative;
 }
 
