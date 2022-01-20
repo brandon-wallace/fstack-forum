@@ -151,7 +151,7 @@ nav {
     width: 100%;
 }
 
-.header-1 {
+.header-1 a {
     color: #FFFFFF;
     color: var(--bg, #FFFFFF);
     font-size: 2.5rem;
